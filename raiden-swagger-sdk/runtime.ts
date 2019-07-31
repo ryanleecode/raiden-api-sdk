@@ -15,7 +15,7 @@ import { Observable, of } from 'rxjs';
 import { ajax, AjaxResponse } from 'rxjs/ajax';
 import { map, concatMap } from 'rxjs/operators';
 
-export const BASE_PATH = 'http://localhost'.replace(/\/+$/, '');
+export const BASE_PATH = 'http://127.0.0.1:5001/api/v1'.replace(/\/+$/, '');
 
 export interface ConfigurationParameters {
     basePath?: string; // override base path
