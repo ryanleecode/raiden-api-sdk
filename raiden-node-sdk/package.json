@@ -1,0 +1,36 @@
+{
+  "name": "raiden-node-sdk",
+  "version": "1.0.0",
+  "description": "SDK for interacting with the Raiden API",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drdgvhbh/raiden-node-sdk.git"
+  },
+  "keywords": [
+    "payments",
+    "raiden"
+  ],
+  "author": "Ryan Lee (drdgvhbh)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/drdgvhbh/raiden-node-sdk/issues"
+  },
+  "homepage": "https://github.com/drdgvhbh/raiden-node-sdk#readme",
+  "devDependencies": {
+    "@types/graphql": "^14.2.3",
+    "@types/jest": "^24.0.16",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.3"
+  },
+  "dependencies": {
+    "rxjs": "^6.5.2",
+    "raiden-swagger-sdk": "file:../raiden-swagger-sdk"
+  }
+}
