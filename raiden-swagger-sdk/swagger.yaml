@@ -1,0 +1,26 @@
+openapi: 3.0.2
+info: 
+  title: Raiden API
+  description: https://raiden-network.readthedocs.io/en/stable/rest_api.html
+  version: 1.0.0
+paths: 
+  /address: 
+    get: 
+      summary: Query your address
+      description: When raiden starts, you choose an ethereum address which will also be your raiden address.
+      operationId: getAddress
+      responses: 
+        '200':
+          description: Challenge Transaction
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Address'
+components:
+  schemas: 
+    Address:
+      type: object
+      properties:
+        our_address: 
+          type: string
+          example: "0x2a65Aca4D5fC5B5C859090a6c34d164135398226"
