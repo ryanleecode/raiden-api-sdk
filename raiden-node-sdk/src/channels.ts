@@ -14,7 +14,7 @@ export class Channels {
    * @summary List of all unsettled channels
    * @link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-channels
    */
-  public allUnsettled(): Observable<Channel[]> {
+  public findAllUnsettled(): Observable<Channel[]> {
     return this.channelsApi.getChannels();
   }
 
@@ -23,7 +23,7 @@ export class Channels {
    * @param tokenAddress the address of the token with unsettled channels
    * @link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-channels-(token_address)
    */
-  public allUnsettledFor(tokenAddress: string): Observable<Channel[]> {
+  public findAllUnsettledFor(tokenAddress: string): Observable<Channel[]> {
     return this.channelsApi.getChannelsForToken({ tokenAddress });
   }
 

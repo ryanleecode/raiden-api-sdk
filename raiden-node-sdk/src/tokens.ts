@@ -14,7 +14,7 @@ export class Tokens {
    * @summary Addresses of all registered tokens
    * @link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-tokens
    */
-  public allRegistered(): Observable<string[]> {
+  public findAllRegistered(): Observable<string[]> {
     return this.tokensApi.getTokens();
   }
 

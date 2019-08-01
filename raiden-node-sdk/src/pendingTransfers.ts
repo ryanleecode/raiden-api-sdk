@@ -21,7 +21,7 @@ export class PendingTransfers {
    * @summary All transfers that have not been completed yet.
    * @link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-pending_transfers
    */
-  public all(): Observable<PendingTransfer[]> {
+  public findAll(): Observable<PendingTransfer[]> {
     return this.pendingTransfersApi.getPendingTransfers();
   }
 
@@ -30,7 +30,7 @@ export class PendingTransfers {
    * @param tokenAddress
    * @by additional filters for querying pending transfers
    */
-  public allFor(
+  public findAllFor(
     tokenAddress: string,
     by: QueryPendingTransfersFilter = {}
   ): Observable<PendingTransfer[]> {
