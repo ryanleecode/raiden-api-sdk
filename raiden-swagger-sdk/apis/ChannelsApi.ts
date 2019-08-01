@@ -21,7 +21,7 @@ import {
 } from "../runtime";
 import { Channel, Errors } from "../models";
 
-export interface GetChannelsRequest {
+export interface GetChannelsForTokenRequest {
   tokenAddress: string;
 }
 
@@ -35,10 +35,26 @@ export interface GetPartnerChannelRequest {
  */
 export class ChannelsApi extends BaseAPI {
   /**
-   * Get a list of all unsettled channels.
+   * List of all unsettled channels
    */
-  getChannels(
-    requestParameters: GetChannelsRequest
+  getChannels(): Observable<Array<Channel>> {
+    const queryParameters: HttpQuery = {};
+
+    const headerParameters: HttpHeaders = {};
+
+    return this.request<Array<Channel>>({
+      path: `/channels`,
+      method: "GET",
+      headers: headerParameters,
+      query: queryParameters
+    });
+  }
+
+  /**
+   * List of all unsettled channels for the given token address.
+   */
+  getChannelsForToken(
+    requestParameters: GetChannelsForTokenRequest
   ): Observable<Array<Channel>> {
     if (
       requestParameters.tokenAddress === null ||
@@ -46,7 +62,7 @@ export class ChannelsApi extends BaseAPI {
     ) {
       throw new RequiredError(
         "tokenAddress",
-        "Required parameter requestParameters.tokenAddress was null or undefined when calling getChannels."
+        "Required parameter requestParameters.tokenAddress was null or undefined when calling getChannelsForToken."
       );
     }
 

@@ -123,12 +123,33 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Partner'
-  /channels/{token_address}: 
-    get: 
-      summary: "Get a list of all unsettled channels."
-      tags: 
+  /channels:
+    get:
+      summary: "List of all unsettled channels"
+      tags:
         - Channels
       operationId: getChannels
+      responses: 
+        '200':
+          description: "Unsettled channels"
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Channel'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /channels/{token_address}: 
+    get: 
+      summary: "List of all unsettled channels for the given token address."
+      tags: 
+        - Channels
+      operationId: getChannelsForToken
       parameters:
         - in: path
           name: token_address
