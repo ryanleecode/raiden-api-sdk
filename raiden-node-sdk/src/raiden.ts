@@ -1,11 +1,20 @@
 import { Configuration } from "raiden-swagger-sdk";
 import { Node } from "./node";
 
+export interface RaidenSwaggerApis {
+  node: Node;
+}
+
 export class Raiden {
   private readonly _node: Node;
 
-  constructor(readonly config?: Configuration) {
-    this._node = new Node(config);
+  public static create(config?: Configuration): Raiden {
+    const node = new Node(config);
+    return new Raiden({ node });
+  }
+
+  public constructor({ node }: RaidenSwaggerApis) {
+    this._node = node;
   }
 
   /**
