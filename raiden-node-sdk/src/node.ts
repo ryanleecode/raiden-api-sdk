@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 export class Node {
   private readonly raidenNodeApi: RaidenNodeApi;
 
-  constructor(readonly config?: Configuration) {
+  constructor(config?: Configuration) {
     this.raidenNodeApi = new RaidenNodeApi(config);
   }
 
