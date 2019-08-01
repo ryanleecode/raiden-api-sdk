@@ -6,21 +6,17 @@ export interface RaidenSwaggerApis {
 }
 
 export class Raiden {
-  private readonly _node: Node;
+  /**
+   * @summary Entrypoint to your raiden node
+   */
+  public readonly node: Node;
 
   public static create(config?: Configuration): Raiden {
-    const node = new Node(config);
+    const node = Node.create(config);
     return new Raiden({ node });
   }
 
   public constructor({ node }: RaidenSwaggerApis) {
-    this._node = node;
-  }
-
-  /**
-   * @summary Entrypoint to your raiden node
-   */
-  public node(): Node {
-    return this._node;
+    this.node = node;
   }
 }

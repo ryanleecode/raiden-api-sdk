@@ -2,11 +2,12 @@ import { RaidenNodeApi, Configuration, Address } from "raiden-swagger-sdk";
 import { Observable } from "rxjs";
 
 export class Node {
-  private readonly raidenNodeApi: RaidenNodeApi;
-
-  constructor(config?: Configuration) {
-    this.raidenNodeApi = new RaidenNodeApi(config);
+  public static create(config?: Configuration) {
+    const nodeApi = new RaidenNodeApi(config);
+    return new Node(nodeApi);
   }
+
+  constructor(private readonly nodeApi: RaidenNodeApi) {}
 
   /**
    * @summary Query your address
@@ -14,6 +15,6 @@ export class Node {
    * also be your raiden address.
    */
   public address(): Observable<Address> {
-    return this.raidenNodeApi.getAddress();
+    return this.nodeApi.getAddress();
   }
 }
