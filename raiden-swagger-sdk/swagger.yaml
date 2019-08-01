@@ -225,7 +225,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Transfer'
+                  $ref: '#/components/schemas/PendingTransfer'
         '500':
           description: Internal Server Error
           content:
@@ -253,7 +253,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Transfer'
+                  $ref: '#/components/schemas/PendingTransfer'
         '404':
           description: "The token was not found"
           content:
@@ -293,7 +293,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Transfer'
+                  $ref: '#/components/schemas/PendingTransfer'
         '404':
           description: "The queried channel or token was not found"
           content:
@@ -388,7 +388,7 @@ components:
       required: 
         - partner_address
         - channel
-    Transfer:
+    PendingTransfer:
       type: object
       properties:
         channel_identifier: 

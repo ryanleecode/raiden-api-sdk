@@ -19,7 +19,7 @@ import {
   HttpQuery,
   COLLECTION_FORMATS
 } from "../runtime";
-import { Errors, Transfer } from "../models";
+import { Errors, PendingTransfer } from "../models";
 
 export interface GetPendingTransfersForTokenRequest {
   tokenAddress: string;
@@ -37,12 +37,12 @@ export class PendingTransfersApi extends BaseAPI {
   /**
    * Returns a list of all transfers that have not been completed yet.
    */
-  getPendingTransfers(): Observable<Array<Transfer>> {
+  getPendingTransfers(): Observable<Array<PendingTransfer>> {
     const queryParameters: HttpQuery = {};
 
     const headerParameters: HttpHeaders = {};
 
-    return this.request<Array<Transfer>>({
+    return this.request<Array<PendingTransfer>>({
       path: `/pending_transfers`,
       method: "GET",
       headers: headerParameters,
@@ -55,7 +55,7 @@ export class PendingTransfersApi extends BaseAPI {
    */
   getPendingTransfersForToken(
     requestParameters: GetPendingTransfersForTokenRequest
-  ): Observable<Array<Transfer>> {
+  ): Observable<Array<PendingTransfer>> {
     if (
       requestParameters.tokenAddress === null ||
       requestParameters.tokenAddress === undefined
@@ -70,7 +70,7 @@ export class PendingTransfersApi extends BaseAPI {
 
     const headerParameters: HttpHeaders = {};
 
-    return this.request<Array<Transfer>>({
+    return this.request<Array<PendingTransfer>>({
       path: `/pending_transfers/{token_address}`.replace(
         `{${"token_address"}}`,
         encodeURIComponent(String(requestParameters.tokenAddress))
@@ -86,7 +86,7 @@ export class PendingTransfersApi extends BaseAPI {
    */
   getPendingTransfersForTokenOnChannel(
     requestParameters: GetPendingTransfersForTokenOnChannelRequest
-  ): Observable<Array<Transfer>> {
+  ): Observable<Array<PendingTransfer>> {
     if (
       requestParameters.tokenAddress === null ||
       requestParameters.tokenAddress === undefined
@@ -111,7 +111,7 @@ export class PendingTransfersApi extends BaseAPI {
 
     const headerParameters: HttpHeaders = {};
 
-    return this.request<Array<Transfer>>({
+    return this.request<Array<PendingTransfer>>({
       path: `/pending_transfers/{token_address}/{partner_address}`
         .replace(
           `{${"token_address"}}`,
