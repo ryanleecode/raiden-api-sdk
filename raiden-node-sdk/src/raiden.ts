@@ -2,11 +2,13 @@ import { Configuration } from "raiden-swagger-sdk";
 import { Node } from "./node";
 import { Channels } from "./channels";
 import { Tokens } from "./tokens";
+import { PendingTransfers } from "./pendingTransfers";
 
 export interface RaidenSwaggerApis {
   node: Node;
   channels: Channels;
   tokens: Tokens;
+  pendingTransfers: PendingTransfers;
 }
 
 export class Raiden {
@@ -19,16 +21,25 @@ export class Raiden {
 
   public readonly tokens: Tokens;
 
+  public readonly pendingTransfers: PendingTransfers;
+
   public static create(config?: Configuration): Raiden {
     const node = Node.create(config);
     const channels = Channels.create(config);
     const tokens = Tokens.create(config);
-    return new Raiden({ node, channels, tokens });
+    const pendingTransfers = PendingTransfers.create(config);
+    return new Raiden({ node, channels, tokens, pendingTransfers });
   }
 
-  public constructor({ node, channels, tokens }: RaidenSwaggerApis) {
+  public constructor({
+    node,
+    channels,
+    tokens,
+    pendingTransfers
+  }: RaidenSwaggerApis) {
     this.node = node;
     this.channels = channels;
     this.tokens = tokens;
+    this.pendingTransfers = pendingTransfers;
   }
 }
