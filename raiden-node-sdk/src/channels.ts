@@ -30,8 +30,8 @@ export class Channels {
   /**
    * @summary Query information about one of your channels
    * @description The channel is specified by the address of the token and the partner’s address.
-   * @param tokenAddress the token address
-   * @param partnerAddress the partner address
+   * @param tokenAddress
+   * @param partnerAddress
    * @link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-channels-(token_address)-(partner_address)
    */
   public inspect(
