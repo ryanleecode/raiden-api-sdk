@@ -13,13 +13,19 @@
 
 /**
  * @export
- * @interface Address
+ * @interface Partner
  */
-export interface Address {
+export interface Partner {
   /**
-   *
+   * The partner we have a channel with
    * @type {string}
-   * @memberof Address
+   * @memberof Partner
    */
-  ourAddress: string;
+  partnerAddress: string;
+  /**
+   * A link to the channel resource
+   * @type {string}
+   * @memberof Partner
+   */
+  channel: string;
 }

@@ -13,13 +13,13 @@
 
 /**
  * @export
- * @interface Address
+ * @interface TokenNetworkAddress
  */
-export interface Address {
+export interface TokenNetworkAddress {
   /**
-   *
+   * The deployed token networks address.
    * @type {string}
-   * @memberof Address
+   * @memberof TokenNetworkAddress
    */
-  ourAddress: string;
+  tokenNetworkAddress: string;
 }

@@ -13,13 +13,13 @@
 
 /**
  * @export
- * @interface Address
+ * @interface Errors
  */
-export interface Address {
+export interface Errors {
   /**
    *
-   * @type {string}
-   * @memberof Address
+   * @type {Array<string>}
+   * @memberof Errors
    */
-  ourAddress: string;
+  errors?: Array<string>;
 }
