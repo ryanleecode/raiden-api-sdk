@@ -1,19 +1,17 @@
-import { Configuration, DefaultApi, Address } from "raiden-swagger-sdk";
-import { Observable } from "rxjs";
+import { Configuration } from "raiden-swagger-sdk";
+import { Node } from "./node";
 
 export class Raiden {
-  private readonly api: DefaultApi;
+  private readonly _node: Node;
 
   constructor(readonly config?: Configuration) {
-    this.api = new DefaultApi(config);
+    this._node = new Node(config);
   }
 
   /**
-   * @summary Query your address
-   * @description When raiden starts, you choose an ethereum address which will
-   * also be your raiden address.
+   * @summary Entrypoint to your raiden node
    */
-  public address(): Observable<Address> {
-    return this.api.getAddress();
+  public node(): Node {
+    return this._node;
   }
 }
