@@ -14,7 +14,7 @@
 import { Observable } from "rxjs";
 import {
   BaseAPI,
-  RequiredError,
+  throwIfRequired,
   HttpHeaders,
   HttpQuery,
   COLLECTION_FORMATS
@@ -37,94 +37,69 @@ export class ChannelsApi extends BaseAPI {
   /**
    * List of all unsettled channels
    */
-  getChannels(): Observable<Array<Channel>> {
-    const queryParameters: HttpQuery = {};
+  getChannels = (): Observable<Array<Channel>> => {
+    const headers: HttpHeaders = {};
 
-    const headerParameters: HttpHeaders = {};
+    const query: HttpQuery = {};
 
     return this.request<Array<Channel>>({
       path: `/channels`,
       method: "GET",
-      headers: headerParameters,
-      query: queryParameters
+      headers,
+      query
     });
-  }
+  };
 
   /**
    * List of all unsettled channels for the given token address.
    */
-  getChannelsForToken(
+  getChannelsForToken = (
     requestParameters: GetChannelsForTokenRequest
-  ): Observable<Array<Channel>> {
-    if (
-      requestParameters.tokenAddress === null ||
-      requestParameters.tokenAddress === undefined
-    ) {
-      throw new RequiredError(
-        "tokenAddress",
-        "Required parameter requestParameters.tokenAddress was null or undefined when calling getChannelsForToken."
-      );
-    }
+  ): Observable<Array<Channel>> => {
+    throwIfRequired(requestParameters, "tokenAddress", "getChannelsForToken");
 
-    const queryParameters: HttpQuery = {};
+    const headers: HttpHeaders = {};
 
-    const headerParameters: HttpHeaders = {};
+    const query: HttpQuery = {};
 
     return this.request<Array<Channel>>({
       path: `/channels/{token_address}`.replace(
-        `{${"token_address"}}`,
+        `{token_address}`,
         encodeURIComponent(String(requestParameters.tokenAddress))
       ),
       method: "GET",
-      headers: headerParameters,
-      query: queryParameters
+      headers,
+      query
     });
-  }
+  };
 
   /**
    * The channel is specified by the address of the token and the partner’s address.
    * Query information about one of your channels.
    */
-  getPartnerChannel(
+  getPartnerChannel = (
     requestParameters: GetPartnerChannelRequest
-  ): Observable<Channel> {
-    if (
-      requestParameters.tokenAddress === null ||
-      requestParameters.tokenAddress === undefined
-    ) {
-      throw new RequiredError(
-        "tokenAddress",
-        "Required parameter requestParameters.tokenAddress was null or undefined when calling getPartnerChannel."
-      );
-    }
+  ): Observable<Channel> => {
+    throwIfRequired(requestParameters, "tokenAddress", "getPartnerChannel");
+    throwIfRequired(requestParameters, "partnerAddress", "getPartnerChannel");
 
-    if (
-      requestParameters.partnerAddress === null ||
-      requestParameters.partnerAddress === undefined
-    ) {
-      throw new RequiredError(
-        "partnerAddress",
-        "Required parameter requestParameters.partnerAddress was null or undefined when calling getPartnerChannel."
-      );
-    }
+    const headers: HttpHeaders = {};
 
-    const queryParameters: HttpQuery = {};
-
-    const headerParameters: HttpHeaders = {};
+    const query: HttpQuery = {};
 
     return this.request<Channel>({
       path: `/channels/{token_address}/{partner_address}`
         .replace(
-          `{${"token_address"}}`,
+          `{token_address}`,
           encodeURIComponent(String(requestParameters.tokenAddress))
         )
         .replace(
-          `{${"partner_address"}}`,
+          `{partner_address}`,
           encodeURIComponent(String(requestParameters.partnerAddress))
         ),
       method: "GET",
-      headers: headerParameters,
-      query: queryParameters
+      headers,
+      query
     });
-  }
+  };
 }

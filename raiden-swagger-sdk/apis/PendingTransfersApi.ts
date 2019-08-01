@@ -14,7 +14,7 @@
 import { Observable } from "rxjs";
 import {
   BaseAPI,
-  RequiredError,
+  throwIfRequired,
   HttpHeaders,
   HttpQuery,
   COLLECTION_FORMATS
@@ -37,93 +37,80 @@ export class PendingTransfersApi extends BaseAPI {
   /**
    * Returns a list of all transfers that have not been completed yet.
    */
-  getPendingTransfers(): Observable<Array<PendingTransfer>> {
-    const queryParameters: HttpQuery = {};
+  getPendingTransfers = (): Observable<Array<PendingTransfer>> => {
+    const headers: HttpHeaders = {};
 
-    const headerParameters: HttpHeaders = {};
+    const query: HttpQuery = {};
 
     return this.request<Array<PendingTransfer>>({
       path: `/pending_transfers`,
       method: "GET",
-      headers: headerParameters,
-      query: queryParameters
+      headers,
+      query
     });
-  }
+  };
 
   /**
    * List of all transfers that have not been completed yet for this token
    */
-  getPendingTransfersForToken(
+  getPendingTransfersForToken = (
     requestParameters: GetPendingTransfersForTokenRequest
-  ): Observable<Array<PendingTransfer>> {
-    if (
-      requestParameters.tokenAddress === null ||
-      requestParameters.tokenAddress === undefined
-    ) {
-      throw new RequiredError(
-        "tokenAddress",
-        "Required parameter requestParameters.tokenAddress was null or undefined when calling getPendingTransfersForToken."
-      );
-    }
+  ): Observable<Array<PendingTransfer>> => {
+    throwIfRequired(
+      requestParameters,
+      "tokenAddress",
+      "getPendingTransfersForToken"
+    );
 
-    const queryParameters: HttpQuery = {};
+    const headers: HttpHeaders = {};
 
-    const headerParameters: HttpHeaders = {};
+    const query: HttpQuery = {};
 
     return this.request<Array<PendingTransfer>>({
       path: `/pending_transfers/{token_address}`.replace(
-        `{${"token_address"}}`,
+        `{token_address}`,
         encodeURIComponent(String(requestParameters.tokenAddress))
       ),
       method: "GET",
-      headers: headerParameters,
-      query: queryParameters
+      headers,
+      query
     });
-  }
+  };
 
   /**
    * List of all transfers that have not been completed yet for this token on this channel
    */
-  getPendingTransfersForTokenOnChannel(
+  getPendingTransfersForTokenOnChannel = (
     requestParameters: GetPendingTransfersForTokenOnChannelRequest
-  ): Observable<Array<PendingTransfer>> {
-    if (
-      requestParameters.tokenAddress === null ||
-      requestParameters.tokenAddress === undefined
-    ) {
-      throw new RequiredError(
-        "tokenAddress",
-        "Required parameter requestParameters.tokenAddress was null or undefined when calling getPendingTransfersForTokenOnChannel."
-      );
-    }
+  ): Observable<Array<PendingTransfer>> => {
+    throwIfRequired(
+      requestParameters,
+      "tokenAddress",
+      "getPendingTransfersForTokenOnChannel"
+    );
+    throwIfRequired(
+      requestParameters,
+      "partnerAddress",
+      "getPendingTransfersForTokenOnChannel"
+    );
 
-    if (
-      requestParameters.partnerAddress === null ||
-      requestParameters.partnerAddress === undefined
-    ) {
-      throw new RequiredError(
-        "partnerAddress",
-        "Required parameter requestParameters.partnerAddress was null or undefined when calling getPendingTransfersForTokenOnChannel."
-      );
-    }
+    const headers: HttpHeaders = {};
 
-    const queryParameters: HttpQuery = {};
-
-    const headerParameters: HttpHeaders = {};
+    const query: HttpQuery = {};
 
     return this.request<Array<PendingTransfer>>({
       path: `/pending_transfers/{token_address}/{partner_address}`
         .replace(
-          `{${"token_address"}}`,
+          `{token_address}`,
           encodeURIComponent(String(requestParameters.tokenAddress))
         )
         .replace(
-          `{${"partner_address"}}`,
+          `{partner_address}`,
           encodeURIComponent(String(requestParameters.partnerAddress))
         ),
       method: "GET",
-      headers: headerParameters,
-      query: queryParameters
+      headers,
+      query
     });
-  }
+  };
 }

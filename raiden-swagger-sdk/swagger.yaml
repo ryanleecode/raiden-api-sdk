@@ -15,7 +15,7 @@ paths:
         - Raiden Node
       operationId: getAddress
       responses: 
-        '200':
+        '200': 
           description: "Your ethereum address"
           content:
             application/json:
@@ -432,4 +432,3 @@ components:
           type: array
           items:
             type: string
-    

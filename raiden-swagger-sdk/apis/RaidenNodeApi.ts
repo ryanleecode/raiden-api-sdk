@@ -14,7 +14,7 @@
 import { Observable } from "rxjs";
 import {
   BaseAPI,
-  RequiredError,
+  throwIfRequired,
   HttpHeaders,
   HttpQuery,
   COLLECTION_FORMATS
@@ -29,16 +29,16 @@ export class RaidenNodeApi extends BaseAPI {
    * When raiden starts, you choose an ethereum address which will also be your raiden address.
    * Query your address
    */
-  getAddress(): Observable<Address> {
-    const queryParameters: HttpQuery = {};
+  getAddress = (): Observable<Address> => {
+    const headers: HttpHeaders = {};
 
-    const headerParameters: HttpHeaders = {};
+    const query: HttpQuery = {};
 
     return this.request<Address>({
       path: `/address`,
       method: "GET",
-      headers: headerParameters,
-      query: queryParameters
+      headers,
+      query
     });
-  }
+  };
 }
