@@ -25,6 +25,10 @@ export interface GetTokenRequest {
   tokenAddress: string;
 }
 
+export interface RegisterTokenRequest {
+  tokenAddress: string;
+}
+
 /**
  * no description
  */
@@ -96,13 +100,28 @@ export class TokensApi extends BaseAPI {
    * If a token is not registered yet (i.e.: A token network for that token does not exist in the registry), we need to register it by deploying a token network contract for that token.
    * Registers a token
    */
-  registerToken(): Observable<TokenNetworkAddress> {
+  registerToken(
+    requestParameters: RegisterTokenRequest
+  ): Observable<TokenNetworkAddress> {
+    if (
+      requestParameters.tokenAddress === null ||
+      requestParameters.tokenAddress === undefined
+    ) {
+      throw new RequiredError(
+        "tokenAddress",
+        "Required parameter requestParameters.tokenAddress was null or undefined when calling registerToken."
+      );
+    }
+
     const queryParameters: HttpQuery = {};
 
     const headerParameters: HttpHeaders = {};
 
     return this.request<TokenNetworkAddress>({
-      path: `/tokens`,
+      path: `/tokens/(token_address)`.replace(
+        `{${"token_address"}}`,
+        encodeURIComponent(String(requestParameters.tokenAddress))
+      ),
       method: "PUT",
       headers: headerParameters,
       query: queryParameters
