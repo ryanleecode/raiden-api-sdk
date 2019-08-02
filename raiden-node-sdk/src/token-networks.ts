@@ -21,6 +21,8 @@ export interface DepositAllocation {
   joinableFundsTarget: number;
 }
 
+export type ClosedChannelAddress = string;
+
 export class TokenNetworks {
   public static create(config?: Configuration) {
     const connectionsApi = new ConnectionsApi(config);
@@ -52,7 +54,7 @@ export class TokenNetworks {
     tokenAddress: string,
     funds: number,
     allocation?: DepositAllocation
-  ) {
+  ): Observable<void> {
     return this.connectionsApi.joinNetwork({
       tokenAddress,
       channelAllocation: {
@@ -60,5 +62,18 @@ export class TokenNetworks {
         ...allocation
       }
     });
+  }
+
+  /**
+   * @summary Leave a token network
+   * @description The request will only return once all blockchain calls
+   * for closing/settling a channel have completed.
+   * @param tokenAddress token address of the respective token network
+   * @link https://raiden-network.readthedocs.io/en/latest/rest_api.html#delete--api-(version)-connections-(token_address)
+   */
+  public leave(
+    tokenAddress: string
+  ): Observable<ReadonlyArray<ClosedChannelAddress>> {
+    return this.connectionsApi.leaveNetwork({ tokenAddress });
   }
 }
