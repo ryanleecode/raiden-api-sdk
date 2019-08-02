@@ -562,6 +562,69 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
+  /payments/{token_address}/{target_address}:
+    post:
+      summary: Initiate a payment
+      description: "The request will only return once the payment either succeeded or failed. A payment can fail due to the expiration of a lock, the target being offline, channels on the path to the target not having enough `settle_timeout` and `reveal_timeout` in order to allow the payment to be propagated safely, not enough funds etc."
+      operationId: pay
+      parameters:
+        - in: path
+          name: token_address
+          schema:
+            type: string
+          required: true
+          description: The token address of the token you want to pay with
+        - in: path
+          name: target_address
+          schema:
+            type: string
+          required: true
+          description: The payee address
+      tags: 
+        - Payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Payment'
+      responses:
+        '200':
+          description: "Successful payment"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentReceipt'
+        '400':
+          description: "Provided json is in some way malformed"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'  
+        '402':
+          description: "Payment can’t start due to insufficient balance"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'  
+        '408':
+          description: "Timeout happened during the payment"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'  
+        '409':
+          description: "Address or the amount is invalid or if there is no path to the target, or if the identifier is already in use for a different payment."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'  
+        '500':
+          description: "Internal Raiden node error"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'  
 components:
   schemas: 
     Address:
@@ -581,6 +644,41 @@ components:
           description: The deployed token networks address.
       required:
         - token_network_address
+    Payment:
+      type: object
+      properties:
+        amount:
+          type: number
+          description: Amount to be sent to the target
+        identifier:
+          type: number
+          description: Identifier of the payment
+      required: 
+        - amount
+    PaymentReceipt:
+      type: object
+      properties:
+        initiator_address:
+          type: string
+          example: '0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8'
+        target_address:
+          type: string
+          example: '0x61C808D82A3Ac53231750daDc13c777b59310bD9'
+        token_address:
+          type: string
+          example: '0x2a65Aca4D5fC5B5C859090a6c34d164135398226'
+        amount:
+          type: number
+          example: 200
+        identifier:
+          type: number
+          example: 42
+      required: 
+        - initiator_address
+        - target_address
+        - token_address
+        - amount
+        - identifier
     TotalWithdraw:
       type: integer
       example: 5000000
