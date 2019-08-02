@@ -15,7 +15,7 @@ export class Node {
    * also be your raiden address.
    * @link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-address
    */
-  public address(): Observable<Address> {
+  public address(): Observable<Readonly<Address>> {
     return this.nodeApi.getAddress();
   }
 }

@@ -21,7 +21,7 @@ export class PendingTransfers {
    * @summary All transfers that have not been completed yet.
    * @link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-pending_transfers
    */
-  public findAll(): Observable<PendingTransfer[]> {
+  public findAll(): Observable<ReadonlyArray<Readonly<PendingTransfer>>> {
     return this.pendingTransfersApi.getPendingTransfers();
   }
 
@@ -33,7 +33,7 @@ export class PendingTransfers {
   public findAllFor(
     tokenAddress: string,
     by: QueryPendingTransfersFilter = {}
-  ): Observable<PendingTransfer[]> {
+  ): Observable<ReadonlyArray<PendingTransfer>> {
     if (by.channelAddress !== undefined) {
       return this.pendingTransfersApi.getPendingTransfersForTokenOnChannel({
         tokenAddress,

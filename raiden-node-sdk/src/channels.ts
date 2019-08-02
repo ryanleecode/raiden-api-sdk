@@ -1,5 +1,13 @@
-import { ChannelsApi, Configuration, Channel } from "raiden-swagger-sdk";
+import {
+  ChannelsApi,
+  Configuration,
+  Channel,
+  ChannelPartial,
+  InlineObjectStateEnum
+} from "raiden-swagger-sdk";
 import { Observable } from "rxjs";
+
+export interface OpenChannelRequest extends ChannelPartial {}
 
 export class Channels {
   public static create(config?: Configuration) {
@@ -14,7 +22,7 @@ export class Channels {
    * @summary List of all unsettled channels
    * @link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-channels
    */
-  public findAllUnsettled(): Observable<Channel[]> {
+  public findAllUnsettled(): Observable<ReadonlyArray<Readonly<Channel>>> {
     return this.channelsApi.getChannels();
   }
 
@@ -23,7 +31,9 @@ export class Channels {
    * @param tokenAddress the address of the token with unsettled channels
    * @link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-channels-(token_address)
    */
-  public findAllUnsettledFor(tokenAddress: string): Observable<Channel[]> {
+  public findAllUnsettledFor(
+    tokenAddress: string
+  ): Observable<ReadonlyArray<Readonly<Channel>>> {
     return this.channelsApi.getChannelsForToken({ tokenAddress });
   }
 
@@ -37,7 +47,7 @@ export class Channels {
   public inspect(
     tokenAddress: string,
     partnerAddress: string
-  ): Observable<Channel> {
+  ): Observable<Readonly<Channel>> {
     return this.channelsApi.getPartnerChannel({ tokenAddress, partnerAddress });
   }
 
