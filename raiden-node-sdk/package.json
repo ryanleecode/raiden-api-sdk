@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/drdgvhbh/raiden-node-sdk#readme",
   "devDependencies": {
-    "@types/graphql": "^14.2.3",
     "@types/jest": "^24.0.16",
     "jest": "^24.8.0",
     "ts-jest": "^24.0.2",
