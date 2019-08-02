@@ -446,6 +446,7 @@ paths:
       description: "The request will return a JSON object where each key is a token address for which you have open channels."
       tags:
         - Connections
+      operationId: getConnections
       responses:
         '200':
           description: Successful query
@@ -526,6 +527,7 @@ paths:
     delete:
       summary: Leave a token network.
       description: "The request will only return once all blockchain calls for closing/settling a channel have completed."
+      operationId: leaveNetwork
       parameters:
         - in: path
           name: token_address

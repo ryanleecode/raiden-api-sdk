@@ -21,13 +21,13 @@ import {
 } from "../runtime";
 import { ChannelAllocation, Connection, Errors } from "../models";
 
-export interface ConnectionsTokenAddressDeleteRequest {
-  tokenAddress: string;
-}
-
 export interface JoinNetworkRequest {
   tokenAddress: string;
   channelAllocation: ChannelAllocation;
+}
+
+export interface LeaveNetworkRequest {
+  tokenAddress: string;
 }
 
 /**
@@ -38,7 +38,7 @@ export class ConnectionsApi extends BaseAPI {
    * The request will return a JSON object where each key is a token address for which you have open channels.
    * Query details of all joined token networks.
    */
-  connectionsGet = (): Observable<{ [key: string]: Connection }> => {
+  getConnections = (): Observable<{ [key: string]: Connection }> => {
     const headers: HttpHeaders = {};
 
     const query: HttpQuery = {};
@@ -46,34 +46,6 @@ export class ConnectionsApi extends BaseAPI {
     return this.request<{ [key: string]: Connection }>({
       path: `/connections`,
       method: "GET",
-      headers,
-      query
-    });
-  };
-
-  /**
-   * The request will only return once all blockchain calls for closing/settling a channel have completed.
-   * Leave a token network.
-   */
-  connectionsTokenAddressDelete = (
-    requestParameters: ConnectionsTokenAddressDeleteRequest
-  ): Observable<void> => {
-    throwIfRequired(
-      requestParameters,
-      "tokenAddress",
-      "connectionsTokenAddressDelete"
-    );
-
-    const headers: HttpHeaders = {};
-
-    const query: HttpQuery = {};
-
-    return this.request<void>({
-      path: `/connections/{token_address}`.replace(
-        `{token_address}`,
-        encodeURIComponent(String(requestParameters.tokenAddress))
-      ),
-      method: "DELETE",
       headers,
       query
     });
@@ -102,6 +74,28 @@ export class ConnectionsApi extends BaseAPI {
       headers,
       query,
       body: requestParameters.channelAllocation
+    });
+  };
+
+  /**
+   * The request will only return once all blockchain calls for closing/settling a channel have completed.
+   * Leave a token network.
+   */
+  leaveNetwork = (requestParameters: LeaveNetworkRequest): Observable<void> => {
+    throwIfRequired(requestParameters, "tokenAddress", "leaveNetwork");
+
+    const headers: HttpHeaders = {};
+
+    const query: HttpQuery = {};
+
+    return this.request<void>({
+      path: `/connections/{token_address}`.replace(
+        `{token_address}`,
+        encodeURIComponent(String(requestParameters.tokenAddress))
+      ),
+      method: "DELETE",
+      headers,
+      query
     });
   };
 }
