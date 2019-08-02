@@ -37,7 +37,7 @@ paths:
                 items:
                   type: string
         '500':
-          description: Internal Server Error
+          description: Internal Raiden node error
           content:
             application/json:
               schema:
@@ -146,7 +146,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Channel'
         '500':
-          description: Internal Server Error
+          description: Internal Raiden node error
           content:
             application/json:
               schema:
@@ -224,7 +224,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Channel'
         '500':
-          description: Internal Server Error
+          description: Internal Raiden node error
           content:
             application/json:
               schema:
@@ -263,7 +263,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '500':
-          description: Internal Server Error
+          description: Internal Raiden node error
           content:
             application/json:
               schema:
@@ -361,7 +361,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/PendingTransfer'
         '500':
-          description: Internal Server Error
+          description: Internal Raiden node error
           content:
             application/json:
               schema:
@@ -395,7 +395,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '500':
-          description: Internal Server Error
+          description: Internal Raiden node error
           content:
             application/json:
               schema:
@@ -435,11 +435,113 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '500':
-          description: Internal Server Error
+          description: Internal Raiden node error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
+  /connections:
+    get:
+      summary: Query details of all joined token networks.
+      description: "The request will return a JSON object where each key is a token address for which you have open channels."
+      tags:
+        - Connections
+      responses:
+        '200':
+          description: Successful query
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/Connection'
+                example:
+                  "0x2a65Aca4D5fC5B5C859090a6c34d164135398226":
+                    funds: 100
+                    sum_deposits: 67
+                    channels: 3
+                  "0x0f114A1E9Db192502E7856309cc899952b3db1ED":
+                    funds: 49
+                    sum_deposits: 31
+                    channels: 1
+        '500':
+          description: Internal Raiden node error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /connections/{token_address}:
+    put:
+      summary: Join a token network.
+      description: "The request will only return once all blockchain calls for opening and/or depositing to a channel have completed. <br /> <br /> The request’s payload has `initial_channel_target` and `joinable_funds_target` as optional arguments. If not provided they default to `initial_channel_target = 3` and `joinable_funds_target = 0.4`. <br /><br />If the `initial_channel_target` is bigger than the current number of participants of the token network then the funds will still be split according to the `initial_channel_target` but the number of channels made will be equal to the number of participants in the network. So eventually you will end up with less channels, but each channel will have the expected number of funds allocated to it. The remaining channels will be opened once more peers become available."
+      operationId: joinNetwork
+      parameters:
+        - in: path
+          name: token_address
+          schema:
+            type: string
+          required: true
+          description: The token address of the network you want to join
+      tags:
+        - Connections
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChannelAllocation'
+      responses:
+        '204':
+          description: "Successful connection creation"
+        '402':
+          description: "If any of the channel deposits fail due to insufficient ETH balance to pay for the gas of the on-chain transactions."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: "The given token address is not a valid eip55-encoded Ethereum address"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '408':
+          description: "If a timeout happened during any of the transactions."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '409':
+          description: "If any of the provided input to the call is invalid."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: "Internal Raiden node error."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+    delete:
+      summary: Leave a token network.
+      description: "The request will only return once all blockchain calls for closing/settling a channel have completed."
+      parameters:
+        - in: path
+          name: token_address
+          schema:
+            type: string
+          required: true
+          description: The token address of the network you want to leave
+      tags:
+        - Connections
+      responses:
+        '200':
+          description: "For successfully leaving a token network"
+        '404':
+          description: "The given token address is not a valid eip55-encoded Ethereum address"
+        '500':
+          description: "Internal Raiden node error"
 components:
   schemas: 
     Address:
@@ -475,6 +577,38 @@ components:
       type: integer
       example: 5000000
       description: "The increased total deposit"
+    Connection:
+      type: object
+      properties:
+        funds: 
+          type: integer
+        sum_deposits:
+          type: integer
+        channels:
+          type: integer
+      required: 
+        - funds
+        - sum_deposits
+        - channels
+    ChannelAllocation:
+      type: object
+      properties:
+        funds: 
+          type: integer
+          description: "Amount of funding you want to put into the network."
+          example: 1337
+        initial_channel_target:
+          type: integer
+          description: "Number of channels to open proactively."
+          default: 3
+          example: 3
+        joinable_funds_target:
+          type: number
+          description: "Fraction of funds that will be used to join channels opened by other participants."
+          default: 0.4
+          example: 0.4
+      required: 
+        - funds
     ChannelPartial:
       type: object
       properties:
