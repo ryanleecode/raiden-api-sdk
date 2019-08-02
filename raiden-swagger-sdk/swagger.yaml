@@ -151,6 +151,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
+    put:
+      summary: Opens a channel
+      tags: 
+        - Channels
+      operationId: openChannel
+      requestBody:
+        description: "The request’s payload is a channel object; since it is a new channel, its channel_address and status fields will be ignored and can be omitted. The request to the endpoint will later return the fully created channel object."
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChannelPartial'
+      responses:
+        '201':
+          description: Channel created successfully
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Channel'
+
   /channels/{token_address}: 
     get: 
       summary: "List of all unsettled channels for the given token address."
