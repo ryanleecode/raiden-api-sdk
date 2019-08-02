@@ -332,54 +332,60 @@ components:
           description: The deployed token networks address.
       required:
         - token_network_address
-    Channel:
+    ChannelPartial:
       type: object
       properties:
-        channel_identifier:
-          type: integer
-          description: identifier of the channel
-          example: 21
-        token_network_identifier:
-          type: string
-          description: EIP55-encoded address of the token network the channel is part of
-          example: "0x2a65Aca4D5fC5B5C859090a6c34d164135398226"
         partner_address:
-          type: string
-          description: EIP55-encoded address of the partner with whom we have opened a channel
-          example: "0x61C808D82A3Ac53231750daDc13c777b59310bD9"
+            type: string
+            description: EIP55-encoded address of the partner with whom we have opened a channel
+            example: "0x61C808D82A3Ac53231750daDc13c777b59310bD9"
         token_address:
-          type: string
-          description: EIP55-encoded address of the token we are trading in the channel
-          example: "0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8"
-        balance:
-          type: integer
-          description: Amount of the token_address token we have available for payments.
-          example: 25000000
+            type: string
+            description: EIP55-encoded address of the token we are trading in the channel
+            example: "0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8"
         total_deposit:
           type: integer
           description: Amount of the token_address token we have deposited into the contract for this channel.
-          example: 35000000
-        state:
-          type: string
-          enum: ['opened', 'closed', 'settled']
           example: 35000000
         settle_timeout:
           type: integer
           description: "The number of blocks that are required to be mined from the time that close() is called until the channel can be settled with a call to settle()"
           example: 500
-        reveal_timeout:
-          type: integer
-          description: "The maximum number of blocks allowed between the setting of a hashlock and the revealing of the related secret."
-          example: 40
+      required: 
+        - partner_address
+        - token_address
+        - total_deposit
+        - settle_timeout
+    Channel:
+      allOf: 
+        - $ref: '#/components/schemas/ChannelPartial'
+        - type: object
+          properties:
+            channel_identifier:
+              type: integer
+              description: identifier of the channel
+              example: 21
+            token_network_identifier:
+              type: string
+              description: EIP55-encoded address of the token network the channel is part of
+              example: "0x2a65Aca4D5fC5B5C859090a6c34d164135398226"
+            balance:
+              type: integer
+              description: Amount of the token_address token we have available for payments.
+              example: 25000000
+            state:
+              type: string
+              enum: ['opened', 'closed', 'settled']
+              example: 'opened'
+            reveal_timeout:
+              type: integer
+              description: "The maximum number of blocks allowed between the setting of a hashlock and the revealing of the related secret."
+              example: 40
       required: 
         - channel_identifier
         - token_network_identifier
-        - partner_address
-        - token_address
         - balance
-        - total_deposit
         - state
-        - settle_timeout
         - reveal_timeout
     Partner:
       type: object
