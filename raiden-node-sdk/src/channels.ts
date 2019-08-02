@@ -40,4 +40,40 @@ export class Channels {
   ): Observable<Channel> {
     return this.channelsApi.getPartnerChannel({ tokenAddress, partnerAddress });
   }
+
+  public open(
+    request: Readonly<OpenChannelRequest>
+  ): Observable<Readonly<Channel>> {
+    return this.channelsApi.openChannel({ channelPartial: request });
+  }
+
+  public close(channel: Readonly<Channel>): Observable<Readonly<Channel>> {
+    return this.channelsApi.patchChannel({
+      tokenAddress: channel.tokenAddress,
+      partnerAddress: channel.partnerAddress,
+      inlineObject: { state: InlineObjectStateEnum.Closed }
+    });
+  }
+
+  public deposit(
+    amount: number,
+    channel: Readonly<Channel>
+  ): Observable<Readonly<Channel>> {
+    return this.channelsApi.patchChannel({
+      tokenAddress: channel.tokenAddress,
+      partnerAddress: channel.partnerAddress,
+      inlineObject: { totalDeposit: channel.totalDeposit + amount }
+    });
+  }
+
+  public withdraw(
+    amount: number,
+    channel: Readonly<Channel>
+  ): Observable<Readonly<Channel>> {
+    return this.channelsApi.patchChannel({
+      tokenAddress: channel.tokenAddress,
+      partnerAddress: channel.partnerAddress,
+      inlineObject: { totalWithdraw: channel.totalWithdraw + amount }
+    });
+  }
 }
