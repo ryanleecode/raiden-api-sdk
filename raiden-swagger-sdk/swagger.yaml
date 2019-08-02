@@ -170,6 +170,36 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/Channel'
+        '400':
+          description: Provided JSON is in some way malformed
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Errors'
+        '402':
+          description:  Insufficient ETH to pay for the gas of the channel open on-chain transaction
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Errors'
+        '408':
+          description: Deposit event was not read in time by the Ethereum node
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Errors'
+        '409':
+          description: Invalid input, e. g. too low a settle timeout
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: Internal Raiden node error
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Errors'
 
   /channels/{token_address}: 
     get: 
