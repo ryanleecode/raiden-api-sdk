@@ -425,6 +425,16 @@ components:
         transferred_amount:
           type: string
           example: "331"
+      required: 
+        - channel_identifier
+        - initiator
+        - locked_amount
+        - payment_identifier
+        - role
+        - target
+        - token_address
+        - token_network_identifier
+        - transferred_amount
     Errors:
       type: object
       properties:
@@ -432,3 +442,5 @@ components:
           type: array
           items:
             type: string
+      required: 
+        - errors
