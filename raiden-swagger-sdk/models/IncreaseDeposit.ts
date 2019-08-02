@@ -11,15 +11,10 @@
  * Do not edit the class manually.
  */
 
+import { TotalDeposit } from "./";
+
 /**
  * @export
- * @interface Errors
+ * @interface IncreaseDeposit
  */
-export interface Errors {
-  /**
-   *
-   * @type {Array<string>}
-   * @memberof Errors
-   */
-  errors: Array<string>;
-}
+export interface IncreaseDeposit {}

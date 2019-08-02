@@ -11,71 +11,47 @@
  * Do not edit the class manually.
  */
 
-import { ChannelAllOf, ChannelPartial, ChannelState } from "./";
+import { ChannelState } from "./";
 
 /**
  * @export
- * @interface Channel
+ * @interface ChannelAllOf
  */
-export interface Channel {
-  /**
-   * EIP55-encoded address of the partner with whom we have opened a channel
-   * @type {string}
-   * @memberof Channel
-   */
-  partnerAddress: string;
-  /**
-   * EIP55-encoded address of the token we are trading in the channel
-   * @type {string}
-   * @memberof Channel
-   */
-  tokenAddress: string;
-  /**
-   * Amount of the token_address token we have deposited into the contract for this channel.
-   * @type {number}
-   * @memberof Channel
-   */
-  totalDeposit: number;
-  /**
-   * The number of blocks that are required to be mined from the time that close() is called until the channel can be settled with a call to settle()
-   * @type {number}
-   * @memberof Channel
-   */
-  settleTimeout: number;
+export interface ChannelAllOf {
   /**
    * identifier of the channel
    * @type {number}
-   * @memberof Channel
+   * @memberof ChannelAllOf
    */
   channelIdentifier?: number;
   /**
    * EIP55-encoded address of the token network the channel is part of
    * @type {string}
-   * @memberof Channel
+   * @memberof ChannelAllOf
    */
   tokenNetworkIdentifier?: string;
   /**
    * Amount of the token_address token we have available for payments.
    * @type {number}
-   * @memberof Channel
+   * @memberof ChannelAllOf
    */
   balance?: number;
   /**
    *
    * @type {string}
-   * @memberof Channel
+   * @memberof ChannelAllOf
    */
   totalWithdraw?: string;
   /**
    *
    * @type {ChannelState}
-   * @memberof Channel
+   * @memberof ChannelAllOf
    */
   state?: ChannelState;
   /**
    * The maximum number of blocks allowed between the setting of a hashlock and the revealing of the related secret.
    * @type {number}
-   * @memberof Channel
+   * @memberof ChannelAllOf
    */
   revealTimeout?: number;
 }

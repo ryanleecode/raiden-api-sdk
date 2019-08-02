@@ -11,15 +11,10 @@
  * Do not edit the class manually.
  */
 
+import { TotalWithdraw } from "./";
+
 /**
  * @export
- * @interface Errors
+ * @interface IncreaseWithdraw
  */
-export interface Errors {
-  /**
-   *
-   * @type {Array<string>}
-   * @memberof Errors
-   */
-  errors: Array<string>;
-}
+export interface IncreaseWithdraw {}

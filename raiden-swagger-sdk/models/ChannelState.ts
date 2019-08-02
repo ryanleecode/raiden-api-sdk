@@ -12,14 +12,12 @@
  */
 
 /**
+ *
  * @export
- * @interface Errors
+ * @enum {string}
  */
-export interface Errors {
-  /**
-   *
-   * @type {Array<string>}
-   * @memberof Errors
-   */
-  errors: Array<string>;
+export enum ChannelState {
+  Opened = "opened",
+  Closed = "closed",
+  Settled = "settled"
 }

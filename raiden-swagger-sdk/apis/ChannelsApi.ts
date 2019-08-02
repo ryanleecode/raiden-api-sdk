@@ -19,7 +19,7 @@ import {
   HttpQuery,
   COLLECTION_FORMATS
 } from "../runtime";
-import { Channel, Errors } from "../models";
+import { Channel, ChannelPartial, Errors, InlineObject } from "../models";
 
 export interface GetChannelsForTokenRequest {
   tokenAddress: string;
@@ -28,6 +28,16 @@ export interface GetChannelsForTokenRequest {
 export interface GetPartnerChannelRequest {
   tokenAddress: string;
   partnerAddress: string;
+}
+
+export interface OpenChannelRequest {
+  channelPartial: ChannelPartial;
+}
+
+export interface PatchChannelRequest {
+  tokenAddress: string;
+  partnerAddress: string;
+  inlineObject: InlineObject;
 }
 
 /**
@@ -100,6 +110,62 @@ export class ChannelsApi extends BaseAPI {
       method: "GET",
       headers,
       query
+    });
+  };
+
+  /**
+   * Opens a channel
+   */
+  openChannel = (
+    requestParameters: OpenChannelRequest
+  ): Observable<Channel> => {
+    throwIfRequired(requestParameters, "channelPartial", "openChannel");
+
+    const headers: HttpHeaders = {
+      "Content-Type": "application/json"
+    };
+
+    const query: HttpQuery = {};
+
+    return this.request<Channel>({
+      path: `/channels`,
+      method: "PUT",
+      headers,
+      query,
+      body: requestParameters.channelPartial
+    });
+  };
+
+  /**
+   * Close a channel or to increase the deposit in it.
+   */
+  patchChannel = (
+    requestParameters: PatchChannelRequest
+  ): Observable<Channel> => {
+    throwIfRequired(requestParameters, "tokenAddress", "patchChannel");
+    throwIfRequired(requestParameters, "partnerAddress", "patchChannel");
+    throwIfRequired(requestParameters, "inlineObject", "patchChannel");
+
+    const headers: HttpHeaders = {
+      "Content-Type": "application/json"
+    };
+
+    const query: HttpQuery = {};
+
+    return this.request<Channel>({
+      path: `/channels/{token_address}/{partner_address}`
+        .replace(
+          `{token_address}`,
+          encodeURIComponent(String(requestParameters.tokenAddress))
+        )
+        .replace(
+          `{partner_address}`,
+          encodeURIComponent(String(requestParameters.partnerAddress))
+        ),
+      method: "PATCH",
+      headers,
+      query,
+      body: requestParameters.inlineObject
     });
   };
 }
