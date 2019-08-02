@@ -294,13 +294,9 @@ paths:
               type: object
               properties:
                 total_deposit:
-                  allOf: 
-                   - $ref: '#/components/schemas/TotalDeposit'
-                   - description: The increased total deposit
+                  $ref: '#/components/schemas/IncreaseDeposit'
                 total_withdraw:
-                  allOf: 
-                    - $ref: '#/components/schemas/TotalWithdraw'
-                    - description: The increased total withdraw
+                  $ref: '#/components/schemas/IncreaseWithdraw'
                 state:
                   type: string
                   enum: ['closed']
@@ -471,6 +467,14 @@ components:
       type: integer
       description: Amount of the token_address token we have deposited into the contract for this channel.
       example: 35000000
+    IncreaseWithdraw:
+      allOf:
+        - $ref: '#/components/TotalWithdraw'
+        - description: "The increased total withdrawal"
+    IncreaseDeposit:
+      allOf:
+        - $ref: '#/components/TotalDeposit'
+        - description: "The increased total deposit"
     ChannelPartial:
       type: object
       properties:
