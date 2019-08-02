@@ -11,25 +11,23 @@
  * Do not edit the class manually.
  */
 
-import { IncreaseDeposit, IncreaseWithdraw } from "./";
-
 /**
  * @export
  * @interface InlineObject
  */
 export interface InlineObject {
   /**
-   *
-   * @type {IncreaseDeposit}
+   * The increased total deposit
+   * @type {number}
    * @memberof InlineObject
    */
-  totalDeposit?: IncreaseDeposit;
+  totalDeposit?: number;
   /**
-   *
-   * @type {IncreaseWithdraw}
+   * The increased total withdrawal
+   * @type {number}
    * @memberof InlineObject
    */
-  totalWithdraw?: IncreaseWithdraw;
+  totalWithdraw?: number;
   /**
    * Desired new state
    * @type {string}

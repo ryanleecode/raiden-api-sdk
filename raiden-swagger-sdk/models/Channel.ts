@@ -61,11 +61,11 @@ export interface Channel {
    */
   balance?: number;
   /**
-   *
-   * @type {string}
+   * Amount of the token_address token we have withdrawn into the contract for this channel.
+   * @type {number}
    * @memberof Channel
    */
-  totalWithdraw?: string;
+  totalWithdraw?: number;
   /**
    *
    * @type {ChannelState}

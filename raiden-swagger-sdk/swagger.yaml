@@ -468,13 +468,13 @@ components:
       description: Amount of the token_address token we have deposited into the contract for this channel.
       example: 35000000
     IncreaseWithdraw:
-      allOf:
-        - $ref: '#/components/TotalWithdraw'
-        - description: "The increased total withdrawal"
+      type: integer
+      description: "The increased total withdrawal"
+      example: 35000000
     IncreaseDeposit:
-      allOf:
-        - $ref: '#/components/TotalDeposit'
-        - description: "The increased total deposit"
+      type: integer
+      example: 5000000
+      description: "The increased total deposit"
     ChannelPartial:
       type: object
       properties:
@@ -519,8 +519,7 @@ components:
               description: Amount of the token_address token we have available for payments.
               example: 25000000
             total_withdraw:
-              type: string
-              example: 5000000
+              $ref: '#/components/schemas/TotalWithdraw'
             state:
               $ref: '#/components/schemas/ChannelState'
             reveal_timeout:

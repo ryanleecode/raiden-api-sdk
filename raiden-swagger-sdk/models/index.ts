@@ -4,8 +4,6 @@ export * from "./ChannelAllOf";
 export * from "./ChannelPartial";
 export * from "./ChannelState";
 export * from "./Errors";
-export * from "./IncreaseDeposit";
-export * from "./IncreaseWithdraw";
 export * from "./InlineObject";
 export * from "./Partner";
 export * from "./PendingTransfer";
