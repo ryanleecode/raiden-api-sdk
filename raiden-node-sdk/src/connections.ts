@@ -6,6 +6,21 @@ import {
 } from "raiden-swagger-sdk";
 import { Observable } from "rxjs";
 
+export interface DepositAllocation {
+  /**
+   * @summary Number of channels to open proactively.
+   * @default 3
+   */
+  initialChannelTarget: number;
+
+  /**
+   * @summary Fraction of funds that will be used to join channels
+   * opened by other participants.
+   * @default 0.4
+   */
+  joinableFundsTarget: number;
+}
+
 export class TokenNetworks {
   public static create(config?: Configuration) {
     const connectionsApi = new ConnectionsApi(config);
@@ -23,10 +38,27 @@ export class TokenNetworks {
     return this.connectionsApi.getConnections();
   }
 
-  public join(tokenAddress: string, allocation: ChannelAllocation) {
+  /**
+   * @summary Automatically join a token network.
+   * @description The request will only return once all blockchain calls
+   * for opening and/or depositing to a channel have completed.
+   *
+   * @param tokenAddress token address of the respective token network
+   * @param funds the amount of funds you want to deposit
+   * @param allocation allocation of funds for each channel in the network
+   * @link https://raiden-network.readthedocs.io/en/latest/rest_api.html#put--api-(version)-connections-(token_address)
+   */
+  public join(
+    tokenAddress: string,
+    funds: number,
+    allocation?: DepositAllocation
+  ) {
     return this.connectionsApi.joinNetwork({
       tokenAddress,
-      channelAllocation: allocation
+      channelAllocation: {
+        funds,
+        ...allocation
+      }
     });
   }
 }
