@@ -1,4 +1,9 @@
-import { Configuration, PaymentsApi, PaymentReceipt } from "raiden-swagger-sdk";
+import {
+  Configuration,
+  PaymentsApi,
+  PaymentReceipt,
+  PaymentEvent
+} from "raiden-swagger-sdk";
 import { Observable } from "rxjs";
 
 export interface Token {
@@ -40,7 +45,7 @@ export class Payments {
     token: Readonly<Token>,
     to: string,
     identifier?: number
-  ): Observable<PaymentReceipt> {
+  ): Observable<Readonly<PaymentReceipt>> {
     return this.paymentsApi.pay({
       tokenAddress: token.address,
       targetAddress: to,
@@ -49,5 +54,27 @@ export class Payments {
         identifier: identifier
       }
     });
+  }
+
+  /**
+   * @summary Payment History
+   * @param tokenAddress the token you want history for
+   * @param targetAddress the target address you want history for
+   * @link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-v1-payments-(token_address)-(target_address)
+   */
+  public history(
+    tokenAddress?: string,
+    targetAddress?: string
+  ): Observable<ReadonlyArray<Readonly<PaymentEvent>>> {
+    if (tokenAddress && targetAddress) {
+      return this.paymentsApi.getPaymentsByTokenForTarget({
+        tokenAddress,
+        targetAddress
+      });
+    }
+    if (tokenAddress) {
+      return this.paymentsApi.getPaymentsByToken({ tokenAddress });
+    }
+    return this.paymentsApi.getPayments();
   }
 }
