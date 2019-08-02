@@ -268,6 +268,87 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
+    patch:
+      summary: Close a channel or to increase the deposit in it.
+      tags: 
+        - Channels
+      operationId: patchChannel
+      parameters:
+        - in: path
+          name: token_address
+          schema:
+            type: string
+          required: true
+          description: The token address to get unsettled channels for
+        - in: path
+          name: partner_address
+          schema:
+            type: string
+          required: true
+          description: The partner address
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                total_deposit:
+                  allOf: 
+                   - $ref: '#/components/schemas/TotalDeposit'
+                   - description: The increased total deposit
+                total_withdraw:
+                  allOf: 
+                    - $ref: '#/components/schemas/TotalWithdraw'
+                    - description: The increased total withdraw
+                state:
+                  type: string
+                  enum: ['closed']
+                  description: Desired new state
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Channel'
+        '400':
+          description: "The provided JSON is in some way malformed, or there is nothing to do since none of `state`,`total_deposit` or `total_withdraw` have been given, or: the value of `state` is not a valid channel state."
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Errors'
+        '402':
+          description:  "Insufficient balance to do a deposit, or insufficient ETH to pay for the gas of the on-chain transaction"
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: "The given token and / or partner addresses are not valid eip55-encoded Ethereum addresses"
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Errors'
+        '408':
+          description: "Deposit event was not read in time by the Ethereum node"
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Errors'
+        '409': 
+          description: "Provided channel does not exist or `state`, `total_deposit`, and `total_withdraw` have been attempted to update in the same request or attempt to deposit token amount lower than on-chain balance of the channel attempt to deposit more tokens than the testing limit"
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: "Internal Raiden node error"
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Errors'
+
   /pending_transfers:
     get:
       summary: "Returns a list of all transfers that have not been completed yet."
@@ -382,21 +463,27 @@ components:
           description: The deployed token networks address.
       required:
         - token_network_address
+    TotalWithdraw:
+      type: integer
+      example: 5000000
+      description: Amount of the token_address token we have withdrawn into the contract for this channel.
+    TotalDeposit:
+      type: integer
+      description: Amount of the token_address token we have deposited into the contract for this channel.
+      example: 35000000
     ChannelPartial:
       type: object
       properties:
         partner_address:
-            type: string
-            description: EIP55-encoded address of the partner with whom we have opened a channel
-            example: "0x61C808D82A3Ac53231750daDc13c777b59310bD9"
+          type: string
+          description: EIP55-encoded address of the partner with whom we have opened a channel
+          example: "0x61C808D82A3Ac53231750daDc13c777b59310bD9"
         token_address:
-            type: string
-            description: EIP55-encoded address of the token we are trading in the channel
-            example: "0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8"
+          type: string
+          description: EIP55-encoded address of the token we are trading in the channel
+          example: "0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8"
         total_deposit:
-          type: integer
-          description: Amount of the token_address token we have deposited into the contract for this channel.
-          example: 35000000
+          $ref: '#/components/schemas/TotalDeposit'
         settle_timeout:
           type: integer
           description: "The number of blocks that are required to be mined from the time that close() is called until the channel can be settled with a call to settle()"
@@ -406,6 +493,10 @@ components:
         - token_address
         - total_deposit
         - settle_timeout
+    ChannelState:
+      type: string
+      enum: ['opened', 'closed', 'settled']
+      example: 'opened'
     Channel:
       allOf: 
         - $ref: '#/components/schemas/ChannelPartial'
@@ -423,10 +514,11 @@ components:
               type: integer
               description: Amount of the token_address token we have available for payments.
               example: 25000000
-            state:
+            total_withdraw:
               type: string
-              enum: ['opened', 'closed', 'settled']
-              example: 'opened'
+              example: 5000000
+            state:
+              $ref: '#/components/schemas/ChannelState'
             reveal_timeout:
               type: integer
               description: "The maximum number of blocks allowed between the setting of a hashlock and the revealing of the related secret."
