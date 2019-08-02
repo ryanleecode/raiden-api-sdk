@@ -526,12 +526,13 @@ components:
               type: integer
               description: "The maximum number of blocks allowed between the setting of a hashlock and the revealing of the related secret."
               example: 40
-      required: 
-        - channel_identifier
-        - token_network_identifier
-        - balance
-        - state
-        - reveal_timeout
+          required: 
+            - channel_identifier
+            - token_network_identifier
+            - balance
+            - total_withdraw
+            - state
+            - reveal_timeout
     Partner:
       type: object
       properties:

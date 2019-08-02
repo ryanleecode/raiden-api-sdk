@@ -47,35 +47,35 @@ export interface Channel {
    * @type {number}
    * @memberof Channel
    */
-  channelIdentifier?: number;
+  channelIdentifier: number;
   /**
    * EIP55-encoded address of the token network the channel is part of
    * @type {string}
    * @memberof Channel
    */
-  tokenNetworkIdentifier?: string;
+  tokenNetworkIdentifier: string;
   /**
    * Amount of the token_address token we have available for payments.
    * @type {number}
    * @memberof Channel
    */
-  balance?: number;
+  balance: number;
   /**
    * Amount of the token_address token we have withdrawn into the contract for this channel.
    * @type {number}
    * @memberof Channel
    */
-  totalWithdraw?: number;
+  totalWithdraw: number;
   /**
    *
    * @type {ChannelState}
    * @memberof Channel
    */
-  state?: ChannelState;
+  state: ChannelState;
   /**
    * The maximum number of blocks allowed between the setting of a hashlock and the revealing of the related secret.
    * @type {number}
    * @memberof Channel
    */
-  revealTimeout?: number;
+  revealTimeout: number;
 }
