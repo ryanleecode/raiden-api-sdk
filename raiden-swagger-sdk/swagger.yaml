@@ -562,7 +562,113 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
+  /payments:
+    get:
+      summary: List All Payments
+      operationId: getPayments
+      tags: 
+        - Payments
+      responses:
+        '200':
+          description: Successful query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PaymentEvent'
+        '500':
+          description: "Internal Raiden node error"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /payments/{token_address}:
+    get:
+      summary: List All Payments for Token
+      operationId: getPaymentsByToken
+      tags: 
+        - Payments
+      parameters:
+        - in: path
+          name: token_address
+          schema:
+            type: string
+          required: true
+          description: The address of the token you want to query
+      responses:
+        '200':
+          description: Successful query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PaymentEvent'
+        '404':
+          description: "The given token and / or partner addresses are not valid eip55-encoded Ethereum addresses"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '409':
+          description: "If the given block number or token_address arguments are invalid"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: "Internal Raiden node error"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
   /payments/{token_address}/{target_address}:
+    get:
+      summary: List All Payments for Token by Target
+      operationId: getPaymentsByTokenForTarget
+      tags: 
+        - Payments
+      parameters:
+        - in: path
+          name: token_address
+          schema:
+            type: string
+          required: true
+          description: The address of the token you want to query
+        - in: path
+          name: target_address
+          schema:
+            type: string
+          required: true
+          description: The payee address
+      responses:
+        '200':
+          description: Successful query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PaymentEvent'
+        '404':
+          description: "The given token and / or partner addresses are not valid eip55-encoded Ethereum addresses"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '409':
+          description: "If the given block number or token_address arguments are invalid"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: "Internal Raiden node error"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
     post:
       summary: Initiate a payment
       description: "The request will only return once the payment either succeeded or failed. A payment can fail due to the expiration of a lock, the target being offline, channels on the path to the target not having enough `settle_timeout` and `reveal_timeout` in order to allow the payment to be propagated safely, not enough funds etc."
@@ -573,7 +679,7 @@ paths:
           schema:
             type: string
           required: true
-          description: The token address of the token you want to pay with
+          description: The address of the token you want to pay with
         - in: path
           name: target_address
           schema:
@@ -624,7 +730,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Errors'  
+                $ref: '#/components/schemas/Errors'
 components:
   schemas: 
     Address:
@@ -679,6 +785,24 @@ components:
         - token_address
         - amount
         - identifier
+    PaymentEvent:
+      type: object
+      properties:
+        event: 
+          type: string
+          enum: ['EventPaymentReceivedSuccess', 'EventPaymentSentSuccess', 'EventPaymentSentFailed']
+        amount:
+          type: number
+          example: 5
+        initiator:
+          type: string
+          example: "0x82641569b2062B545431cF6D7F0A418582865ba7"
+        identifier:
+          type: integer
+          example: 1
+        log_time:
+          type: string
+          example: "2018-10-30T07:03:52.193"
     TotalWithdraw:
       type: integer
       example: 5000000

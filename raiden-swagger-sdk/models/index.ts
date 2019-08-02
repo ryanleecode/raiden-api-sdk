@@ -9,6 +9,7 @@ export * from "./Errors";
 export * from "./InlineObject";
 export * from "./Partner";
 export * from "./Payment";
+export * from "./PaymentEvent";
 export * from "./PaymentReceipt";
 export * from "./PendingTransfer";
 export * from "./TokenNetworkAddress";
