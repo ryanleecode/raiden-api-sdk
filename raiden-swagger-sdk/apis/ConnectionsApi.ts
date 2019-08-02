@@ -81,14 +81,16 @@ export class ConnectionsApi extends BaseAPI {
    * The request will only return once all blockchain calls for closing/settling a channel have completed.
    * Leave a token network.
    */
-  leaveNetwork = (requestParameters: LeaveNetworkRequest): Observable<void> => {
+  leaveNetwork = (
+    requestParameters: LeaveNetworkRequest
+  ): Observable<Array<string>> => {
     throwIfRequired(requestParameters, "tokenAddress", "leaveNetwork");
 
     const headers: HttpHeaders = {};
 
     const query: HttpQuery = {};
 
-    return this.request<void>({
+    return this.request<Array<string>>({
       path: `/connections/{token_address}`.replace(
         `{token_address}`,
         encodeURIComponent(String(requestParameters.tokenAddress))

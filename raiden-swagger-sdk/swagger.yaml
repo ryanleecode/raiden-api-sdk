@@ -540,10 +540,28 @@ paths:
       responses:
         '200':
           description: "For successfully leaving a token network"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                example: [
+                '0x41BCBC2fD72a731bcc136Cf6F7442e9C19e9f313', 
+                '0x5A5f458F6c1a034930E45dC9a64B99d7def06D7E', 
+                '0x8942c06FaA74cEBFf7d55B79F9989AdfC85C6b85']
         '404':
           description: "The given token address is not a valid eip55-encoded Ethereum address"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
         '500':
           description: "Internal Raiden node error"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
 components:
   schemas: 
     Address:
