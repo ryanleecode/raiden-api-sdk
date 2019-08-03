@@ -7,11 +7,18 @@ import {
 } from 'raiden-swagger-sdk';
 import { Observable } from 'rxjs';
 
+export enum ChannelState {
+  Opened = 'opened',
+  Closed = 'closed',
+  Settled = 'settled',
+}
 export interface OpenChannelRequest extends ChannelPartial {}
 /**
  * @public
  */
-export interface Channel extends ChannelS {}
+export interface Channel extends ChannelS {
+  state: ChannelState;
+}
 
 export class Channels {
   public static create(config?: Configuration) {
