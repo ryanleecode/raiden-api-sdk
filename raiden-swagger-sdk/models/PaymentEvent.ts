@@ -45,7 +45,7 @@ export interface PaymentEvent {
    * @type {string}
    * @memberof PaymentEvent
    */
-  log_time?: string;
+  logTime?: string;
 }
 
 /**

@@ -23,13 +23,13 @@ export interface ChannelAllOf {
    * @type {number}
    * @memberof ChannelAllOf
    */
-  channel_identifier: number;
+  channelIdentifier: number;
   /**
    * EIP55-encoded address of the token network the channel is part of
    * @type {string}
    * @memberof ChannelAllOf
    */
-  token_network_identifier: string;
+  tokenNetworkIdentifier: string;
   /**
    * Amount of the token_address token we have available for payments.
    * @type {number}
@@ -41,7 +41,7 @@ export interface ChannelAllOf {
    * @type {number}
    * @memberof ChannelAllOf
    */
-  total_withdraw: number;
+  totalWithdraw: number;
   /**
    *
    * @type {ChannelState}
@@ -53,5 +53,5 @@ export interface ChannelAllOf {
    * @type {number}
    * @memberof ChannelAllOf
    */
-  reveal_timeout: number;
+  revealTimeout: number;
 }

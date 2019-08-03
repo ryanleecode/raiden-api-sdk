@@ -21,5 +21,5 @@ export interface Address {
    * @type {string}
    * @memberof Address
    */
-  our_address: string;
+  ourAddress: string;
 }

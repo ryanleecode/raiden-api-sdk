@@ -47,9 +47,9 @@ export class Payments {
     identifier?: number,
   ): Observable<Readonly<PaymentReceipt>> {
     return this.paymentsApi.pay({
-      token_address: token.address,
-      target_address: to,
-      Payment: {
+      tokenAddress: token.address,
+      targetAddress: to,
+      payment: {
         amount: token.amount,
         identifier: identifier,
       },
@@ -68,13 +68,13 @@ export class Payments {
   ): Observable<ReadonlyArray<Readonly<PaymentEvent>>> {
     if (tokenAddress && targetAddress) {
       return this.paymentsApi.getPaymentsByTokenForTarget({
-        token_address: tokenAddress,
-        target_address: targetAddress,
+        tokenAddress,
+        targetAddress,
       });
     }
     if (tokenAddress) {
       return this.paymentsApi.getPaymentsByToken({
-        token_address: tokenAddress,
+        tokenAddress,
       });
     }
     return this.paymentsApi.getPayments();

@@ -31,7 +31,7 @@ export class Tokens {
   public networkAddressFor(
     tokenAddress: string,
   ): Observable<TokenNetworkAddress> {
-    return this.tokensApi.getToken({ token_address: tokenAddress });
+    return this.tokensApi.getToken({ tokenAddress });
   }
 
   /**
@@ -55,7 +55,7 @@ export class Tokens {
     tokenAddress: string,
   ): Observable<Readonly<TokenNetworkAddress>> {
     return this.tokensApi
-      .registerToken({ token_address: tokenAddress })
-      .pipe(map((res) => res.token_network_address));
+      .registerToken({ tokenAddress })
+      .pipe(map((res) => res.tokenNetworkAddress));
   }
 }

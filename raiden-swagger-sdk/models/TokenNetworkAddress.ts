@@ -21,5 +21,5 @@ export interface TokenNetworkAddress {
    * @type {string}
    * @memberof TokenNetworkAddress
    */
-  token_network_address: string;
+  tokenNetworkAddress: string;
 }

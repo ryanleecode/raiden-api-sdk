@@ -21,23 +21,23 @@ export interface ChannelPartial {
    * @type {string}
    * @memberof ChannelPartial
    */
-  partner_address: string;
+  partnerAddress: string;
   /**
    * EIP55-encoded address of the token we are trading in the channel
    * @type {string}
    * @memberof ChannelPartial
    */
-  token_address: string;
+  tokenAddress: string;
   /**
    * Amount of the token_address token we have deposited into the contract for this channel.
    * @type {number}
    * @memberof ChannelPartial
    */
-  total_deposit: number;
+  totalDeposit: number;
   /**
    * The number of blocks that are required to be mined from the time that close() is called until the channel can be settled with a call to settle()
    * @type {number}
    * @memberof ChannelPartial
    */
-  settle_timeout: number;
+  settleTimeout: number;
 }

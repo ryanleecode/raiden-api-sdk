@@ -22,18 +22,18 @@ import {
 import { Errors, Payment, PaymentEvent, PaymentReceipt } from '../models';
 
 export interface GetPaymentsByTokenRequest {
-  token_address: string;
+  tokenAddress: string;
 }
 
 export interface GetPaymentsByTokenForTargetRequest {
-  token_address: string;
-  target_address: string;
+  tokenAddress: string;
+  targetAddress: string;
 }
 
 export interface PayRequest {
-  token_address: string;
-  target_address: string;
-  Payment: Payment;
+  tokenAddress: string;
+  targetAddress: string;
+  payment: Payment;
 }
 
 /**
@@ -62,7 +62,7 @@ export class PaymentsApi extends BaseAPI {
   getPaymentsByToken = (
     requestParameters: GetPaymentsByTokenRequest,
   ): Observable<Array<PaymentEvent>> => {
-    throwIfRequired(requestParameters, 'token_address', 'getPaymentsByToken');
+    throwIfRequired(requestParameters, 'tokenAddress', 'getPaymentsByToken');
 
     const headers: HttpHeaders = {};
 
@@ -71,7 +71,7 @@ export class PaymentsApi extends BaseAPI {
     return this.request<Array<PaymentEvent>>({
       path: `/payments/{token_address}`.replace(
         `{token_address}`,
-        encodeURIComponent(String(requestParameters.token_address)),
+        encodeURIComponent(String(requestParameters.tokenAddress)),
       ),
       method: 'GET',
       headers,
@@ -87,12 +87,12 @@ export class PaymentsApi extends BaseAPI {
   ): Observable<Array<PaymentEvent>> => {
     throwIfRequired(
       requestParameters,
-      'token_address',
+      'tokenAddress',
       'getPaymentsByTokenForTarget',
     );
     throwIfRequired(
       requestParameters,
-      'target_address',
+      'targetAddress',
       'getPaymentsByTokenForTarget',
     );
 
@@ -104,11 +104,11 @@ export class PaymentsApi extends BaseAPI {
       path: `/payments/{token_address}/{target_address}`
         .replace(
           `{token_address}`,
-          encodeURIComponent(String(requestParameters.token_address)),
+          encodeURIComponent(String(requestParameters.tokenAddress)),
         )
         .replace(
           `{target_address}`,
-          encodeURIComponent(String(requestParameters.target_address)),
+          encodeURIComponent(String(requestParameters.targetAddress)),
         ),
       method: 'GET',
       headers,
@@ -121,9 +121,9 @@ export class PaymentsApi extends BaseAPI {
    * Initiate a payment
    */
   pay = (requestParameters: PayRequest): Observable<PaymentReceipt> => {
-    throwIfRequired(requestParameters, 'token_address', 'pay');
-    throwIfRequired(requestParameters, 'target_address', 'pay');
-    throwIfRequired(requestParameters, 'Payment', 'pay');
+    throwIfRequired(requestParameters, 'tokenAddress', 'pay');
+    throwIfRequired(requestParameters, 'targetAddress', 'pay');
+    throwIfRequired(requestParameters, 'payment', 'pay');
 
     const headers: HttpHeaders = {
       'Content-Type': 'application/json',
@@ -135,16 +135,16 @@ export class PaymentsApi extends BaseAPI {
       path: `/payments/{token_address}/{target_address}`
         .replace(
           `{token_address}`,
-          encodeURIComponent(String(requestParameters.token_address)),
+          encodeURIComponent(String(requestParameters.tokenAddress)),
         )
         .replace(
           `{target_address}`,
-          encodeURIComponent(String(requestParameters.target_address)),
+          encodeURIComponent(String(requestParameters.targetAddress)),
         ),
       method: 'POST',
       headers,
       query,
-      body: requestParameters.Payment,
+      body: requestParameters.payment,
     });
   };
 }

@@ -35,7 +35,7 @@ export class Channels {
     tokenAddress: string,
   ): Observable<ReadonlyArray<Readonly<Channel>>> {
     return this.channelsApi.getChannelsForToken({
-      token_address: tokenAddress,
+      tokenAddress,
     });
   }
 
@@ -51,22 +51,22 @@ export class Channels {
     partnerAddress: string,
   ): Observable<Readonly<Channel>> {
     return this.channelsApi.getPartnerChannel({
-      token_address: tokenAddress,
-      partner_address: partnerAddress,
+      tokenAddress,
+      partnerAddress,
     });
   }
 
   public open(
     request: Readonly<OpenChannelRequest>,
   ): Observable<Readonly<Channel>> {
-    return this.channelsApi.openChannel({ ChannelPartial: request });
+    return this.channelsApi.openChannel({ channelPartial: request });
   }
 
   public close(channel: Readonly<Channel>): Observable<Readonly<Channel>> {
     return this.channelsApi.patchChannel({
-      token_address: channel.token_address,
-      partner_address: channel.partner_address,
-      InlineObject: { state: InlineObjectStateEnum.Closed },
+      tokenAddress: channel.tokenAddress,
+      partnerAddress: channel.partnerAddress,
+      inlineObject: { state: InlineObjectStateEnum.Closed },
     });
   }
 
@@ -75,9 +75,9 @@ export class Channels {
     channel: Readonly<Channel>,
   ): Observable<Readonly<Channel>> {
     return this.channelsApi.patchChannel({
-      token_address: channel.token_address,
-      partner_address: channel.partner_address,
-      InlineObject: { total_deposit: channel.total_deposit + amount },
+      tokenAddress: channel.tokenAddress,
+      partnerAddress: channel.partnerAddress,
+      inlineObject: { totalDeposit: channel.totalDeposit + amount },
     });
   }
 
@@ -86,9 +86,9 @@ export class Channels {
     channel: Readonly<Channel>,
   ): Observable<Readonly<Channel>> {
     return this.channelsApi.patchChannel({
-      token_address: channel.token_address,
-      partner_address: channel.partner_address,
-      InlineObject: { total_withdraw: channel.total_withdraw + amount },
+      tokenAddress: channel.tokenAddress,
+      partnerAddress: channel.partnerAddress,
+      inlineObject: { totalWithdraw: channel.totalWithdraw + amount },
     });
   }
 }

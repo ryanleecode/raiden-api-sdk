@@ -22,12 +22,12 @@ import {
 import { ChannelAllocation, Connection, Errors } from '../models';
 
 export interface JoinNetworkRequest {
-  token_address: string;
-  ChannelAllocation: ChannelAllocation;
+  tokenAddress: string;
+  channelAllocation: ChannelAllocation;
 }
 
 export interface LeaveNetworkRequest {
-  token_address: string;
+  tokenAddress: string;
 }
 
 /**
@@ -56,8 +56,8 @@ export class ConnectionsApi extends BaseAPI {
    * Join a token network.
    */
   joinNetwork = (requestParameters: JoinNetworkRequest): Observable<void> => {
-    throwIfRequired(requestParameters, 'token_address', 'joinNetwork');
-    throwIfRequired(requestParameters, 'ChannelAllocation', 'joinNetwork');
+    throwIfRequired(requestParameters, 'tokenAddress', 'joinNetwork');
+    throwIfRequired(requestParameters, 'channelAllocation', 'joinNetwork');
 
     const headers: HttpHeaders = {
       'Content-Type': 'application/json',
@@ -68,12 +68,12 @@ export class ConnectionsApi extends BaseAPI {
     return this.request<void>({
       path: `/connections/{token_address}`.replace(
         `{token_address}`,
-        encodeURIComponent(String(requestParameters.token_address)),
+        encodeURIComponent(String(requestParameters.tokenAddress)),
       ),
       method: 'PUT',
       headers,
       query,
-      body: requestParameters.ChannelAllocation,
+      body: requestParameters.channelAllocation,
     });
   };
 
@@ -84,7 +84,7 @@ export class ConnectionsApi extends BaseAPI {
   leaveNetwork = (
     requestParameters: LeaveNetworkRequest,
   ): Observable<Array<string>> => {
-    throwIfRequired(requestParameters, 'token_address', 'leaveNetwork');
+    throwIfRequired(requestParameters, 'tokenAddress', 'leaveNetwork');
 
     const headers: HttpHeaders = {};
 
@@ -93,7 +93,7 @@ export class ConnectionsApi extends BaseAPI {
     return this.request<Array<string>>({
       path: `/connections/{token_address}`.replace(
         `{token_address}`,
-        encodeURIComponent(String(requestParameters.token_address)),
+        encodeURIComponent(String(requestParameters.tokenAddress)),
       ),
       method: 'DELETE',
       headers,

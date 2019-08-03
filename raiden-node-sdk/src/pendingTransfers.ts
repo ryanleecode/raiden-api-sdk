@@ -36,12 +36,12 @@ export class PendingTransfers {
   ): Observable<ReadonlyArray<PendingTransfer>> {
     if (by.channelAddress !== undefined) {
       return this.pendingTransfersApi.getPendingTransfersForTokenOnChannel({
-        token_address: tokenAddress,
-        partner_address: by.channelAddress,
+        tokenAddress,
+        partnerAddress: by.channelAddress,
       });
     }
     return this.pendingTransfersApi.getPendingTransfersForToken({
-      token_address: tokenAddress,
+      tokenAddress,
     });
   }
 }

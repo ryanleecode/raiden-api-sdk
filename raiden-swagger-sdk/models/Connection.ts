@@ -27,7 +27,7 @@ export interface Connection {
    * @type {number}
    * @memberof Connection
    */
-  sum_deposits: number;
+  sumDeposits: number;
   /**
    *
    * @type {number}

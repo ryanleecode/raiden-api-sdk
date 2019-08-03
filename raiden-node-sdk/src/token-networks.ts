@@ -56,8 +56,8 @@ export class TokenNetworks {
     allocation?: DepositAllocation,
   ): Observable<void> {
     return this.connectionsApi.joinNetwork({
-      token_address: tokenAddress,
-      ChannelAllocation: {
+      tokenAddress,
+      channelAllocation: {
         funds,
         ...allocation,
       },
@@ -74,6 +74,6 @@ export class TokenNetworks {
   public leave(
     tokenAddress: string,
   ): Observable<ReadonlyArray<ClosedChannelAddress>> {
-    return this.connectionsApi.leaveNetwork({ token_address: tokenAddress });
+    return this.connectionsApi.leaveNetwork({ tokenAddress });
   }
 }

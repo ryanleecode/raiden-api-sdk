@@ -22,12 +22,12 @@ import {
 import { Errors, PendingTransfer } from '../models';
 
 export interface GetPendingTransfersForTokenRequest {
-  token_address: string;
+  tokenAddress: string;
 }
 
 export interface GetPendingTransfersForTokenOnChannelRequest {
-  token_address: string;
-  partner_address: string;
+  tokenAddress: string;
+  partnerAddress: string;
 }
 
 /**
@@ -58,7 +58,7 @@ export class PendingTransfersApi extends BaseAPI {
   ): Observable<Array<PendingTransfer>> => {
     throwIfRequired(
       requestParameters,
-      'token_address',
+      'tokenAddress',
       'getPendingTransfersForToken',
     );
 
@@ -69,7 +69,7 @@ export class PendingTransfersApi extends BaseAPI {
     return this.request<Array<PendingTransfer>>({
       path: `/pending_transfers/{token_address}`.replace(
         `{token_address}`,
-        encodeURIComponent(String(requestParameters.token_address)),
+        encodeURIComponent(String(requestParameters.tokenAddress)),
       ),
       method: 'GET',
       headers,
@@ -85,12 +85,12 @@ export class PendingTransfersApi extends BaseAPI {
   ): Observable<Array<PendingTransfer>> => {
     throwIfRequired(
       requestParameters,
-      'token_address',
+      'tokenAddress',
       'getPendingTransfersForTokenOnChannel',
     );
     throwIfRequired(
       requestParameters,
-      'partner_address',
+      'partnerAddress',
       'getPendingTransfersForTokenOnChannel',
     );
 
@@ -102,11 +102,11 @@ export class PendingTransfersApi extends BaseAPI {
       path: `/pending_transfers/{token_address}/{partner_address}`
         .replace(
           `{token_address}`,
-          encodeURIComponent(String(requestParameters.token_address)),
+          encodeURIComponent(String(requestParameters.tokenAddress)),
         )
         .replace(
           `{partner_address}`,
-          encodeURIComponent(String(requestParameters.partner_address)),
+          encodeURIComponent(String(requestParameters.partnerAddress)),
         ),
       method: 'GET',
       headers,

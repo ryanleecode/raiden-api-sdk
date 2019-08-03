@@ -21,13 +21,13 @@ export interface InlineObject {
    * @type {number}
    * @memberof InlineObject
    */
-  total_deposit?: number;
+  totalDeposit?: number;
   /**
    * The increased total withdrawal
    * @type {number}
    * @memberof InlineObject
    */
-  total_withdraw?: number;
+  totalWithdraw?: number;
   /**
    * Desired new state
    * @type {string}

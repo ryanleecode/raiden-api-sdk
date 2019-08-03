@@ -22,22 +22,22 @@ import {
 import { Channel, ChannelPartial, Errors, InlineObject } from '../models';
 
 export interface GetChannelsForTokenRequest {
-  token_address: string;
+  tokenAddress: string;
 }
 
 export interface GetPartnerChannelRequest {
-  token_address: string;
-  partner_address: string;
+  tokenAddress: string;
+  partnerAddress: string;
 }
 
 export interface OpenChannelRequest {
-  ChannelPartial: ChannelPartial;
+  channelPartial: ChannelPartial;
 }
 
 export interface PatchChannelRequest {
-  token_address: string;
-  partner_address: string;
-  InlineObject: InlineObject;
+  tokenAddress: string;
+  partnerAddress: string;
+  inlineObject: InlineObject;
 }
 
 /**
@@ -66,7 +66,7 @@ export class ChannelsApi extends BaseAPI {
   getChannelsForToken = (
     requestParameters: GetChannelsForTokenRequest,
   ): Observable<Array<Channel>> => {
-    throwIfRequired(requestParameters, 'token_address', 'getChannelsForToken');
+    throwIfRequired(requestParameters, 'tokenAddress', 'getChannelsForToken');
 
     const headers: HttpHeaders = {};
 
@@ -75,7 +75,7 @@ export class ChannelsApi extends BaseAPI {
     return this.request<Array<Channel>>({
       path: `/channels/{token_address}`.replace(
         `{token_address}`,
-        encodeURIComponent(String(requestParameters.token_address)),
+        encodeURIComponent(String(requestParameters.tokenAddress)),
       ),
       method: 'GET',
       headers,
@@ -90,8 +90,8 @@ export class ChannelsApi extends BaseAPI {
   getPartnerChannel = (
     requestParameters: GetPartnerChannelRequest,
   ): Observable<Channel> => {
-    throwIfRequired(requestParameters, 'token_address', 'getPartnerChannel');
-    throwIfRequired(requestParameters, 'partner_address', 'getPartnerChannel');
+    throwIfRequired(requestParameters, 'tokenAddress', 'getPartnerChannel');
+    throwIfRequired(requestParameters, 'partnerAddress', 'getPartnerChannel');
 
     const headers: HttpHeaders = {};
 
@@ -101,11 +101,11 @@ export class ChannelsApi extends BaseAPI {
       path: `/channels/{token_address}/{partner_address}`
         .replace(
           `{token_address}`,
-          encodeURIComponent(String(requestParameters.token_address)),
+          encodeURIComponent(String(requestParameters.tokenAddress)),
         )
         .replace(
           `{partner_address}`,
-          encodeURIComponent(String(requestParameters.partner_address)),
+          encodeURIComponent(String(requestParameters.partnerAddress)),
         ),
       method: 'GET',
       headers,
@@ -119,7 +119,7 @@ export class ChannelsApi extends BaseAPI {
   openChannel = (
     requestParameters: OpenChannelRequest,
   ): Observable<Channel> => {
-    throwIfRequired(requestParameters, 'ChannelPartial', 'openChannel');
+    throwIfRequired(requestParameters, 'channelPartial', 'openChannel');
 
     const headers: HttpHeaders = {
       'Content-Type': 'application/json',
@@ -132,7 +132,7 @@ export class ChannelsApi extends BaseAPI {
       method: 'PUT',
       headers,
       query,
-      body: requestParameters.ChannelPartial,
+      body: requestParameters.channelPartial,
     });
   };
 
@@ -142,9 +142,9 @@ export class ChannelsApi extends BaseAPI {
   patchChannel = (
     requestParameters: PatchChannelRequest,
   ): Observable<Channel> => {
-    throwIfRequired(requestParameters, 'token_address', 'patchChannel');
-    throwIfRequired(requestParameters, 'partner_address', 'patchChannel');
-    throwIfRequired(requestParameters, 'InlineObject', 'patchChannel');
+    throwIfRequired(requestParameters, 'tokenAddress', 'patchChannel');
+    throwIfRequired(requestParameters, 'partnerAddress', 'patchChannel');
+    throwIfRequired(requestParameters, 'inlineObject', 'patchChannel');
 
     const headers: HttpHeaders = {
       'Content-Type': 'application/json',
@@ -156,16 +156,16 @@ export class ChannelsApi extends BaseAPI {
       path: `/channels/{token_address}/{partner_address}`
         .replace(
           `{token_address}`,
-          encodeURIComponent(String(requestParameters.token_address)),
+          encodeURIComponent(String(requestParameters.tokenAddress)),
         )
         .replace(
           `{partner_address}`,
-          encodeURIComponent(String(requestParameters.partner_address)),
+          encodeURIComponent(String(requestParameters.partnerAddress)),
         ),
       method: 'PATCH',
       headers,
       query,
-      body: requestParameters.InlineObject,
+      body: requestParameters.inlineObject,
     });
   };
 }

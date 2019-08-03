@@ -22,11 +22,11 @@ import {
 import { Errors, Partner, TokenNetworkAddress } from '../models';
 
 export interface GetTokenRequest {
-  token_address: string;
+  tokenAddress: string;
 }
 
 export interface RegisterTokenRequest {
-  token_address: string;
+  tokenAddress: string;
 }
 
 /**
@@ -38,7 +38,7 @@ export class TokensApi extends BaseAPI {
    * Address of the corresponding token network
    */
   getToken = (requestParameters: GetTokenRequest): Observable<string> => {
-    throwIfRequired(requestParameters, 'token_address', 'getToken');
+    throwIfRequired(requestParameters, 'tokenAddress', 'getToken');
 
     const headers: HttpHeaders = {};
 
@@ -47,7 +47,7 @@ export class TokensApi extends BaseAPI {
     return this.request<string>({
       path: `/tokens/(token_address)`.replace(
         `{token_address}`,
-        encodeURIComponent(String(requestParameters.token_address)),
+        encodeURIComponent(String(requestParameters.tokenAddress)),
       ),
       method: 'GET',
       headers,
@@ -95,7 +95,7 @@ export class TokensApi extends BaseAPI {
   registerToken = (
     requestParameters: RegisterTokenRequest,
   ): Observable<TokenNetworkAddress> => {
-    throwIfRequired(requestParameters, 'token_address', 'registerToken');
+    throwIfRequired(requestParameters, 'tokenAddress', 'registerToken');
 
     const headers: HttpHeaders = {};
 
@@ -104,7 +104,7 @@ export class TokensApi extends BaseAPI {
     return this.request<TokenNetworkAddress>({
       path: `/tokens/(token_address)`.replace(
         `{token_address}`,
-        encodeURIComponent(String(requestParameters.token_address)),
+        encodeURIComponent(String(requestParameters.tokenAddress)),
       ),
       method: 'PUT',
       headers,

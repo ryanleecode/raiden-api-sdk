@@ -23,37 +23,37 @@ export interface Channel {
    * @type {string}
    * @memberof Channel
    */
-  partner_address: string;
+  partnerAddress: string;
   /**
    * EIP55-encoded address of the token we are trading in the channel
    * @type {string}
    * @memberof Channel
    */
-  token_address: string;
+  tokenAddress: string;
   /**
    * Amount of the token_address token we have deposited into the contract for this channel.
    * @type {number}
    * @memberof Channel
    */
-  total_deposit: number;
+  totalDeposit: number;
   /**
    * The number of blocks that are required to be mined from the time that close() is called until the channel can be settled with a call to settle()
    * @type {number}
    * @memberof Channel
    */
-  settle_timeout: number;
+  settleTimeout: number;
   /**
    * identifier of the channel
    * @type {number}
    * @memberof Channel
    */
-  channel_identifier: number;
+  channelIdentifier: number;
   /**
    * EIP55-encoded address of the token network the channel is part of
    * @type {string}
    * @memberof Channel
    */
-  token_network_identifier: string;
+  tokenNetworkIdentifier: string;
   /**
    * Amount of the token_address token we have available for payments.
    * @type {number}
@@ -65,7 +65,7 @@ export interface Channel {
    * @type {number}
    * @memberof Channel
    */
-  total_withdraw: number;
+  totalWithdraw: number;
   /**
    *
    * @type {ChannelState}
@@ -77,5 +77,5 @@ export interface Channel {
    * @type {number}
    * @memberof Channel
    */
-  reveal_timeout: number;
+  revealTimeout: number;
 }
