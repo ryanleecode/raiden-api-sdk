@@ -1,6 +1,8 @@
-import { Connection } from 'raiden-swagger-sdk';
+import { Connection as ConnectionS } from 'raiden-swagger-sdk';
 import { Observable } from 'rxjs';
 import { Configuration, ConnectionsApi } from './apis';
+
+export interface Connection extends ConnectionS {}
 
 export interface DepositAllocation {
   /**
@@ -35,7 +37,7 @@ export class TokenNetworks {
    * @remarks
    * Each key is a token address for which you have open channels.
    *
-   * {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-connections}
+   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-connections}
    */
   public findAll(): Observable<{ [key: string]: Readonly<Connection> }> {
     return this.connectionsApi.getConnections();
@@ -48,10 +50,11 @@ export class TokenNetworks {
    * The request will only return once all blockchain calls
    * for opening and/or depositing to a channel have completed.
    *
-   * @param tokenAddress - token address of the respective token network
-   * @param funds - the amount of funds you want to deposit
-   * @param allocation - allocation of funds for each channel in the network
-   * {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#put--api-(version)-connections-(token_address)}
+   * @param tokenAddress - Token address of the respective token network
+   * @param funds - The amount of funds you want to deposit
+   * @param allocation - Allocation of funds for each channel in the network
+   *
+   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#put--api-(version)-connections-(token_address)}
    */
   public join(
     tokenAddress: string,
@@ -73,8 +76,9 @@ export class TokenNetworks {
    * @remarks
    * The request will only return once all blockchain calls
    * for closing/settling a channel have completed.
-   * @param tokenAddress - token address of the respective token network
-   * {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#delete--api-(version)-connections-(token_address)}
+   * @param tokenAddress - Token address of the respective token network
+   *
+   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#delete--api-(version)-connections-(token_address)}
    */
   public leave(
     tokenAddress: string,
