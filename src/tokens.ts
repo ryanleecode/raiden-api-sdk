@@ -18,7 +18,7 @@ export class Tokens {
   /**
    * Addresses of all registered tokens
    *
-   * {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-tokens}
+   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-tokens}
    */
   public findAllRegistered(): Observable<ReadonlyArray<TokenAddress>> {
     return this.tokensApi.getTokens();
@@ -30,7 +30,7 @@ export class Tokens {
    * @remarks
    * The address of the corresponding token network for the given token, if the token is registered.
    * @param tokenAddress - the address of the token
-   * {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-tokens-(token_address)}
+   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-tokens-(token_address)}
    */
   public networkAddressFor(
     tokenAddress: string,
@@ -41,7 +41,7 @@ export class Tokens {
   /**
    * List of all partners with whom you have non-settled channels for a certain token
    *
-   * {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-tokens-(token_address)-partners}
+   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-tokens-(token_address)-partners}
    */
   public partners(): Observable<ReadonlyArray<Readonly<Partner>>> {
     return this.tokensApi.getTokenPartners();
@@ -56,7 +56,7 @@ export class Tokens {
    *  we need to register it by deploying a token network contract for
    *  that token.
    * @param tokenAddress - the address of the token
-   * {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#put--api-(version)-tokens-(token_address)}
+   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#put--api-(version)-tokens-(token_address)}
    */
   public register(
     tokenAddress: string,
