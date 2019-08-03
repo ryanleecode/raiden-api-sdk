@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/drdgvhbh/raiden-node-sdk#readme",
   "devDependencies": {
+    "@types/dotenv": "^6.1.1",
     "@types/jest": "^24.0.16",
     "@types/node": "^12.6.9",
     "jest": "^24.8.0",
@@ -31,7 +32,8 @@
     "typescript": "^3.5.3"
   },
   "dependencies": {
-    "rxjs": "^6.5.2",
-    "raiden-swagger-sdk": "file:../raiden-swagger-sdk"
+    "dotenv": "^8.0.0",
+    "raiden-swagger-sdk": "file:../raiden-swagger-sdk",
+    "rxjs": "^6.5.2"
   }
 }
