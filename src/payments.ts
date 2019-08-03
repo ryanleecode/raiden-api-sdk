@@ -1,18 +1,43 @@
-import { PaymentReceipt, PaymentEvent } from 'raiden-swagger-sdk';
+import {
+  PaymentReceipt as PaymentReceiptS,
+  PaymentEvent as PaymentEventS,
+} from 'raiden-swagger-sdk';
 import { Observable } from 'rxjs';
 import { Configuration, PaymentsApi } from './apis';
 
 export interface Token {
+  /**
+   * The address of the token
+   */
   address: string;
 
+  /**
+   * The amount you want to pay
+   */
   amount: number;
 }
 
+/**
+ * Creates an object used to initiate a payment
+ * @param address - The address of the token
+ * @param amount - The amount you want to pay
+ */
 export function NewToken(address: string, amount: number): Token {
   return {
     address,
     amount,
   };
+}
+
+export declare enum PaymentEventEventEnum {
+  EventPaymentReceivedSuccess = 'EventPaymentReceivedSuccess',
+  EventPaymentSentSuccess = 'EventPaymentSentSuccess',
+  EventPaymentSentFailed = 'EventPaymentSentFailed',
+}
+
+export interface PaymentReceipt extends PaymentReceiptS {}
+export interface PaymentEvent extends PaymentEventS {
+  event: PaymentEventEventEnum;
 }
 
 export class Payments {
@@ -33,11 +58,11 @@ export class Payments {
    * A payment can fail due to the expiration of a lock, the target being offline,
    * channels on the path to the target not having enough `settleTimeout` and
    *  `revealTimeout` in order to allow the payment to be propagated safely, not enough funds etc.
-   * @param token - payment details
-   * @param to - address of the recipient
-   * @param identifier - identifier of the payment
+   * @param token - Payment details
+   * @param to - Address of the recipient
+   * @param identifier - Identifier of the payment
    *
-   * {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#post--api-(version)-payments-(token_address)-(target_address)}
+   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#post--api-(version)-payments-(token_address)-(target_address)}
    */
   public initiate(
     token: Readonly<Token>,
@@ -57,10 +82,10 @@ export class Payments {
   /**
    * Payment History
    *
-   * @param tokenAddress - the token you want history for
-   * @param targetAddress - the target address you want history for
+   * @param tokenAddress - The token you want history for
+   * @param targetAddress - The target address you want history for
    *
-   * {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-v1-payments-(token_address)-(target_address)}
+   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-v1-payments-(token_address)-(target_address)}
    */
   public history(
     tokenAddress?: string,
