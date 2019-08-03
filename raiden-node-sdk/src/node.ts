@@ -1,5 +1,6 @@
-import { RaidenNodeApi, Configuration, Address } from "raiden-swagger-sdk";
+import { RaidenNodeApi, Configuration } from "raiden-swagger-sdk";
 import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 
 export class Node {
   public static create(config?: Configuration) {
@@ -15,7 +16,7 @@ export class Node {
    * also be your raiden address.
    * @link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-address
    */
-  public address(): Observable<Readonly<Address>> {
-    return this.nodeApi.getAddress();
+  public ourAddress(): Observable<string> {
+    return this.nodeApi.getAddress().pipe(map(val => val.ourAddress));
   }
 }
