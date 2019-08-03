@@ -1,6 +1,6 @@
-import { TokensApi, Configuration, Partner } from "raiden-swagger-sdk";
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { TokensApi, Configuration, Partner } from 'raiden-swagger-sdk';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export type TokenNetworkAddress = string;
 export type TokenAddress = string;
@@ -29,9 +29,9 @@ export class Tokens {
    * @link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-tokens-(token_address)
    */
   public networkAddressFor(
-    tokenAddress: string
+    tokenAddress: string,
   ): Observable<TokenNetworkAddress> {
-    return this.tokensApi.getToken({ tokenAddress });
+    return this.tokensApi.getToken({ token_address: tokenAddress });
   }
 
   /**
@@ -52,10 +52,10 @@ export class Tokens {
    * @link https://raiden-network.readthedocs.io/en/stable/rest_api.html#put--api-(version)-tokens-(token_address)
    */
   public register(
-    tokenAddress: string
+    tokenAddress: string,
   ): Observable<Readonly<TokenNetworkAddress>> {
     return this.tokensApi
-      .registerToken({ tokenAddress })
-      .pipe(map(res => res.tokenNetworkAddress));
+      .registerToken({ token_address: tokenAddress })
+      .pipe(map((res) => res.token_network_address));
   }
 }

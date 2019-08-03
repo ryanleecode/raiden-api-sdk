@@ -2,9 +2,9 @@ import {
   Configuration,
   ConnectionsApi,
   Connection,
-  ChannelAllocation
-} from "raiden-swagger-sdk";
-import { Observable } from "rxjs";
+  ChannelAllocation,
+} from 'raiden-swagger-sdk';
+import { Observable } from 'rxjs';
 
 export interface DepositAllocation {
   /**
@@ -53,14 +53,14 @@ export class TokenNetworks {
   public join(
     tokenAddress: string,
     funds: number,
-    allocation?: DepositAllocation
+    allocation?: DepositAllocation,
   ): Observable<void> {
     return this.connectionsApi.joinNetwork({
-      tokenAddress,
-      channelAllocation: {
+      token_address: tokenAddress,
+      ChannelAllocation: {
         funds,
-        ...allocation
-      }
+        ...allocation,
+      },
     });
   }
 
@@ -72,8 +72,8 @@ export class TokenNetworks {
    * @link https://raiden-network.readthedocs.io/en/latest/rest_api.html#delete--api-(version)-connections-(token_address)
    */
   public leave(
-    tokenAddress: string
+    tokenAddress: string,
   ): Observable<ReadonlyArray<ClosedChannelAddress>> {
-    return this.connectionsApi.leaveNetwork({ tokenAddress });
+    return this.connectionsApi.leaveNetwork({ token_address: tokenAddress });
   }
 }

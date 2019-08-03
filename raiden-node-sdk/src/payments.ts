@@ -2,9 +2,9 @@ import {
   Configuration,
   PaymentsApi,
   PaymentReceipt,
-  PaymentEvent
-} from "raiden-swagger-sdk";
-import { Observable } from "rxjs";
+  PaymentEvent,
+} from 'raiden-swagger-sdk';
+import { Observable } from 'rxjs';
 
 export interface Token {
   address: string;
@@ -15,7 +15,7 @@ export interface Token {
 export function NewToken(address: string, amount: number): Token {
   return {
     address,
-    amount
+    amount,
   };
 }
 
@@ -44,15 +44,15 @@ export class Payments {
   public initiate(
     token: Readonly<Token>,
     to: string,
-    identifier?: number
+    identifier?: number,
   ): Observable<Readonly<PaymentReceipt>> {
     return this.paymentsApi.pay({
-      tokenAddress: token.address,
-      targetAddress: to,
-      payment: {
+      token_address: token.address,
+      target_address: to,
+      Payment: {
         amount: token.amount,
-        identifier: identifier
-      }
+        identifier: identifier,
+      },
     });
   }
 
@@ -64,16 +64,18 @@ export class Payments {
    */
   public history(
     tokenAddress?: string,
-    targetAddress?: string
+    targetAddress?: string,
   ): Observable<ReadonlyArray<Readonly<PaymentEvent>>> {
     if (tokenAddress && targetAddress) {
       return this.paymentsApi.getPaymentsByTokenForTarget({
-        tokenAddress,
-        targetAddress
+        token_address: tokenAddress,
+        target_address: targetAddress,
       });
     }
     if (tokenAddress) {
-      return this.paymentsApi.getPaymentsByToken({ tokenAddress });
+      return this.paymentsApi.getPaymentsByToken({
+        token_address: tokenAddress,
+      });
     }
     return this.paymentsApi.getPayments();
   }

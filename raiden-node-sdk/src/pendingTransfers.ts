@@ -1,9 +1,9 @@
 import {
   PendingTransfersApi,
   PendingTransfer,
-  Configuration
-} from "raiden-swagger-sdk";
-import { Observable } from "rxjs";
+  Configuration,
+} from 'raiden-swagger-sdk';
+import { Observable } from 'rxjs';
 
 interface QueryPendingTransfersFilter {
   channelAddress?: string;
@@ -32,16 +32,16 @@ export class PendingTransfers {
    */
   public findAllFor(
     tokenAddress: string,
-    by: QueryPendingTransfersFilter = {}
+    by: QueryPendingTransfersFilter = {},
   ): Observable<ReadonlyArray<PendingTransfer>> {
     if (by.channelAddress !== undefined) {
       return this.pendingTransfersApi.getPendingTransfersForTokenOnChannel({
-        tokenAddress,
-        partnerAddress: by.channelAddress
+        token_address: tokenAddress,
+        partner_address: by.channelAddress,
       });
     }
     return this.pendingTransfersApi.getPendingTransfersForToken({
-      tokenAddress
+      token_address: tokenAddress,
     });
   }
 }

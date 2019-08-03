@@ -3,9 +3,9 @@ import {
   Configuration,
   Channel,
   ChannelPartial,
-  InlineObjectStateEnum
-} from "raiden-swagger-sdk";
-import { Observable } from "rxjs";
+  InlineObjectStateEnum,
+} from 'raiden-swagger-sdk';
+import { Observable } from 'rxjs';
 
 export interface OpenChannelRequest extends ChannelPartial {}
 
@@ -32,9 +32,11 @@ export class Channels {
    * @link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-channels-(token_address)
    */
   public findAllUnsettledFor(
-    tokenAddress: string
+    tokenAddress: string,
   ): Observable<ReadonlyArray<Readonly<Channel>>> {
-    return this.channelsApi.getChannelsForToken({ tokenAddress });
+    return this.channelsApi.getChannelsForToken({
+      token_address: tokenAddress,
+    });
   }
 
   /**
@@ -46,44 +48,47 @@ export class Channels {
    */
   public inspect(
     tokenAddress: string,
-    partnerAddress: string
+    partnerAddress: string,
   ): Observable<Readonly<Channel>> {
-    return this.channelsApi.getPartnerChannel({ tokenAddress, partnerAddress });
+    return this.channelsApi.getPartnerChannel({
+      token_address: tokenAddress,
+      partner_address: partnerAddress,
+    });
   }
 
   public open(
-    request: Readonly<OpenChannelRequest>
+    request: Readonly<OpenChannelRequest>,
   ): Observable<Readonly<Channel>> {
-    return this.channelsApi.openChannel({ channelPartial: request });
+    return this.channelsApi.openChannel({ ChannelPartial: request });
   }
 
   public close(channel: Readonly<Channel>): Observable<Readonly<Channel>> {
     return this.channelsApi.patchChannel({
-      tokenAddress: channel.tokenAddress,
-      partnerAddress: channel.partnerAddress,
-      inlineObject: { state: InlineObjectStateEnum.Closed }
+      token_address: channel.token_address,
+      partner_address: channel.partner_address,
+      InlineObject: { state: InlineObjectStateEnum.Closed },
     });
   }
 
   public deposit(
     amount: number,
-    channel: Readonly<Channel>
+    channel: Readonly<Channel>,
   ): Observable<Readonly<Channel>> {
     return this.channelsApi.patchChannel({
-      tokenAddress: channel.tokenAddress,
-      partnerAddress: channel.partnerAddress,
-      inlineObject: { totalDeposit: channel.totalDeposit + amount }
+      token_address: channel.token_address,
+      partner_address: channel.partner_address,
+      InlineObject: { total_deposit: channel.total_deposit + amount },
     });
   }
 
   public withdraw(
     amount: number,
-    channel: Readonly<Channel>
+    channel: Readonly<Channel>,
   ): Observable<Readonly<Channel>> {
     return this.channelsApi.patchChannel({
-      tokenAddress: channel.tokenAddress,
-      partnerAddress: channel.partnerAddress,
-      inlineObject: { totalWithdraw: channel.totalWithdraw + amount }
+      token_address: channel.token_address,
+      partner_address: channel.partner_address,
+      InlineObject: { total_withdraw: channel.total_withdraw + amount },
     });
   }
 }
