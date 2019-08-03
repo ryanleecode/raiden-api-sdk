@@ -19,7 +19,7 @@ export type ErrorType =
 export class RaidenAPIError extends Error {
   public type: ErrorType;
 
-  public errors: string[] | string;
+  public errors: { [key: string]: string[] } | string;
 
   public cause: AjaxError;
 
