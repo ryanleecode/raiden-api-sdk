@@ -18,16 +18,21 @@ export class Node {
    * @remarks
    * When raiden starts, you choose an ethereum address which will
    * also be your raiden address.
+   *
    * @example
    * ```typescript
-   * const raiden = Raiden.create();
-   * const ourAddress = raiden.node.ourAddress().toPromise();
+   * import Raiden from 'raiden-sdk';
    *
-   * // 0xA44e09ea90eAF80DC1B59aA45687e2c4d572049D
-   * console.log(ourAddress);
+   * (async function() {
+   *   const raiden = Raiden.create();
+   *   const ourAddress = raiden.node.ourAddress().toPromise();
+   *
+   *   // 0xA44e09ea90eAF80DC1B59aA45687e2c4d572049D
+   *   console.log(ourAddress);
+   * })()
    * ```
-   *
-   * {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-address}
+   *  <br />
+   * {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-address | Official API Documentation}
    */
   public ourAddress(): Observable<string> {
     return this.nodeApi.getAddress().pipe(
