@@ -32,8 +32,8 @@ export class Node {
    *   console.log(ourAddress);
    * })()
    * ```
-   *  <br />
-   * {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-address}
+   *
+   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-address}
    */
   public ourAddress(): Observable<string> {
     return this.nodeApi.getAddress().pipe(
