@@ -41,10 +41,14 @@ export class Tokens {
   /**
    * List of all partners with whom you have non-settled channels for a certain token
    *
+   * @param tokenAddress - the address of the token
+   *
    * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-tokens-(token_address)-partners}
    */
-  public partners(): Observable<ReadonlyArray<Readonly<Partner>>> {
-    return this.tokensApi.getTokenPartners();
+  public partners(
+    tokenAddress: string,
+  ): Observable<ReadonlyArray<Readonly<Partner>>> {
+    return this.tokensApi.getTokenPartners({ tokenAddress });
   }
 
   /**
