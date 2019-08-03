@@ -1,5 +1,5 @@
 {
-  "name": "raiden-node-sdk",
+  "name": "raiden-sdk",
   "version": "1.0.0",
   "description": "SDK for interacting with the Raiden API",
   "main": "lib/index.js",
