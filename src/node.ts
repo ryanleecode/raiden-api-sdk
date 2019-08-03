@@ -40,7 +40,6 @@ export class Node {
    */
   public ourAddress(): Observable<string> {
     return this.nodeApi.getAddress().pipe(
-      map((val) => (camelcase(val) as unknown) as Address),
       map((val) => val.ourAddress),
       catchError((err) => {
         if (err instanceof AjaxError) {

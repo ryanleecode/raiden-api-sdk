@@ -5,6 +5,8 @@ import { PendingTransfers } from './pendingTransfers';
 import { TokenNetworks } from './token-networks';
 import { Payments } from './payments';
 import { Configuration } from './apis';
+import snakecaseKeys = require('snakecase-keys');
+import camelcaseKeys from 'camelcase-keys';
 
 export interface RaidenSwaggerApis {
   node: Node;
@@ -35,12 +37,37 @@ export class Raiden {
   public readonly payments: Payments;
 
   public static create(config?: Configuration): Raiden {
-    const node = Node.create(config);
-    const channels = Channels.create(config);
-    const tokens = Tokens.create(config);
-    const pendingTransfers = PendingTransfers.create(config);
-    const tokenNetworks = TokenNetworks.create(config);
-    const payments = Payments.create(config);
+    const middleware = config ? config.middleware : [];
+    middleware.push({
+      pre: (ctx) => {
+        const { body } = ctx.options;
+        if (body) {
+          const bodySC = snakecaseKeys(JSON.parse(body as string));
+          ctx.options.body = JSON.stringify(bodySC);
+        }
+        return ctx;
+      },
+      post: (res) => {
+        const { response: body } = res.response;
+        res.response.response = camelcaseKeys(body);
+        return res.response;
+      },
+    });
+    const newConf: Configuration = new Configuration({
+      basePath: config ? config.basePath : undefined,
+      username: config ? config.username : undefined,
+      password: config ? config.password : undefined,
+      apiKey: config ? config.apiKey : undefined,
+      accessToken: config ? config.accessToken : undefined,
+      middleware,
+    });
+
+    const node = Node.create(newConf);
+    const channels = Channels.create(newConf);
+    const tokens = Tokens.create(newConf);
+    const pendingTransfers = PendingTransfers.create(newConf);
+    const tokenNetworks = TokenNetworks.create(newConf);
+    const payments = Payments.create(newConf);
 
     return new Raiden({
       node,
