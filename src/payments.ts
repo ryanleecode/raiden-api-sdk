@@ -2,8 +2,11 @@ import {
   PaymentReceipt as PaymentReceiptS,
   PaymentEvent as PaymentEventS,
 } from 'raiden-swagger-sdk';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { Configuration, PaymentsApi } from './apis';
+import { catchError } from 'rxjs/operators';
+import { AjaxError } from 'rxjs/ajax';
+import { RaidenAPIError } from './errors';
 
 export interface Token {
   /**
@@ -62,6 +65,7 @@ export class Payments {
    * @param to - Address of the recipient
    * @param identifier - Identifier of the payment
    *
+   * @throws {@link RaidenAPIError}
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#post--api-(version)-payments-(token_address)-(target_address)}
    */
   public initiate(
@@ -69,14 +73,23 @@ export class Payments {
     to: string,
     identifier?: number,
   ): Observable<Readonly<PaymentReceipt>> {
-    return this.paymentsApi.pay({
-      tokenAddress: token.address,
-      targetAddress: to,
-      payment: {
-        amount: token.amount,
-        identifier: identifier,
-      },
-    });
+    return this.paymentsApi
+      .pay({
+        tokenAddress: token.address,
+        targetAddress: to,
+        payment: {
+          amount: token.amount,
+          identifier: identifier,
+        },
+      })
+      .pipe(
+        catchError((err) => {
+          if (err instanceof AjaxError) {
+            return throwError(new RaidenAPIError(err));
+          }
+          return throwError(err);
+        }),
+      );
   }
 
   /**
@@ -85,23 +98,34 @@ export class Payments {
    * @param tokenAddress - The token you want history for
    * @param targetAddress - The target address you want history for
    *
+   * @throws {@link RaidenAPIError}
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-v1-payments-(token_address)-(target_address)}
    */
   public history(
     tokenAddress?: string,
     targetAddress?: string,
   ): Observable<ReadonlyArray<Readonly<PaymentEvent>>> {
+    let stream: Observable<ReadonlyArray<Readonly<PaymentEvent>>>;
     if (tokenAddress && targetAddress) {
-      return this.paymentsApi.getPaymentsByTokenForTarget({
+      stream = this.paymentsApi.getPaymentsByTokenForTarget({
         tokenAddress,
         targetAddress,
       });
-    }
-    if (tokenAddress) {
-      return this.paymentsApi.getPaymentsByToken({
+    } else if (tokenAddress) {
+      stream = this.paymentsApi.getPaymentsByToken({
         tokenAddress,
       });
+    } else {
+      stream = this.paymentsApi.getPayments();
     }
-    return this.paymentsApi.getPayments();
+
+    return stream.pipe(
+      catchError((err) => {
+        if (err instanceof AjaxError) {
+          return throwError(new RaidenAPIError(err));
+        }
+        return throwError(err);
+      }),
+    );
   }
 }

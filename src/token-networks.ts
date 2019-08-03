@@ -1,6 +1,9 @@
 import { Connection as ConnectionS } from 'raiden-swagger-sdk';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { Configuration, ConnectionsApi } from './apis';
+import { catchError } from 'rxjs/operators';
+import { AjaxError } from 'rxjs/ajax';
+import { RaidenAPIError } from './errors';
 
 export interface Connection extends ConnectionS {}
 
@@ -37,10 +40,18 @@ export class TokenNetworks {
    * @remarks
    * Each key is a token address for which you have open channels.
    *
+   * @throws {@link RaidenAPIError}
    * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-connections}
    */
   public findAll(): Observable<{ [key: string]: Readonly<Connection> }> {
-    return this.connectionsApi.getConnections();
+    return this.connectionsApi.getConnections().pipe(
+      catchError((err) => {
+        if (err instanceof AjaxError) {
+          return throwError(new RaidenAPIError(err));
+        }
+        return throwError(err);
+      }),
+    );
   }
 
   /**
@@ -54,6 +65,7 @@ export class TokenNetworks {
    * @param funds - The amount of funds you want to deposit
    * @param allocation - Allocation of funds for each channel in the network
    *
+   * @throws {@link RaidenAPIError}
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#put--api-(version)-connections-(token_address)}
    */
   public join(
@@ -61,13 +73,22 @@ export class TokenNetworks {
     funds: number,
     allocation?: DepositAllocation,
   ): Observable<void> {
-    return this.connectionsApi.joinNetwork({
-      tokenAddress,
-      channelAllocation: {
-        funds,
-        ...allocation,
-      },
-    });
+    return this.connectionsApi
+      .joinNetwork({
+        tokenAddress,
+        channelAllocation: {
+          funds,
+          ...allocation,
+        },
+      })
+      .pipe(
+        catchError((err) => {
+          if (err instanceof AjaxError) {
+            return throwError(new RaidenAPIError(err));
+          }
+          return throwError(err);
+        }),
+      );
   }
 
   /**
@@ -78,11 +99,19 @@ export class TokenNetworks {
    * for closing/settling a channel have completed.
    * @param tokenAddress - Token address of the respective token network
    *
+   * @throws {@link RaidenAPIError}
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#delete--api-(version)-connections-(token_address)}
    */
   public leave(
     tokenAddress: string,
   ): Observable<ReadonlyArray<ClosedChannelAddress>> {
-    return this.connectionsApi.leaveNetwork({ tokenAddress });
+    return this.connectionsApi.leaveNetwork({ tokenAddress }).pipe(
+      catchError((err) => {
+        if (err instanceof AjaxError) {
+          return throwError(new RaidenAPIError(err));
+        }
+        return throwError(err);
+      }),
+    );
   }
 }

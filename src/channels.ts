@@ -3,8 +3,11 @@ import {
   ChannelPartial,
   InlineObjectStateEnum,
 } from 'raiden-swagger-sdk';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { Configuration, ChannelsApi } from './apis';
+import { catchError } from 'rxjs/operators';
+import { AjaxError } from 'rxjs/ajax';
+import { RaidenAPIError } from './errors';
 
 export enum ChannelState {
   Opened = 'opened',
@@ -31,24 +34,42 @@ export class Channels {
   /**
    * List of all unsettled channels
    *
+   * @throws {@link RaidenAPIError}
    * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-channels}
    */
   public findAllUnsettled(): Observable<ReadonlyArray<Readonly<Channel>>> {
-    return this.channelsApi.getChannels();
+    return this.channelsApi.getChannels().pipe(
+      catchError((err) => {
+        if (err instanceof AjaxError) {
+          return throwError(new RaidenAPIError(err));
+        }
+        return throwError(err);
+      }),
+    );
   }
 
   /**
    * List of all unsettled channels for the given token address
    *
    * @param tokenAddress - The address of the token with unsettled channels
+   * @throws {@link RaidenAPIError}
    * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-channels-(token_address)}
    */
   public findAllUnsettledFor(
     tokenAddress: string,
   ): Observable<ReadonlyArray<Readonly<Channel>>> {
-    return this.channelsApi.getChannelsForToken({
-      tokenAddress,
-    });
+    return this.channelsApi
+      .getChannelsForToken({
+        tokenAddress,
+      })
+      .pipe(
+        catchError((err) => {
+          if (err instanceof AjaxError) {
+            return throwError(new RaidenAPIError(err));
+          }
+          return throwError(err);
+        }),
+      );
   }
 
   /**
@@ -57,19 +78,31 @@ export class Channels {
    * @remarks
    * The channel is specified by the address of the token and the partner’s address.
    *
-   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-channels-(token_address)-(partner_address)}
    *
    * @param tokenAddress - The respective token address
    * @param partnerAddress - The respective partner address
+   *
+   * @throws {@link RaidenAPIError}
+   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-channels-(token_address)-(partner_address)}
+   *
    */
   public inspect(
     tokenAddress: string,
     partnerAddress: string,
   ): Observable<Readonly<Channel>> {
-    return this.channelsApi.getPartnerChannel({
-      tokenAddress,
-      partnerAddress,
-    });
+    return this.channelsApi
+      .getPartnerChannel({
+        tokenAddress,
+        partnerAddress,
+      })
+      .pipe(
+        catchError((err) => {
+          if (err instanceof AjaxError) {
+            return throwError(new RaidenAPIError(err));
+          }
+          return throwError(err);
+        }),
+      );
   }
 
   /**
@@ -77,12 +110,21 @@ export class Channels {
    *
    * @param request - Open channel request parameters
    *
+   * @throws {@link RaidenAPIError}
+   *
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#put--api-(version)-channels}
    */
   public open(
     request: Readonly<OpenChannelRequest>,
   ): Observable<Readonly<Channel>> {
-    return this.channelsApi.openChannel({ channelPartial: request });
+    return this.channelsApi.openChannel({ channelPartial: request }).pipe(
+      catchError((err) => {
+        if (err instanceof AjaxError) {
+          return throwError(new RaidenAPIError(err));
+        }
+        return throwError(err);
+      }),
+    );
   }
 
   /**
@@ -90,14 +132,25 @@ export class Channels {
    *
    * @param channel - The channel to be closed
    *
+   * @throws {@link RaidenAPIError}
+   *
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#patch--api-(version)-channels-(token_address)-(partner_address)}
    */
   public close(channel: Readonly<Channel>): Observable<Readonly<Channel>> {
-    return this.channelsApi.patchChannel({
-      tokenAddress: channel.tokenAddress,
-      partnerAddress: channel.partnerAddress,
-      inlineObject: { state: InlineObjectStateEnum.Closed },
-    });
+    return this.channelsApi
+      .patchChannel({
+        tokenAddress: channel.tokenAddress,
+        partnerAddress: channel.partnerAddress,
+        inlineObject: { state: InlineObjectStateEnum.Closed },
+      })
+      .pipe(
+        catchError((err) => {
+          if (err instanceof AjaxError) {
+            return throwError(new RaidenAPIError(err));
+          }
+          return throwError(err);
+        }),
+      );
   }
 
   /**
@@ -106,17 +159,28 @@ export class Channels {
    * @param amount - The amount of funds you want to deposit in the channel
    * @param channel - The respective channel
    *
+   * @throws {@link RaidenAPIError}
+   *
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#patch--api-(version)-channels-(token_address)-(partner_address)}
    */
   public deposit(
     amount: number,
     channel: Readonly<Channel>,
   ): Observable<Readonly<Channel>> {
-    return this.channelsApi.patchChannel({
-      tokenAddress: channel.tokenAddress,
-      partnerAddress: channel.partnerAddress,
-      inlineObject: { totalDeposit: channel.totalDeposit + amount },
-    });
+    return this.channelsApi
+      .patchChannel({
+        tokenAddress: channel.tokenAddress,
+        partnerAddress: channel.partnerAddress,
+        inlineObject: { totalDeposit: channel.totalDeposit + amount },
+      })
+      .pipe(
+        catchError((err) => {
+          if (err instanceof AjaxError) {
+            return throwError(new RaidenAPIError(err));
+          }
+          return throwError(err);
+        }),
+      );
   }
 
   /**
@@ -125,16 +189,27 @@ export class Channels {
    * @param amount - The amount you want to withdraw
    * @param channel - The respective channel
    *
+   * @throws {@link RaidenAPIError}
+   *
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#patch--api-(version)-channels-(token_address)-(partner_address)}
    */
   public withdraw(
     amount: number,
     channel: Readonly<Channel>,
   ): Observable<Readonly<Channel>> {
-    return this.channelsApi.patchChannel({
-      tokenAddress: channel.tokenAddress,
-      partnerAddress: channel.partnerAddress,
-      inlineObject: { totalWithdraw: channel.totalWithdraw + amount },
-    });
+    return this.channelsApi
+      .patchChannel({
+        tokenAddress: channel.tokenAddress,
+        partnerAddress: channel.partnerAddress,
+        inlineObject: { totalWithdraw: channel.totalWithdraw + amount },
+      })
+      .pipe(
+        catchError((err) => {
+          if (err instanceof AjaxError) {
+            return throwError(new RaidenAPIError(err));
+          }
+          return throwError(err);
+        }),
+      );
   }
 }
