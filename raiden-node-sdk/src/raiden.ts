@@ -65,3 +65,5 @@ export class Raiden {
     this.payments = payments;
   }
 }
+
+export default Raiden;
