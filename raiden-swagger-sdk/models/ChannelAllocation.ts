@@ -27,11 +27,11 @@ export interface ChannelAllocation {
    * @type {number}
    * @memberof ChannelAllocation
    */
-  initialChannelTarget?: number;
+  initial_channel_target?: number;
   /**
    * Fraction of funds that will be used to join channels opened by other participants.
    * @type {number}
    * @memberof ChannelAllocation
    */
-  joinableFundsTarget?: number;
+  joinable_funds_target?: number;
 }

@@ -11,7 +11,7 @@
  * Do not edit the class manually.
  */
 
-import { ChannelAllOf, ChannelPartial, ChannelState } from "./";
+import { ChannelAllOf, ChannelPartial, ChannelState } from './';
 
 /**
  * @export
@@ -23,37 +23,37 @@ export interface Channel {
    * @type {string}
    * @memberof Channel
    */
-  partnerAddress: string;
+  partner_address: string;
   /**
    * EIP55-encoded address of the token we are trading in the channel
    * @type {string}
    * @memberof Channel
    */
-  tokenAddress: string;
+  token_address: string;
   /**
    * Amount of the token_address token we have deposited into the contract for this channel.
    * @type {number}
    * @memberof Channel
    */
-  totalDeposit: number;
+  total_deposit: number;
   /**
    * The number of blocks that are required to be mined from the time that close() is called until the channel can be settled with a call to settle()
    * @type {number}
    * @memberof Channel
    */
-  settleTimeout: number;
+  settle_timeout: number;
   /**
    * identifier of the channel
    * @type {number}
    * @memberof Channel
    */
-  channelIdentifier: number;
+  channel_identifier: number;
   /**
    * EIP55-encoded address of the token network the channel is part of
    * @type {string}
    * @memberof Channel
    */
-  tokenNetworkIdentifier: string;
+  token_network_identifier: string;
   /**
    * Amount of the token_address token we have available for payments.
    * @type {number}
@@ -65,7 +65,7 @@ export interface Channel {
    * @type {number}
    * @memberof Channel
    */
-  totalWithdraw: number;
+  total_withdraw: number;
   /**
    *
    * @type {ChannelState}
@@ -77,5 +77,5 @@ export interface Channel {
    * @type {number}
    * @memberof Channel
    */
-  revealTimeout: number;
+  reveal_timeout: number;
 }

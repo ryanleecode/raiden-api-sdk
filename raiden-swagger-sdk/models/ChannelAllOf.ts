@@ -11,7 +11,7 @@
  * Do not edit the class manually.
  */
 
-import { ChannelState } from "./";
+import { ChannelState } from './';
 
 /**
  * @export
@@ -23,13 +23,13 @@ export interface ChannelAllOf {
    * @type {number}
    * @memberof ChannelAllOf
    */
-  channelIdentifier: number;
+  channel_identifier: number;
   /**
    * EIP55-encoded address of the token network the channel is part of
    * @type {string}
    * @memberof ChannelAllOf
    */
-  tokenNetworkIdentifier: string;
+  token_network_identifier: string;
   /**
    * Amount of the token_address token we have available for payments.
    * @type {number}
@@ -41,7 +41,7 @@ export interface ChannelAllOf {
    * @type {number}
    * @memberof ChannelAllOf
    */
-  totalWithdraw: number;
+  total_withdraw: number;
   /**
    *
    * @type {ChannelState}
@@ -53,5 +53,5 @@ export interface ChannelAllOf {
    * @type {number}
    * @memberof ChannelAllOf
    */
-  revealTimeout: number;
+  reveal_timeout: number;
 }

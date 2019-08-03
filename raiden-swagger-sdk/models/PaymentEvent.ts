@@ -45,7 +45,7 @@ export interface PaymentEvent {
    * @type {string}
    * @memberof PaymentEvent
    */
-  logTime?: string;
+  log_time?: string;
 }
 
 /**
@@ -53,7 +53,7 @@ export interface PaymentEvent {
  * @enum {string}
  */
 export enum PaymentEventEventEnum {
-  EventPaymentReceivedSuccess = "EventPaymentReceivedSuccess",
-  EventPaymentSentSuccess = "EventPaymentSentSuccess",
-  EventPaymentSentFailed = "EventPaymentSentFailed"
+  EventPaymentReceivedSuccess = 'EventPaymentReceivedSuccess',
+  EventPaymentSentSuccess = 'EventPaymentSentSuccess',
+  EventPaymentSentFailed = 'EventPaymentSentFailed',
 }

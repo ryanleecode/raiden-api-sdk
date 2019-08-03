@@ -17,7 +17,7 @@
  * @enum {string}
  */
 export enum ChannelState {
-  Opened = "opened",
-  Closed = "closed",
-  Settled = "settled"
+  Opened = 'opened',
+  Closed = 'closed',
+  Settled = 'settled',
 }

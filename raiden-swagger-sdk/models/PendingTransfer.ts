@@ -21,7 +21,7 @@ export interface PendingTransfer {
    * @type {string}
    * @memberof PendingTransfer
    */
-  channelIdentifier: string;
+  channel_identifier: string;
   /**
    *
    * @type {string}
@@ -33,13 +33,13 @@ export interface PendingTransfer {
    * @type {string}
    * @memberof PendingTransfer
    */
-  lockedAmount: string;
+  locked_amount: string;
   /**
    *
    * @type {string}
    * @memberof PendingTransfer
    */
-  paymentIdentifier: string;
+  payment_identifier: string;
   /**
    *
    * @type {string}
@@ -57,19 +57,19 @@ export interface PendingTransfer {
    * @type {string}
    * @memberof PendingTransfer
    */
-  tokenAddress: string;
+  token_address: string;
   /**
    *
    * @type {string}
    * @memberof PendingTransfer
    */
-  tokenNetworkIdentifier: string;
+  token_network_identifier: string;
   /**
    *
    * @type {string}
    * @memberof PendingTransfer
    */
-  transferredAmount: string;
+  transferred_amount: string;
 }
 
 /**
@@ -77,7 +77,7 @@ export interface PendingTransfer {
  * @enum {string}
  */
 export enum PendingTransferRoleEnum {
-  Initiator = "initiator",
-  Mediator = "mediator",
-  Target = "target"
+  Initiator = 'initiator',
+  Mediator = 'mediator',
+  Target = 'target',
 }

@@ -21,13 +21,13 @@ export interface InlineObject {
    * @type {number}
    * @memberof InlineObject
    */
-  totalDeposit?: number;
+  total_deposit?: number;
   /**
    * The increased total withdrawal
    * @type {number}
    * @memberof InlineObject
    */
-  totalWithdraw?: number;
+  total_withdraw?: number;
   /**
    * Desired new state
    * @type {string}
@@ -41,5 +41,5 @@ export interface InlineObject {
  * @enum {string}
  */
 export enum InlineObjectStateEnum {
-  Closed = "closed"
+  Closed = 'closed',
 }

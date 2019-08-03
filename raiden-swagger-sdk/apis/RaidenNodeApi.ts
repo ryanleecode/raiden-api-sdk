@@ -11,15 +11,15 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 import {
   BaseAPI,
   throwIfRequired,
   HttpHeaders,
   HttpQuery,
-  COLLECTION_FORMATS
-} from "../runtime";
-import { Address } from "../models";
+  COLLECTION_FORMATS,
+} from '../runtime';
+import { Address } from '../models';
 
 /**
  * no description
@@ -36,9 +36,9 @@ export class RaidenNodeApi extends BaseAPI {
 
     return this.request<Address>({
       path: `/address`,
-      method: "GET",
+      method: 'GET',
       headers,
-      query
+      query,
     });
   };
 }

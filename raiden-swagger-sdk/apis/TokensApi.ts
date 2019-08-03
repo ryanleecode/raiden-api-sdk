@@ -11,22 +11,22 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 import {
   BaseAPI,
   throwIfRequired,
   HttpHeaders,
   HttpQuery,
-  COLLECTION_FORMATS
-} from "../runtime";
-import { Errors, Partner, TokenNetworkAddress } from "../models";
+  COLLECTION_FORMATS,
+} from '../runtime';
+import { Errors, Partner, TokenNetworkAddress } from '../models';
 
 export interface GetTokenRequest {
-  tokenAddress: string;
+  token_address: string;
 }
 
 export interface RegisterTokenRequest {
-  tokenAddress: string;
+  token_address: string;
 }
 
 /**
@@ -38,7 +38,7 @@ export class TokensApi extends BaseAPI {
    * Address of the corresponding token network
    */
   getToken = (requestParameters: GetTokenRequest): Observable<string> => {
-    throwIfRequired(requestParameters, "tokenAddress", "getToken");
+    throwIfRequired(requestParameters, 'token_address', 'getToken');
 
     const headers: HttpHeaders = {};
 
@@ -47,11 +47,11 @@ export class TokensApi extends BaseAPI {
     return this.request<string>({
       path: `/tokens/(token_address)`.replace(
         `{token_address}`,
-        encodeURIComponent(String(requestParameters.tokenAddress))
+        encodeURIComponent(String(requestParameters.token_address)),
       ),
-      method: "GET",
+      method: 'GET',
       headers,
-      query
+      query,
     });
   };
 
@@ -66,9 +66,9 @@ export class TokensApi extends BaseAPI {
 
     return this.request<Array<Partner>>({
       path: `/tokens/(token_address)/partners`,
-      method: "GET",
+      method: 'GET',
       headers,
-      query
+      query,
     });
   };
 
@@ -82,9 +82,9 @@ export class TokensApi extends BaseAPI {
 
     return this.request<Array<string>>({
       path: `/tokens`,
-      method: "GET",
+      method: 'GET',
       headers,
-      query
+      query,
     });
   };
 
@@ -93,9 +93,9 @@ export class TokensApi extends BaseAPI {
    * Registers a token
    */
   registerToken = (
-    requestParameters: RegisterTokenRequest
+    requestParameters: RegisterTokenRequest,
   ): Observable<TokenNetworkAddress> => {
-    throwIfRequired(requestParameters, "tokenAddress", "registerToken");
+    throwIfRequired(requestParameters, 'token_address', 'registerToken');
 
     const headers: HttpHeaders = {};
 
@@ -104,11 +104,11 @@ export class TokensApi extends BaseAPI {
     return this.request<TokenNetworkAddress>({
       path: `/tokens/(token_address)`.replace(
         `{token_address}`,
-        encodeURIComponent(String(requestParameters.tokenAddress))
+        encodeURIComponent(String(requestParameters.token_address)),
       ),
-      method: "PUT",
+      method: 'PUT',
       headers,
-      query
+      query,
     });
   };
 }

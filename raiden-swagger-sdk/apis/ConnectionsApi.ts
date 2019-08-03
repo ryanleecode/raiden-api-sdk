@@ -11,23 +11,23 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 import {
   BaseAPI,
   throwIfRequired,
   HttpHeaders,
   HttpQuery,
-  COLLECTION_FORMATS
-} from "../runtime";
-import { ChannelAllocation, Connection, Errors } from "../models";
+  COLLECTION_FORMATS,
+} from '../runtime';
+import { ChannelAllocation, Connection, Errors } from '../models';
 
 export interface JoinNetworkRequest {
-  tokenAddress: string;
-  channelAllocation: ChannelAllocation;
+  token_address: string;
+  ChannelAllocation: ChannelAllocation;
 }
 
 export interface LeaveNetworkRequest {
-  tokenAddress: string;
+  token_address: string;
 }
 
 /**
@@ -45,9 +45,9 @@ export class ConnectionsApi extends BaseAPI {
 
     return this.request<{ [key: string]: Connection }>({
       path: `/connections`,
-      method: "GET",
+      method: 'GET',
       headers,
-      query
+      query,
     });
   };
 
@@ -56,11 +56,11 @@ export class ConnectionsApi extends BaseAPI {
    * Join a token network.
    */
   joinNetwork = (requestParameters: JoinNetworkRequest): Observable<void> => {
-    throwIfRequired(requestParameters, "tokenAddress", "joinNetwork");
-    throwIfRequired(requestParameters, "channelAllocation", "joinNetwork");
+    throwIfRequired(requestParameters, 'token_address', 'joinNetwork');
+    throwIfRequired(requestParameters, 'ChannelAllocation', 'joinNetwork');
 
     const headers: HttpHeaders = {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json',
     };
 
     const query: HttpQuery = {};
@@ -68,12 +68,12 @@ export class ConnectionsApi extends BaseAPI {
     return this.request<void>({
       path: `/connections/{token_address}`.replace(
         `{token_address}`,
-        encodeURIComponent(String(requestParameters.tokenAddress))
+        encodeURIComponent(String(requestParameters.token_address)),
       ),
-      method: "PUT",
+      method: 'PUT',
       headers,
       query,
-      body: requestParameters.channelAllocation
+      body: requestParameters.ChannelAllocation,
     });
   };
 
@@ -82,9 +82,9 @@ export class ConnectionsApi extends BaseAPI {
    * Leave a token network.
    */
   leaveNetwork = (
-    requestParameters: LeaveNetworkRequest
+    requestParameters: LeaveNetworkRequest,
   ): Observable<Array<string>> => {
-    throwIfRequired(requestParameters, "tokenAddress", "leaveNetwork");
+    throwIfRequired(requestParameters, 'token_address', 'leaveNetwork');
 
     const headers: HttpHeaders = {};
 
@@ -93,11 +93,11 @@ export class ConnectionsApi extends BaseAPI {
     return this.request<Array<string>>({
       path: `/connections/{token_address}`.replace(
         `{token_address}`,
-        encodeURIComponent(String(requestParameters.tokenAddress))
+        encodeURIComponent(String(requestParameters.token_address)),
       ),
-      method: "DELETE",
+      method: 'DELETE',
       headers,
-      query
+      query,
     });
   };
 }

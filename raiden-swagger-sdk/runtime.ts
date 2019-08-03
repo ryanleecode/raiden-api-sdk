@@ -11,11 +11,11 @@
  * Do not edit the class manually.
  */
 
-import { Observable, of } from "rxjs";
-import { ajax, AjaxResponse } from "rxjs/ajax";
-import { map, concatMap } from "rxjs/operators";
+import { Observable, of } from 'rxjs';
+import { ajax, AjaxResponse } from 'rxjs/ajax';
+import { map, concatMap } from 'rxjs/operators';
 
-export const BASE_PATH = "http://127.0.0.1:5001/api/v1".replace(/\/+$/, "");
+export const BASE_PATH = 'http://127.0.0.1:5001/api/v1'.replace(/\/+$/, '');
 
 export interface ConfigurationParameters {
   basePath?: string; // override base path
@@ -48,7 +48,7 @@ export class Configuration {
   get apiKey(): ((name: string) => string) | undefined {
     const apiKey = this.configuration.apiKey;
     if (apiKey) {
-      return typeof apiKey === "function" ? apiKey : () => apiKey;
+      return typeof apiKey === 'function' ? apiKey : () => apiKey;
     }
     return undefined;
   }
@@ -56,7 +56,7 @@ export class Configuration {
   get accessToken(): ((name: string, scopes?: string[]) => string) | undefined {
     const accessToken = this.configuration.accessToken;
     if (accessToken) {
-      return typeof accessToken === "function"
+      return typeof accessToken === 'function'
         ? accessToken
         : () => accessToken;
     }
@@ -81,21 +81,21 @@ export class BaseAPI {
   };
 
   withPreMiddleware = <T extends BaseAPI>(
-    preMiddlewares: Array<Middleware["pre"]>
-  ) => this.withMiddleware<T>(preMiddlewares.map(pre => ({ pre })));
+    preMiddlewares: Array<Middleware['pre']>,
+  ) => this.withMiddleware<T>(preMiddlewares.map((pre) => ({ pre })));
 
   withPostMiddleware = <T extends BaseAPI>(
-    postMiddlewares: Array<Middleware["post"]>
-  ) => this.withMiddleware<T>(postMiddlewares.map(post => ({ post })));
+    postMiddlewares: Array<Middleware['post']>,
+  ) => this.withMiddleware<T>(postMiddlewares.map((post) => ({ post })));
 
   protected request = <T>(context: RequestOpts): Observable<T> =>
     this.rxjsRequest(this.createRequestArgs(context)).pipe(
-      map(res => {
+      map((res) => {
         if (res.status >= 200 && res.status < 300) {
           return res.response as T;
         }
         throw res;
-      })
+      }),
     );
 
   private createRequestArgs = (context: RequestOpts): RequestArgs => {
@@ -107,7 +107,7 @@ export class BaseAPI {
       // only add the queryString to the URL if there are query parameters.
       // this is done to avoid urls ending with a '?' character which buggy webservers
       // do not handle correctly sometimes.
-      url += "?" + queryString(context.query);
+      url += '?' + queryString(context.query);
     }
     const body =
       context.body instanceof FormData
@@ -116,34 +116,34 @@ export class BaseAPI {
     const options = {
       method: context.method,
       headers: context.headers,
-      body
+      body,
     };
     return { url, options };
   };
 
   private rxjsRequest = (params: RequestContext): Observable<AjaxResponse> => {
-    const preMiddlewares = this.middleware.filter(item => item.pre);
-    const postMiddlewares = this.middleware.filter(item => item.post);
+    const preMiddlewares = this.middleware.filter((item) => item.pre);
+    const postMiddlewares = this.middleware.filter((item) => item.post);
 
     return of(params).pipe(
-      map(args => {
+      map((args) => {
         if (preMiddlewares) {
-          preMiddlewares.forEach(mw => (args = mw.pre!({ ...args })));
+          preMiddlewares.forEach((mw) => (args = mw.pre!({ ...args })));
         }
         return args;
       }),
-      concatMap(args =>
+      concatMap((args) =>
         ajax({ url: args.url, ...args.options }).pipe(
-          map(response => {
+          map((response) => {
             if (postMiddlewares) {
               postMiddlewares.forEach(
-                mw => (response = mw.post!({ ...params, response }))
+                (mw) => (response = mw.post!({ ...params, response })),
               );
             }
             return response;
-          })
-        )
-      )
+          }),
+        ),
+      ),
     );
   };
 
@@ -157,24 +157,24 @@ export class BaseAPI {
 
 // export for not being a breaking change
 export class RequiredError extends Error {
-  name: "RequiredError" = "RequiredError";
+  name: 'RequiredError' = 'RequiredError';
 }
 
 export const COLLECTION_FORMATS = {
-  csv: ",",
-  ssv: " ",
-  tsv: "\t",
-  pipes: "|"
+  csv: ',',
+  ssv: ' ',
+  tsv: '\t',
+  pipes: '|',
 };
 
 export type Json = any;
 export type HttpMethod =
-  | "GET"
-  | "POST"
-  | "PUT"
-  | "PATCH"
-  | "DELETE"
-  | "OPTIONS";
+  | 'GET'
+  | 'POST'
+  | 'PUT'
+  | 'PATCH'
+  | 'DELETE'
+  | 'OPTIONS';
 export type HttpHeaders = { [key: string]: string };
 export type HttpQuery = {
   [key: string]:
@@ -186,10 +186,10 @@ export type HttpQuery = {
 };
 export type HttpBody = Json | FormData;
 export type ModelPropertyNaming =
-  | "camelCase"
-  | "snake_case"
-  | "PascalCase"
-  | "original";
+  | 'camelCase'
+  | 'snake_case'
+  | 'PascalCase'
+  | 'original';
 
 export interface RequestArgs {
   url: string;
@@ -206,19 +206,19 @@ export interface RequestOpts {
 
 const queryString = (params: HttpQuery): string =>
   Object.keys(params)
-    .map(key => {
+    .map((key) => {
       const value = params[key];
       if (value instanceof Array) {
         return value
           .map(
-            val =>
-              `${encodeURIComponent(key)}=${encodeURIComponent(String(val))}`
+            (val) =>
+              `${encodeURIComponent(key)}=${encodeURIComponent(String(val))}`,
           )
-          .join("&");
+          .join('&');
       }
       return `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`;
     })
-    .join("&");
+    .join('&');
 
 // alias fallback for not being a breaking change
 export const querystring = queryString;
@@ -226,11 +226,11 @@ export const querystring = queryString;
 export const throwIfRequired = (
   params: { [key: string]: any },
   key: string,
-  nickname: string
+  nickname: string,
 ) => {
   if (!params || params[key] === null || params[key] === undefined) {
     throw new RequiredError(
-      `Required parameter ${key} was null or undefined when calling ${nickname}.`
+      `Required parameter ${key} was null or undefined when calling ${nickname}.`,
     );
   }
 };

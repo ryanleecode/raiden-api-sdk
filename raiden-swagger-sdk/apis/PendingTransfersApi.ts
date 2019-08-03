@@ -11,23 +11,23 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 import {
   BaseAPI,
   throwIfRequired,
   HttpHeaders,
   HttpQuery,
-  COLLECTION_FORMATS
-} from "../runtime";
-import { Errors, PendingTransfer } from "../models";
+  COLLECTION_FORMATS,
+} from '../runtime';
+import { Errors, PendingTransfer } from '../models';
 
 export interface GetPendingTransfersForTokenRequest {
-  tokenAddress: string;
+  token_address: string;
 }
 
 export interface GetPendingTransfersForTokenOnChannelRequest {
-  tokenAddress: string;
-  partnerAddress: string;
+  token_address: string;
+  partner_address: string;
 }
 
 /**
@@ -44,9 +44,9 @@ export class PendingTransfersApi extends BaseAPI {
 
     return this.request<Array<PendingTransfer>>({
       path: `/pending_transfers`,
-      method: "GET",
+      method: 'GET',
       headers,
-      query
+      query,
     });
   };
 
@@ -54,12 +54,12 @@ export class PendingTransfersApi extends BaseAPI {
    * List of all transfers that have not been completed yet for this token
    */
   getPendingTransfersForToken = (
-    requestParameters: GetPendingTransfersForTokenRequest
+    requestParameters: GetPendingTransfersForTokenRequest,
   ): Observable<Array<PendingTransfer>> => {
     throwIfRequired(
       requestParameters,
-      "tokenAddress",
-      "getPendingTransfersForToken"
+      'token_address',
+      'getPendingTransfersForToken',
     );
 
     const headers: HttpHeaders = {};
@@ -69,11 +69,11 @@ export class PendingTransfersApi extends BaseAPI {
     return this.request<Array<PendingTransfer>>({
       path: `/pending_transfers/{token_address}`.replace(
         `{token_address}`,
-        encodeURIComponent(String(requestParameters.tokenAddress))
+        encodeURIComponent(String(requestParameters.token_address)),
       ),
-      method: "GET",
+      method: 'GET',
       headers,
-      query
+      query,
     });
   };
 
@@ -81,17 +81,17 @@ export class PendingTransfersApi extends BaseAPI {
    * List of all transfers that have not been completed yet for this token on this channel
    */
   getPendingTransfersForTokenOnChannel = (
-    requestParameters: GetPendingTransfersForTokenOnChannelRequest
+    requestParameters: GetPendingTransfersForTokenOnChannelRequest,
   ): Observable<Array<PendingTransfer>> => {
     throwIfRequired(
       requestParameters,
-      "tokenAddress",
-      "getPendingTransfersForTokenOnChannel"
+      'token_address',
+      'getPendingTransfersForTokenOnChannel',
     );
     throwIfRequired(
       requestParameters,
-      "partnerAddress",
-      "getPendingTransfersForTokenOnChannel"
+      'partner_address',
+      'getPendingTransfersForTokenOnChannel',
     );
 
     const headers: HttpHeaders = {};
@@ -102,15 +102,15 @@ export class PendingTransfersApi extends BaseAPI {
       path: `/pending_transfers/{token_address}/{partner_address}`
         .replace(
           `{token_address}`,
-          encodeURIComponent(String(requestParameters.tokenAddress))
+          encodeURIComponent(String(requestParameters.token_address)),
         )
         .replace(
           `{partner_address}`,
-          encodeURIComponent(String(requestParameters.partnerAddress))
+          encodeURIComponent(String(requestParameters.partner_address)),
         ),
-      method: "GET",
+      method: 'GET',
       headers,
-      query
+      query,
     });
   };
 }

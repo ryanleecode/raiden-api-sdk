@@ -21,19 +21,19 @@ export interface PaymentReceipt {
    * @type {string}
    * @memberof PaymentReceipt
    */
-  initiatorAddress: string;
+  initiator_address: string;
   /**
    *
    * @type {string}
    * @memberof PaymentReceipt
    */
-  targetAddress: string;
+  target_address: string;
   /**
    *
    * @type {string}
    * @memberof PaymentReceipt
    */
-  tokenAddress: string;
+  token_address: string;
   /**
    *
    * @type {number}

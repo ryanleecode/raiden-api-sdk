@@ -11,33 +11,33 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 import {
   BaseAPI,
   throwIfRequired,
   HttpHeaders,
   HttpQuery,
-  COLLECTION_FORMATS
-} from "../runtime";
-import { Channel, ChannelPartial, Errors, InlineObject } from "../models";
+  COLLECTION_FORMATS,
+} from '../runtime';
+import { Channel, ChannelPartial, Errors, InlineObject } from '../models';
 
 export interface GetChannelsForTokenRequest {
-  tokenAddress: string;
+  token_address: string;
 }
 
 export interface GetPartnerChannelRequest {
-  tokenAddress: string;
-  partnerAddress: string;
+  token_address: string;
+  partner_address: string;
 }
 
 export interface OpenChannelRequest {
-  channelPartial: ChannelPartial;
+  ChannelPartial: ChannelPartial;
 }
 
 export interface PatchChannelRequest {
-  tokenAddress: string;
-  partnerAddress: string;
-  inlineObject: InlineObject;
+  token_address: string;
+  partner_address: string;
+  InlineObject: InlineObject;
 }
 
 /**
@@ -54,9 +54,9 @@ export class ChannelsApi extends BaseAPI {
 
     return this.request<Array<Channel>>({
       path: `/channels`,
-      method: "GET",
+      method: 'GET',
       headers,
-      query
+      query,
     });
   };
 
@@ -64,9 +64,9 @@ export class ChannelsApi extends BaseAPI {
    * List of all unsettled channels for the given token address.
    */
   getChannelsForToken = (
-    requestParameters: GetChannelsForTokenRequest
+    requestParameters: GetChannelsForTokenRequest,
   ): Observable<Array<Channel>> => {
-    throwIfRequired(requestParameters, "tokenAddress", "getChannelsForToken");
+    throwIfRequired(requestParameters, 'token_address', 'getChannelsForToken');
 
     const headers: HttpHeaders = {};
 
@@ -75,11 +75,11 @@ export class ChannelsApi extends BaseAPI {
     return this.request<Array<Channel>>({
       path: `/channels/{token_address}`.replace(
         `{token_address}`,
-        encodeURIComponent(String(requestParameters.tokenAddress))
+        encodeURIComponent(String(requestParameters.token_address)),
       ),
-      method: "GET",
+      method: 'GET',
       headers,
-      query
+      query,
     });
   };
 
@@ -88,10 +88,10 @@ export class ChannelsApi extends BaseAPI {
    * Query information about one of your channels.
    */
   getPartnerChannel = (
-    requestParameters: GetPartnerChannelRequest
+    requestParameters: GetPartnerChannelRequest,
   ): Observable<Channel> => {
-    throwIfRequired(requestParameters, "tokenAddress", "getPartnerChannel");
-    throwIfRequired(requestParameters, "partnerAddress", "getPartnerChannel");
+    throwIfRequired(requestParameters, 'token_address', 'getPartnerChannel');
+    throwIfRequired(requestParameters, 'partner_address', 'getPartnerChannel');
 
     const headers: HttpHeaders = {};
 
@@ -101,15 +101,15 @@ export class ChannelsApi extends BaseAPI {
       path: `/channels/{token_address}/{partner_address}`
         .replace(
           `{token_address}`,
-          encodeURIComponent(String(requestParameters.tokenAddress))
+          encodeURIComponent(String(requestParameters.token_address)),
         )
         .replace(
           `{partner_address}`,
-          encodeURIComponent(String(requestParameters.partnerAddress))
+          encodeURIComponent(String(requestParameters.partner_address)),
         ),
-      method: "GET",
+      method: 'GET',
       headers,
-      query
+      query,
     });
   };
 
@@ -117,22 +117,22 @@ export class ChannelsApi extends BaseAPI {
    * Opens a channel
    */
   openChannel = (
-    requestParameters: OpenChannelRequest
+    requestParameters: OpenChannelRequest,
   ): Observable<Channel> => {
-    throwIfRequired(requestParameters, "channelPartial", "openChannel");
+    throwIfRequired(requestParameters, 'ChannelPartial', 'openChannel');
 
     const headers: HttpHeaders = {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json',
     };
 
     const query: HttpQuery = {};
 
     return this.request<Channel>({
       path: `/channels`,
-      method: "PUT",
+      method: 'PUT',
       headers,
       query,
-      body: requestParameters.channelPartial
+      body: requestParameters.ChannelPartial,
     });
   };
 
@@ -140,14 +140,14 @@ export class ChannelsApi extends BaseAPI {
    * Close a channel or to increase the deposit in it.
    */
   patchChannel = (
-    requestParameters: PatchChannelRequest
+    requestParameters: PatchChannelRequest,
   ): Observable<Channel> => {
-    throwIfRequired(requestParameters, "tokenAddress", "patchChannel");
-    throwIfRequired(requestParameters, "partnerAddress", "patchChannel");
-    throwIfRequired(requestParameters, "inlineObject", "patchChannel");
+    throwIfRequired(requestParameters, 'token_address', 'patchChannel');
+    throwIfRequired(requestParameters, 'partner_address', 'patchChannel');
+    throwIfRequired(requestParameters, 'InlineObject', 'patchChannel');
 
     const headers: HttpHeaders = {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json',
     };
 
     const query: HttpQuery = {};
@@ -156,16 +156,16 @@ export class ChannelsApi extends BaseAPI {
       path: `/channels/{token_address}/{partner_address}`
         .replace(
           `{token_address}`,
-          encodeURIComponent(String(requestParameters.tokenAddress))
+          encodeURIComponent(String(requestParameters.token_address)),
         )
         .replace(
           `{partner_address}`,
-          encodeURIComponent(String(requestParameters.partnerAddress))
+          encodeURIComponent(String(requestParameters.partner_address)),
         ),
-      method: "PATCH",
+      method: 'PATCH',
       headers,
       query,
-      body: requestParameters.inlineObject
+      body: requestParameters.InlineObject,
     });
   };
 }

@@ -21,7 +21,7 @@ export interface Partner {
    * @type {string}
    * @memberof Partner
    */
-  partnerAddress: string;
+  partner_address: string;
   /**
    * A link to the channel resource
    * @type {string}
