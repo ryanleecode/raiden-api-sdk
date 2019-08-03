@@ -2,8 +2,8 @@
   "name": "raiden-node-sdk",
   "version": "1.0.0",
   "description": "SDK for interacting with the Raiden API",
-  "main": "lib/raiden.js",
-  "typings": "lib/raiden.d.ts",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
   "scripts": {
     "prepare": "npm run build",
     "build": "tsc"
