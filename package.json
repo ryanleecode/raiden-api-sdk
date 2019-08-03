@@ -51,6 +51,7 @@
     "dotenv": "^8.0.0",
     "raiden-swagger-sdk": "git@github.com:drdgvhbh/raiden-swagger-sdk.git#6bc1ab45bcaf4498c4b30b583d8daa1332443078",
     "rxjs": "^6.5.2",
-    "snakecase-keys": "^3.1.0"
+    "snakecase-keys": "^3.1.0",
+    "xmlhttprequest": "^1.8.0"
   }
 }
