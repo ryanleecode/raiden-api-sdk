@@ -1,7 +1,7 @@
-import { TokensApi, Partner } from 'raiden-swagger-sdk';
+import { Partner } from 'raiden-swagger-sdk';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Configuration } from './apis';
+import { Configuration, TokensApi } from './apis';
 
 export type TokenNetworkAddress = string;
 export type TokenAddress = string;

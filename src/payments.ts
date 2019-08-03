@@ -1,6 +1,6 @@
-import { PaymentsApi, PaymentReceipt, PaymentEvent } from 'raiden-swagger-sdk';
+import { PaymentReceipt, PaymentEvent } from 'raiden-swagger-sdk';
 import { Observable } from 'rxjs';
-import { Configuration } from './apis';
+import { Configuration, PaymentsApi } from './apis';
 
 export interface Token {
   address: string;

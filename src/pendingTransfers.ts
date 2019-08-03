@@ -1,6 +1,6 @@
-import { PendingTransfersApi, PendingTransfer } from 'raiden-swagger-sdk';
+import { PendingTransfer } from 'raiden-swagger-sdk';
 import { Observable } from 'rxjs';
-import { Configuration } from './apis';
+import { Configuration, PendingTransfersApi } from './apis';
 
 interface QueryPendingTransfersFilter {
   channelAddress?: string;

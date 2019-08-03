@@ -1,6 +1,6 @@
-import { ConnectionsApi, Connection } from 'raiden-swagger-sdk';
+import { Connection } from 'raiden-swagger-sdk';
 import { Observable } from 'rxjs';
-import { Configuration } from './apis';
+import { Configuration, ConnectionsApi } from './apis';
 
 export interface DepositAllocation {
   /**
