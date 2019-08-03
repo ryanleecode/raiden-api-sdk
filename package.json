@@ -8,7 +8,7 @@
     "clean": "rimraf lib",
     "prepare": "npm run build",
     "build": "npm run clean && tsc && npm run extract",
-    "docs": "typedoc --out ./docs ./src",
+    "docs": "typedoc --out ./docs ./src --excludePrivate --excludeProtected",
     "test": "jest",
     "extract": "api-extractor run --local",
     "lint": "eslint ./src/**/*"
