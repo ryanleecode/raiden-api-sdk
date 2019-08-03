@@ -1,7 +1,8 @@
-import { RaidenNodeApi, Configuration, Address } from 'raiden-swagger-sdk';
+import { RaidenNodeApi, Address } from 'raiden-swagger-sdk';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import camelcase from 'camelcase-keys';
+import { Configuration } from './apis';
 
 export class Node {
   public static create(config?: Configuration) {

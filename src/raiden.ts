@@ -1,10 +1,10 @@
-import { Configuration } from 'raiden-swagger-sdk';
 import { Node } from './node';
 import { Channels } from './channels';
 import { Tokens } from './tokens';
 import { PendingTransfers } from './pendingTransfers';
 import { TokenNetworks } from './token-networks';
 import { Payments } from './payments';
+import { Configuration } from './apis';
 
 export interface RaidenSwaggerApis {
   node: Node;

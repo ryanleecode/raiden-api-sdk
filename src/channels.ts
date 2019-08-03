@@ -1,11 +1,11 @@
 import {
   ChannelsApi,
-  Configuration,
   Channel as ChannelS,
   ChannelPartial,
   InlineObjectStateEnum,
 } from 'raiden-swagger-sdk';
 import { Observable } from 'rxjs';
+import { Configuration } from './apis';
 
 export enum ChannelState {
   Opened = 'opened',

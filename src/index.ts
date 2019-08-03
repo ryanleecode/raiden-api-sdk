@@ -1,6 +1,5 @@
 import { Raiden } from './raiden';
 export {
-  Configuration,
   Address,
   Connection,
   ChannelState,
@@ -12,5 +11,6 @@ export {
   PendingTransfer,
   TokenNetworkAddress,
 } from 'raiden-swagger-sdk';
+export { Configuration } from './apis';
 export { Channel } from './channels';
 export default Raiden;
