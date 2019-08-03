@@ -2,8 +2,11 @@
   "name": "raiden-swagger-sdk",
   "version": "1.0.0",
   "description": "Swagger generated sdk",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
+    "prepare": "build",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
