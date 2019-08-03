@@ -1,13 +1,17 @@
 import {
   ChannelsApi,
   Configuration,
-  Channel,
+  Channel as ChannelS,
   ChannelPartial,
   InlineObjectStateEnum,
 } from 'raiden-swagger-sdk';
 import { Observable } from 'rxjs';
 
 export interface OpenChannelRequest extends ChannelPartial {}
+/**
+ * @public
+ */
+export interface Channel extends ChannelS {}
 
 export class Channels {
   public static create(config?: Configuration) {
