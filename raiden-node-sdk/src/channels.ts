@@ -19,17 +19,19 @@ export class Channels {
   constructor(private readonly channelsApi: ChannelsApi) {}
 
   /**
-   * @summary List of all unsettled channels
-   * @link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-channels
+   * List of all unsettled channels
+   *
+   * {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-channels}
    */
   public findAllUnsettled(): Observable<ReadonlyArray<Readonly<Channel>>> {
     return this.channelsApi.getChannels();
   }
 
   /**
-   * @summary List of all unsettled channels for the given token address
-   * @param tokenAddress the address of the token with unsettled channels
-   * @link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-channels-(token_address)
+   * List of all unsettled channels for the given token address
+   *
+   * @param tokenAddress - the address of the token with unsettled channels
+   * {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-channels-(token_address)}
    */
   public findAllUnsettledFor(
     tokenAddress: string,
@@ -40,11 +42,14 @@ export class Channels {
   }
 
   /**
-   * @summary Query information about one of your channels
-   * @description The channel is specified by the address of the token and the partner’s address.
-   * @param tokenAddress
-   * @param partnerAddress
-   * @link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-channels-(token_address)-(partner_address)
+   * Query information about one of your channels
+   *
+   * @remarks
+   * The channel is specified by the address of the token and the partner’s address.
+   *
+   * @param tokenAddress -
+   * @param partnerAddress -
+   * {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-channels-(token_address)-(partner_address)}
    */
   public inspect(
     tokenAddress: string,

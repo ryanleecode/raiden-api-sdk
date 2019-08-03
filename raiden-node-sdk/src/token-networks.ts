@@ -8,15 +8,17 @@ import { Observable } from 'rxjs';
 
 export interface DepositAllocation {
   /**
-   * @summary Number of channels to open proactively.
-   * @default 3
+   * Number of channels to open proactively.
+   *
+   * @defaultValue 3
    */
   initialChannelTarget: number;
 
   /**
-   * @summary Fraction of funds that will be used to join channels
+   * Fraction of funds that will be used to join channels
    * opened by other participants.
-   * @default 0.4
+   *
+   * @defaultValue 0.4
    */
   joinableFundsTarget: number;
 }
@@ -32,23 +34,28 @@ export class TokenNetworks {
   constructor(private readonly connectionsApi: ConnectionsApi) {}
 
   /**
-   * @summary Joined Token Networks
-   * @description Each key is a token address for which you have open channels.
-   * @link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-connections
+   * Joined Token Networks
+   *
+   * @remarks
+   * Each key is a token address for which you have open channels.
+   *
+   * {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-connections}
    */
   public findAll(): Observable<{ [key: string]: Readonly<Connection> }> {
     return this.connectionsApi.getConnections();
   }
 
   /**
-   * @summary Automatically join a token network.
-   * @description The request will only return once all blockchain calls
+   * Automatically join a token network.
+   *
+   * @remarks
+   * The request will only return once all blockchain calls
    * for opening and/or depositing to a channel have completed.
    *
-   * @param tokenAddress token address of the respective token network
-   * @param funds the amount of funds you want to deposit
-   * @param allocation allocation of funds for each channel in the network
-   * @link https://raiden-network.readthedocs.io/en/latest/rest_api.html#put--api-(version)-connections-(token_address)
+   * @param tokenAddress - token address of the respective token network
+   * @param funds - the amount of funds you want to deposit
+   * @param allocation - allocation of funds for each channel in the network
+   * {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#put--api-(version)-connections-(token_address)}
    */
   public join(
     tokenAddress: string,
@@ -65,11 +72,13 @@ export class TokenNetworks {
   }
 
   /**
-   * @summary Leave a token network
-   * @description The request will only return once all blockchain calls
+   * Leave a token network
+   *
+   * @remarks
+   * The request will only return once all blockchain calls
    * for closing/settling a channel have completed.
-   * @param tokenAddress token address of the respective token network
-   * @link https://raiden-network.readthedocs.io/en/latest/rest_api.html#delete--api-(version)-connections-(token_address)
+   * @param tokenAddress - token address of the respective token network
+   * {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#delete--api-(version)-connections-(token_address)}
    */
   public leave(
     tokenAddress: string,

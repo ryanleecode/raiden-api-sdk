@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "description": "SDK for interacting with the Raiden API",
   "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
+  "typings": "dist/raiden-sdk.d.ts",
   "scripts": {
+    "clean": "rimraf lib",
     "prepare": "npm run build",
-    "build": "tsc",
+    "build": "npm run clean && tsc && npm run extract",
     "test": "jest",
+    "extract": "api-extractor run --local",
     "lint": "eslint ./src/**/*"
   },
   "repository": {
@@ -25,6 +27,7 @@
   },
   "homepage": "https://github.com/drdgvhbh/raiden-node-sdk#readme",
   "devDependencies": {
+    "@microsoft/api-extractor": "^7.3.4",
     "@types/dotenv": "^6.1.1",
     "@types/jest": "^24.0.16",
     "@types/node": "^12.6.9",
@@ -37,6 +40,7 @@
     "eslint-plugin-prettier": "^3.1.0",
     "jest": "^24.8.0",
     "prettier": "^1.18.2",
+    "rimraf": "^2.6.3",
     "ts-jest": "^24.0.2",
     "typescript": "^3.5.3"
   },

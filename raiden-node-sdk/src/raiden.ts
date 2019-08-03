@@ -15,9 +15,12 @@ export interface RaidenSwaggerApis {
   payments: Payments;
 }
 
+/**
+ * @public
+ */
 export class Raiden {
   /**
-   * @summary Entrypoint to your raiden node
+   * Entrypoint to your raiden node
    */
   public readonly node: Node;
 

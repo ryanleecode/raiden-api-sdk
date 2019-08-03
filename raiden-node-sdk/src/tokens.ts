@@ -15,18 +15,21 @@ export class Tokens {
   constructor(private readonly tokensApi: TokensApi) {}
 
   /**
-   * @summary Addresses of all registered tokens
-   * @link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-tokens
+   * Addresses of all registered tokens
+   *
+   * {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-tokens}
    */
   public findAllRegistered(): Observable<ReadonlyArray<TokenAddress>> {
     return this.tokensApi.getTokens();
   }
 
   /**
-   * @summary Token network address
-   * @description The address of the corresponding token network for the given token, if the token is registered.
-   * @param tokenAddress
-   * @link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-tokens-(token_address)
+   * Token network address
+   *
+   * @remarks
+   * The address of the corresponding token network for the given token, if the token is registered.
+   * @param tokenAddress - the address of the token
+   * {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-tokens-(token_address)}
    */
   public networkAddressFor(
     tokenAddress: string,
@@ -35,21 +38,24 @@ export class Tokens {
   }
 
   /**
-   * @summary List of all partners with whom you have non-settled channels for a certain token
-   * @link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-tokens-(token_address)-partners
+   * List of all partners with whom you have non-settled channels for a certain token
+   *
+   * {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-tokens-(token_address)-partners}
    */
   public partners(): Observable<ReadonlyArray<Readonly<Partner>>> {
     return this.tokensApi.getTokenPartners();
   }
 
   /**
-   * @summary Register a token
-   * @description  If a token is not registered yet
+   * Register a token
+   *
+   * @remarks
+   * If a token is not registered yet
    * (i.e.: A token network for that token does not exist in the registry),
    *  we need to register it by deploying a token network contract for
    *  that token.
-   * @param tokenAddress
-   * @link https://raiden-network.readthedocs.io/en/stable/rest_api.html#put--api-(version)-tokens-(token_address)
+   * @param tokenAddress - the address of the token
+   * {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#put--api-(version)-tokens-(token_address)}
    */
   public register(
     tokenAddress: string,

@@ -18,17 +18,19 @@ export class PendingTransfers {
   constructor(private readonly pendingTransfersApi: PendingTransfersApi) {}
 
   /**
-   * @summary All transfers that have not been completed yet.
-   * @link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-pending_transfers
+   * All transfers that have not been completed yet.
+   *
+   * {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-pending_transfers}
    */
   public findAll(): Observable<ReadonlyArray<Readonly<PendingTransfer>>> {
     return this.pendingTransfersApi.getPendingTransfers();
   }
 
   /**
-   * @summary All transfers that have not been completed yet for the specified token.
-   * @param tokenAddress
-   * @by additional filters for querying pending transfers
+   * All transfers that have not been completed yet for the specified token.
+   *
+   * @param tokenAddress - the address of the respective token
+   * @param by - additional filters for querying pending transfers
    */
   public findAllFor(
     tokenAddress: string,

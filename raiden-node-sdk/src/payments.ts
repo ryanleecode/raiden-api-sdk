@@ -29,17 +29,19 @@ export class Payments {
   constructor(private readonly paymentsApi: PaymentsApi) {}
 
   /**
-   * @summary Initiate a payment
-   * @description
+   * Initiate a payment
+   *
+   * @remarks
    * The request will only return once the payment either succeeded or failed.
    *
    * A payment can fail due to the expiration of a lock, the target being offline,
    * channels on the path to the target not having enough `settleTimeout` and
    *  `revealTimeout` in order to allow the payment to be propagated safely, not enough funds etc.
-   * @param token payment details
-   * @param to address of the recipient
-   * @param identifier identifier of the payment
-   * @link https://raiden-network.readthedocs.io/en/latest/rest_api.html#post--api-(version)-payments-(token_address)-(target_address)
+   * @param token - payment details
+   * @param to - address of the recipient
+   * @param identifier - identifier of the payment
+   *
+   * {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#post--api-(version)-payments-(token_address)-(target_address)}
    */
   public initiate(
     token: Readonly<Token>,
@@ -57,10 +59,12 @@ export class Payments {
   }
 
   /**
-   * @summary Payment History
-   * @param tokenAddress the token you want history for
-   * @param targetAddress the target address you want history for
-   * @link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-v1-payments-(token_address)-(target_address)
+   * Payment History
+   *
+   * @param tokenAddress - the token you want history for
+   * @param targetAddress - the target address you want history for
+   *
+   * {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-v1-payments-(token_address)-(target_address)}
    */
   public history(
     tokenAddress?: string,
