@@ -1,10 +1,12 @@
-import { RaidenNodeApi, Configuration } from 'raiden-swagger-sdk';
+import { RaidenNodeApi, Configuration, Address } from 'raiden-swagger-sdk';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
+import camelcase from 'camelcase-keys';
 
 export class Node {
   public static create(config?: Configuration) {
     const nodeApi = new RaidenNodeApi(config);
+
     return new Node(nodeApi);
   }
 
@@ -17,6 +19,9 @@ export class Node {
    * @link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-address
    */
   public ourAddress(): Observable<string> {
-    return this.nodeApi.getAddress().pipe(map((val) => val.ourAddress));
+    return this.nodeApi.getAddress().pipe(
+      map((val) => (camelcase(val) as unknown) as Address),
+      map((val) => val.ourAddress),
+    );
   }
 }
