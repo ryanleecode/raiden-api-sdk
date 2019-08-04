@@ -1,5 +1,5 @@
 import { Partner } from 'raiden-swagger-sdk';
-import { Observable, throwError, of } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { Configuration, TokensApi } from './apis';
 import { RaidenAPIError } from './errors';

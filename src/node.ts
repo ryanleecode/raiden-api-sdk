@@ -1,7 +1,5 @@
-import { Address } from 'raiden-swagger-sdk';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import camelcase from 'camelcase-keys';
 import { Configuration, RaidenNodeApi } from './apis';
 import { AjaxError } from 'rxjs/ajax';
 import { RaidenAPIError } from './errors';
