@@ -8,6 +8,7 @@ import { Channels } from '../src/channels';
 jest.mock('rxjs/ajax');
 
 describe('channels', () => {
+  const tokenAddress = '0xaFF4481D10270F50f203E0763e2597776068CBc5';
   const mockChannels = [
     {
       settle_timeout: 500,
@@ -16,7 +17,7 @@ describe('channels', () => {
       reveal_timeout: 50,
       state: 'opened' as ChannelState,
       total_deposit: 0,
-      token_address: '0xaFF4481D10270F50f203E0763e2597776068CBc5',
+      token_address: tokenAddress,
       channel_identifier: 2,
       token_network_identifier: '0x26746540aBB01b15294Bf93715e4EEdAF1946110',
     },
@@ -27,7 +28,7 @@ describe('channels', () => {
       reveal_timeout: 50,
       state: 'opened' as ChannelState,
       total_deposit: 6000000000000000000,
-      token_address: '0xaFF4481D10270F50f203E0763e2597776068CBc5',
+      token_address: tokenAddress,
       channel_identifier: 3,
       token_network_identifier: '0x26746540aBB01b15294Bf93715e4EEdAF1946110',
     },
@@ -71,6 +72,36 @@ describe('channels', () => {
       const channels = new Channels(new mockChannelsApi());
       await channels.findAllUnsettled().toPromise();
       expect(getChannels).toBeCalledTimes(1);
+      done();
+    });
+  });
+
+  describe('find all unsettled for', () => {
+    it('should map snakecase to camelcase', async (done) => {
+      const ajaxMock = (ajax as unknown) as jest.Mock<AjaxCreationMethod>;
+      ajaxMock.mockReturnValueOnce(of({
+        response: mockChannels,
+        status: Http.OK,
+      }) as any);
+
+      const raiden = Raiden.create();
+
+      const channels = await raiden.channels
+        .findAllUnsettledFor(tokenAddress)
+        .toPromise();
+      expect(channels).toEqual(mockChannels.map(mapChannel));
+
+      done();
+    });
+
+    it('should call getChannelsForToken', async (done) => {
+      const getChannelsForToken = jest.fn(() => of());
+      const mockChannelsApi = jest.fn<any, []>(() => ({
+        getChannelsForToken,
+      }));
+      const channels = new Channels(new mockChannelsApi());
+      await channels.findAllUnsettledFor(tokenAddress).toPromise();
+      expect(getChannelsForToken).toBeCalledWith({ tokenAddress });
       done();
     });
   });
