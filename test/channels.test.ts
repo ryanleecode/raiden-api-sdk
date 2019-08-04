@@ -49,7 +49,7 @@ describe('channels', () => {
   }
 
   describe('find all unsettled', () => {
-    it('should map snakecase to camelcase', async (done) => {
+    it('should map snakecase to camelcase and vice-versa', async (done) => {
       const ajaxMock = (ajax as unknown) as jest.Mock<AjaxCreationMethod>;
       ajaxMock.mockReturnValueOnce(of({
         response: mockChannels,
@@ -77,7 +77,7 @@ describe('channels', () => {
   });
 
   describe('find all unsettled for', () => {
-    it('should map snakecase to camelcase', async (done) => {
+    it('should map snakecase to camelcase and vice-versa', async (done) => {
       const ajaxMock = (ajax as unknown) as jest.Mock<AjaxCreationMethod>;
       ajaxMock.mockReturnValueOnce(of({
         response: mockChannels,
