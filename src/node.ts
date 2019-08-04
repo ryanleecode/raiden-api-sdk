@@ -26,7 +26,7 @@ export class Node {
    *
    * (async function() {
    *   const raiden = Raiden.create();
-   *   const ourAddress = raiden.node.ourAddress().toPromise();
+   *   const ourAddress = await raiden.node.ourAddress().toPromise();
    *
    *   // 0xA44e09ea90eAF80DC1B59aA45687e2c4d572049D
    *   console.log(ourAddress);
