@@ -79,7 +79,7 @@ export class Payments {
         targetAddress: to,
         payment: {
           amount: token.amount,
-          identifier: identifier,
+          identifier,
         },
       })
       .pipe(
