@@ -6,6 +6,9 @@ import { AjaxError } from 'rxjs/ajax';
 import { RaidenAPIError } from './errors';
 
 export interface Connection extends ConnectionS {}
+export interface Connections {
+  [key: string]: Readonly<Connection>;
+}
 
 export interface DepositAllocation {
   /**
@@ -43,7 +46,7 @@ export class TokenNetworks {
    * @throws {@link RaidenAPIError}
    * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-connections}
    */
-  public findAll(): Observable<{ [key: string]: Readonly<Connection> }> {
+  public findAll(): Observable<Connections> {
     return this.connectionsApi.getConnections().pipe(
       catchError((err) => {
         if (err instanceof AjaxError) {
