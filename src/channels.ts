@@ -36,7 +36,7 @@ export class Channels {
    *
    * @example
    * ```typescript
-   * import Raiden from 'raiden-sdk';
+   * import Raiden from 'raiden-api-sdk';
    *
    * (async function() {
    *   const raiden = Raiden.create();
@@ -80,7 +80,7 @@ export class Channels {
    *
    * @example
    * ```typescript
-   * import Raiden from 'raiden-sdk';
+   * import Raiden from 'raiden-api-sdk';
    *
    * (async function() {
    *   const raiden = Raiden.create();
@@ -139,7 +139,7 @@ export class Channels {
    * @param partnerAddress - The respective partner address
    * @example
    * ```typescript
-   * import Raiden from "raiden-sdk";
+   * import Raiden from "raiden-api-sdk";
    *
    * (async function() {
    *   const raiden = Raiden.create();

@@ -22,7 +22,7 @@ export class Node {
    *
    * @example
    * ```typescript
-   * import Raiden from 'raiden-sdk';
+   * import Raiden from 'raiden-api-sdk';
    *
    * (async function() {
    *   const raiden = Raiden.create();
