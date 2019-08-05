@@ -33,6 +33,7 @@ export class Node {
    * })()
    * ```
    *
+   * @since 0.100.3
    * @throws {@link RaidenAPIError}
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-address}
    */

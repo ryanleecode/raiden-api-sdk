@@ -22,6 +22,7 @@ export interface Token {
 
 /**
  * Creates an object used to initiate a payment
+ *
  * @param address - The address of the token
  * @param amount - The amount you want to pay
  */
@@ -65,6 +66,7 @@ export class Payments {
    * @param to - Address of the recipient
    * @param identifier - Identifier of the payment
    *
+   * @since 0.100.3
    * @throws {@link RaidenAPIError}
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#post--api-(version)-payments-(token_address)-(target_address)}
    */
@@ -98,6 +100,7 @@ export class Payments {
    * @param tokenAddress - The token you want history for
    * @param targetAddress - The target address you want history for
    *
+   * @since 0.100.3
    * @throws {@link RaidenAPIError}
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-v1-payments-(token_address)-(target_address)}
    */

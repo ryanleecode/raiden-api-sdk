@@ -43,6 +43,7 @@ export class TokenNetworks {
    * @remarks
    * Each key is a token address for which you have open channels.
    *
+   * @since 0.100.3
    * @throws {@link RaidenAPIError}
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-connections}
    */
@@ -68,6 +69,7 @@ export class TokenNetworks {
    * @param funds - The amount of funds you want to deposit
    * @param allocation - Allocation of funds for each channel in the network
    *
+   * @since 0.100.3
    * @throws {@link RaidenAPIError}
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#put--api-(version)-connections-(token_address)}
    */
@@ -102,6 +104,7 @@ export class TokenNetworks {
    * for closing/settling a channel have completed.
    * @param tokenAddress - Token address of the respective token network
    *
+   * @since 0.100.3
    * @throws {@link RaidenAPIError}
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#delete--api-(version)-connections-(token_address)}
    */

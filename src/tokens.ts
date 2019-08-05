@@ -20,6 +20,7 @@ export class Tokens {
   /**
    * Addresses of all registered tokens
    *
+   * @since 0.100.3
    * @throws {@link RaidenAPIError}
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-tokens}
    */
@@ -40,6 +41,7 @@ export class Tokens {
    * @remarks
    * The address of the corresponding token network for the given token, if the token is registered.
    * @param tokenAddress - The address of the token
+   * @since 0.100.3
    * @throws {@link RaidenAPIError}
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-tokens-(token_address)}
    */
@@ -61,6 +63,7 @@ export class Tokens {
    *
    * @param tokenAddress - the address of the token
    *
+   * @since 0.100.3
    * @throws {@link RaidenAPIError}
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-tokens-(token_address)-partners}
    */
@@ -87,6 +90,7 @@ export class Tokens {
    *  that token.
    * @param tokenAddress - the address of the token
    *
+   * @since 0.100.3
    * @throws {@link RaidenAPIError}
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#put--api-(version)-tokens-(token_address)}
    */

@@ -59,6 +59,7 @@ export class Channels {
    * })()
    * ```
    *
+   * @since 0.100.3
    * @throws {@link RaidenAPIError}
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-channels}
    */
@@ -105,6 +106,7 @@ export class Channels {
    * ```
    * @param tokenAddress - The address of the token with unsettled channels
    * @throws {@link RaidenAPIError}
+   * @since 0.100.3
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-channels-(token_address)}
    */
   public findAllUnsettledFor(
@@ -160,6 +162,7 @@ export class Channels {
    * })();
    * ```
    * @throws {@link RaidenAPIError}
+   * @since 0.100.3
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-channels-(token_address)-(partner_address)}
    *
    */
@@ -189,6 +192,7 @@ export class Channels {
    *
    * @throws {@link RaidenAPIError}
    *
+   * @since 0.100.3
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#put--api-(version)-channels}
    */
   public open(
@@ -211,6 +215,7 @@ export class Channels {
    *
    * @throws {@link RaidenAPIError}
    *
+   * @since 0.100.3
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#patch--api-(version)-channels-(token_address)-(partner_address)}
    */
   public close(channel: Readonly<Channel>): Observable<Readonly<Channel>> {
@@ -238,6 +243,7 @@ export class Channels {
    *
    * @throws {@link RaidenAPIError}
    *
+   * @since 0.100.3
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#patch--api-(version)-channels-(token_address)-(partner_address)}
    */
   public deposit(
@@ -268,7 +274,7 @@ export class Channels {
    *
    * @throws {@link RaidenAPIError}
    *
-   * @since 0.100.5
+   * @since 0.100.4
    * @throws {@link RaidenAPIError}
    *
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#patch--api-(version)-channels-(token_address)-(partner_address)}

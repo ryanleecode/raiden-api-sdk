@@ -30,6 +30,7 @@ export class PendingTransfers {
   /**
    * All transfers that have not been completed yet.
    *
+   * @since 0.100.3
    * @throws {@link RaidenAPIError}
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-pending_transfers}
    */
@@ -50,6 +51,7 @@ export class PendingTransfers {
    * @param tokenAddress - The address of the respective token
    * @param by - Additional filters for querying pending transfers
    *
+   * @since 0.100.3
    * @throws {@link RaidenAPIError}
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-pending_transfers-(token_address)}
    * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-pending_transfers-(token_address)-(partner_address)}
