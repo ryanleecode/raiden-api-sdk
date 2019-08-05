@@ -31,7 +31,7 @@ export class PendingTransfers {
    * All transfers that have not been completed yet.
    *
    * @throws {@link RaidenAPIError}
-   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-pending_transfers}
+   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-pending_transfers}
    */
   public findAll(): Observable<ReadonlyArray<Readonly<PendingTransfer>>> {
     return this.pendingTransfersApi.getPendingTransfers().pipe(
@@ -51,8 +51,8 @@ export class PendingTransfers {
    * @param by - Additional filters for querying pending transfers
    *
    * @throws {@link RaidenAPIError}
-   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-pending_transfers-(token_address)}
-   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-pending_transfers-(token_address)-(partner_address)}
+   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-pending_transfers-(token_address)}
+   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-pending_transfers-(token_address)-(partner_address)}
    */
   public findAllFor(
     tokenAddress: string,

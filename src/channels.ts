@@ -60,7 +60,7 @@ export class Channels {
    * ```
    *
    * @throws {@link RaidenAPIError}
-   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-channels}
+   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-channels}
    */
   public findAllUnsettled(): Observable<ReadonlyArray<Readonly<Channel>>> {
     return this.channelsApi.getChannels().pipe(
@@ -105,7 +105,7 @@ export class Channels {
    * ```
    * @param tokenAddress - The address of the token with unsettled channels
    * @throws {@link RaidenAPIError}
-   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-channels-(token_address)}
+   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-channels-(token_address)}
    */
   public findAllUnsettledFor(
     tokenAddress: string,
@@ -160,7 +160,7 @@ export class Channels {
    * })();
    * ```
    * @throws {@link RaidenAPIError}
-   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-channels-(token_address)-(partner_address)}
+   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-channels-(token_address)-(partner_address)}
    *
    */
   public inspect(
@@ -189,7 +189,7 @@ export class Channels {
    *
    * @throws {@link RaidenAPIError}
    *
-   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#put--api-(version)-channels}
+   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#put--api-(version)-channels}
    */
   public open(
     request: Readonly<OpenChannelRequest>,
@@ -211,7 +211,7 @@ export class Channels {
    *
    * @throws {@link RaidenAPIError}
    *
-   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#patch--api-(version)-channels-(token_address)-(partner_address)}
+   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#patch--api-(version)-channels-(token_address)-(partner_address)}
    */
   public close(channel: Readonly<Channel>): Observable<Readonly<Channel>> {
     return this.channelsApi
@@ -238,7 +238,7 @@ export class Channels {
    *
    * @throws {@link RaidenAPIError}
    *
-   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#patch--api-(version)-channels-(token_address)-(partner_address)}
+   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#patch--api-(version)-channels-(token_address)-(partner_address)}
    */
   public deposit(
     amount: number,

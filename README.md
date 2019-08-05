@@ -1,6 +1,6 @@
 # Raiden API SDK
 
-This is an typescript SDK for interacting with the [Raiden API](https://raiden-network.readthedocs.io/en/stable/rest_api.html).
+This is an typescript SDK for interacting with the [Raiden API](https://raiden-network.readthedocs.io/en/latest/rest_api.html).
 
 It is built on top of the [openapi generated sdk](https://github.com/drdgvhbh/raiden-openapi-sdk).
 

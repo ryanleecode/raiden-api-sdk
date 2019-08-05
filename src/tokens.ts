@@ -21,7 +21,7 @@ export class Tokens {
    * Addresses of all registered tokens
    *
    * @throws {@link RaidenAPIError}
-   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-tokens}
+   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-tokens}
    */
   public findAllRegistered(): Observable<ReadonlyArray<TokenAddress>> {
     return this.tokensApi.getTokens().pipe(
@@ -41,7 +41,7 @@ export class Tokens {
    * The address of the corresponding token network for the given token, if the token is registered.
    * @param tokenAddress - The address of the token
    * @throws {@link RaidenAPIError}
-   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-tokens-(token_address)}
+   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-tokens-(token_address)}
    */
   public networkAddressFor(
     tokenAddress: string,
@@ -62,7 +62,7 @@ export class Tokens {
    * @param tokenAddress - the address of the token
    *
    * @throws {@link RaidenAPIError}
-   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-tokens-(token_address)-partners}
+   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-tokens-(token_address)-partners}
    */
   public partners(
     tokenAddress: string,
@@ -88,7 +88,7 @@ export class Tokens {
    * @param tokenAddress - the address of the token
    *
    * @throws {@link RaidenAPIError}
-   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#put--api-(version)-tokens-(token_address)}
+   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#put--api-(version)-tokens-(token_address)}
    */
   public register(
     tokenAddress: string,

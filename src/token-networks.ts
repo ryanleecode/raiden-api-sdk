@@ -44,7 +44,7 @@ export class TokenNetworks {
    * Each key is a token address for which you have open channels.
    *
    * @throws {@link RaidenAPIError}
-   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-(version)-connections}
+   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-(version)-connections}
    */
   public findAll(): Observable<Connections> {
     return this.connectionsApi.getConnections().pipe(
@@ -69,7 +69,7 @@ export class TokenNetworks {
    * @param allocation - Allocation of funds for each channel in the network
    *
    * @throws {@link RaidenAPIError}
-   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#put--api-(version)-connections-(token_address)}
+   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#put--api-(version)-connections-(token_address)}
    */
   public join(
     tokenAddress: string,
@@ -103,7 +103,7 @@ export class TokenNetworks {
    * @param tokenAddress - Token address of the respective token network
    *
    * @throws {@link RaidenAPIError}
-   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#delete--api-(version)-connections-(token_address)}
+   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#delete--api-(version)-connections-(token_address)}
    */
   public leave(
     tokenAddress: string,

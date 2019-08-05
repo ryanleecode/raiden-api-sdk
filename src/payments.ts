@@ -66,7 +66,7 @@ export class Payments {
    * @param identifier - Identifier of the payment
    *
    * @throws {@link RaidenAPIError}
-   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#post--api-(version)-payments-(token_address)-(target_address)}
+   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#post--api-(version)-payments-(token_address)-(target_address)}
    */
   public initiate(
     token: Readonly<Token>,
@@ -99,7 +99,7 @@ export class Payments {
    * @param targetAddress - The target address you want history for
    *
    * @throws {@link RaidenAPIError}
-   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#get--api-v1-payments-(token_address)-(target_address)}
+   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#get--api-v1-payments-(token_address)-(target_address)}
    */
   public history(
     tokenAddress?: string,
