@@ -259,4 +259,37 @@ export class Channels {
         }),
       );
   }
+
+  /**
+   * Withdraw Tokens
+   *
+   * @param amount - The amount you want to withdraw
+   * @param channel - The respective channel
+   *
+   * @throws {@link RaidenAPIError}
+   *
+   * @since 0.100.5
+   * @throws {@link RaidenAPIError}
+   *
+   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#patch--api-(version)-channels-(token_address)-(partner_address)}
+   */
+  public withdraw(
+    amount: number,
+    channel: Readonly<Channel>,
+  ): Observable<Readonly<Channel>> {
+    return this.channelsApi
+      .patchChannel({
+        tokenAddress: channel.tokenAddress,
+        partnerAddress: channel.partnerAddress,
+        inlineObject: { totalWithdraw: channel.totalWithdraw!! + amount },
+      })
+      .pipe(
+        catchError((err) => {
+          if (err instanceof AjaxError) {
+            return throwError(new RaidenAPIError(err));
+          }
+          return throwError(err);
+        }),
+      );
+  }
 }
