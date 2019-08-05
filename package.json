@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "SDK for interacting with the Raiden API",
   "main": "lib/index.js",
-  "typings": "dist/raiden-sdk.d.ts",
+  "typings": "lib/index.d.ts",
   "scripts": {
     "clean": "rimraf lib",
     "prepublishOnly": "npm run build",
