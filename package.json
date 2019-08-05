@@ -6,7 +6,7 @@
   "typings": "lib/index.d.ts",
   "scripts": {
     "clean": "rimraf lib",
-    "prepublishOnly": "npm run build",
+    "prepare": "npm run build",
     "build": "npm run clean && tsc --build tsconfig.prod.json && npm run extract",
     "docs": "typedoc --out ./docs ./src --excludePrivate --excludeProtected",
     "test": "jest",
