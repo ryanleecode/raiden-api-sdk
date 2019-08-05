@@ -112,7 +112,7 @@ export class Channels {
    *
    * @throws {@link RaidenAPIError}
    *
-   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#put--api-(version)-channels}
+   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#put--api-(version)-channels}
    */
   public open(
     request: Readonly<OpenChannelRequest>,
@@ -134,7 +134,7 @@ export class Channels {
    *
    * @throws {@link RaidenAPIError}
    *
-   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#patch--api-(version)-channels-(token_address)-(partner_address)}
+   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#patch--api-(version)-channels-(token_address)-(partner_address)}
    */
   public close(channel: Readonly<Channel>): Observable<Readonly<Channel>> {
     return this.channelsApi
@@ -161,7 +161,7 @@ export class Channels {
    *
    * @throws {@link RaidenAPIError}
    *
-   * @see {@link https://raiden-network.readthedocs.io/en/latest/rest_api.html#patch--api-(version)-channels-(token_address)-(partner_address)}
+   * @see {@link https://raiden-network.readthedocs.io/en/stable/rest_api.html#patch--api-(version)-channels-(token_address)-(partner_address)}
    */
   public deposit(
     amount: number,
