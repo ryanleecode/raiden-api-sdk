@@ -371,7 +371,39 @@ export class Channels {
    * @param amount - The amount you want to withdraw
    * @param channel - The respective channel
    *
-   * @throws {@link RaidenAPIError}
+   * @example
+   * ```typescript
+   * import Raiden from "raiden-api-sdk";
+   *
+   * (async function() {
+   *   const raiden = Raiden.create();
+   *   const tokenAddress = '0xaFF4481D10270F50f203E0763e2597776068CBc5';
+   *   const partnerAddress = '0x26704469E95202191bf3Fb277669B6E6Bdd8cC65';
+   *   const channel = await raiden.channels
+   *     .inspect(tokenAddress, partnerAddress)
+   *     .toPromise();
+   *
+   *   // The channel has 6 * 10^18 currently. A withdrawal of 2 * 10^18, will make it 4 * 10^18
+   *   const channelPostWithdrawal = await raiden.channels.withdraw(
+   *     2 * Math.pow(10, 18),
+   *     channel,
+   *   );
+   *
+   *   // {
+   *   //   settleTimeout: 500,
+   *   //   balance: 4000000000000000000,
+   *   //   partnerAddress: "0x26704469E95202191bf3Fb277669B6E6Bdd8cC65",
+   *   //   revealTimeout: 50,
+   *   //   state: "open",
+   *   //   totalDeposit: 6000000000000000000,
+   *   //   totalWithdraw: 2000000000000000000 // Only in >= 0.100.4
+   *   //   tokenAddress: "0xaFF4481D10270F50f203E0763e2597776068CBc5",
+   *   //   channelIdentifier: 2,
+   *   //   tokenNetworkIdentifier: "0x26746540aBB01b15294Bf93715e4EEdAF1946110"
+   *   // }
+   *   console.log(channelPostWithdrawal);
+   * })();
+   * ```
    *
    * @since 0.100.4
    * @throws {@link RaidenAPIError}
