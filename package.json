@@ -9,6 +9,7 @@
     "prepare": "npm run build",
     "build": "npm run clean && tsc --build tsconfig.prod.json && npm run extract",
     "docs": "typedoc --out ./docs ./src --excludePrivate --excludeProtected",
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "test": "jest",
     "extract": "api-extractor run --local",
     "lint": "eslint ./src/**/*"
@@ -35,6 +36,7 @@
     "@types/snakecase-keys": "^2.1.0",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
+    "coveralls": "^3.0.5",
     "eslint": "^5.0.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-import": "^2.18.2",
