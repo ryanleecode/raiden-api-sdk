@@ -7,7 +7,7 @@
   "scripts": {
     "clean": "rimraf lib",
     "prepublishOnly": "npm run build",
-    "build": "npm run clean && tsc && npm run extract",
+    "build": "npm run clean && tsc --build tsconfig.prod.json && npm run extract",
     "docs": "typedoc --out ./docs ./src --excludePrivate --excludeProtected",
     "test": "jest",
     "extract": "api-extractor run --local",
