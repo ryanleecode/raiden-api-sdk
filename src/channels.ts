@@ -193,6 +193,39 @@ export class Channels {
    *
    * @param request - Open channel request parameters
    *
+   * @example
+   * ```typescript
+   * import Raiden from "raiden-api-sdk";
+   *
+   * (async function() {
+   *   const raiden = Raiden.create();
+   *   const tokenAddress = '0xaFF4481D10270F50f203E0763e2597776068CBc5';
+   *   const partnerAddress = '0x26704469E95202191bf3Fb277669B6E6Bdd8cC65';
+   *   const channel = await raiden.channels
+   *     .open({
+   *       tokenAddress,
+   *       partnerAddress,
+   *       totalDeposit: 6 * Math.pow(10, 18),
+   *       settleTimeout: 500,
+   *     })
+   *     .toPromise();
+   *
+   *   // {
+   *   //   settleTimeout: 500,
+   *   //   balance: 0,
+   *   //   partnerAddress: "0x26704469E95202191bf3Fb277669B6E6Bdd8cC65",
+   *   //   revealTimeout: 50,
+   *   //   state: "opened",
+   *   //   totalDeposit: 0,
+   *   //   totalWithdraw: 0 // Only in >= 0.100.4
+   *   //   tokenAddress: "0xaFF4481D10270F50f203E0763e2597776068CBc5",
+   *   //   channelIdentifier: 2,
+   *   //   tokenNetworkIdentifier: "0x26746540aBB01b15294Bf93715e4EEdAF1946110"
+   *   // }
+   *   console.log(channel);
+   * })();
+   * ```
+   *
    * @throws {@link RaidenAPIError}
    *
    * @since 0.100.3
@@ -216,6 +249,35 @@ export class Channels {
    *
    * @param channel - The channel to be closed
    *
+   * @example
+   * ```typescript
+   * import Raiden from "raiden-api-sdk";
+   *
+   * (async function() {
+   *   const raiden = Raiden.create();
+   *   const tokenAddress = '0xaFF4481D10270F50f203E0763e2597776068CBc5';
+   *   const partnerAddress = '0x26704469E95202191bf3Fb277669B6E6Bdd8cC65';
+   *   const channel = await raiden.channels
+   *     .inspect(tokenAddress, partnerAddress)
+   *     .toPromise();
+   *
+   *   const closedChannel = await raiden.channels.close(channel).toPromise();
+   *
+   *   // {
+   *   //   settleTimeout: 500,
+   *   //   balance: 0,
+   *   //   partnerAddress: "0x26704469E95202191bf3Fb277669B6E6Bdd8cC65",
+   *   //   revealTimeout: 50,
+   *   //   state: "closed",
+   *   //   totalDeposit: 0,
+   *   //   totalWithdraw: 0 // Only in >= 0.100.4
+   *   //   tokenAddress: "0xaFF4481D10270F50f203E0763e2597776068CBc5",
+   *   //   channelIdentifier: 2,
+   *   //   tokenNetworkIdentifier: "0x26746540aBB01b15294Bf93715e4EEdAF1946110"
+   *   // }
+   *   console.log(closedChannel);
+   * })();
+   * ```
    * @throws {@link RaidenAPIError}
    *
    * @since 0.100.3
