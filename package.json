@@ -1,5 +1,5 @@
 {
-  "name": "raiden-sdk",
+  "name": "raiden-api-sdk",
   "version": "1.0.0",
   "description": "SDK for interacting with the Raiden API",
   "main": "lib/index.js",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/drdgvhbh/raiden-node-sdk.git"
+    "url": "git+https://github.com/drdgvhbh/raiden-api-sdk.git"
   },
   "keywords": [
     "payments",
@@ -24,9 +24,9 @@
   "author": "Ryan Lee (drdgvhbh)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/drdgvhbh/raiden-node-sdk/issues"
+    "url": "https://github.com/drdgvhbh/raiden-api-sdk/issues"
   },
-  "homepage": "https://github.com/drdgvhbh/raiden-node-sdk#readme",
+  "homepage": "https://github.com/drdgvhbh/raiden-api-sdk#readme",
   "devDependencies": {
     "@microsoft/api-extractor": "^7.3.4",
     "@types/dotenv": "^6.1.1",
