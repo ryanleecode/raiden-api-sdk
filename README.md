@@ -1,5 +1,7 @@
 # Raiden API SDK
 
+[![npm version](https://badge.fury.io/js/raiden-api-sdk.svg)](https://badge.fury.io/js/raiden-api-sdk)
+
 This is an typescript SDK for interacting with the [Raiden API](https://raiden-network.readthedocs.io/en/latest/rest_api.html).
 
 It is built on top of the [openapi generated sdk](https://github.com/drdgvhbh/raiden-openapi-sdk).
