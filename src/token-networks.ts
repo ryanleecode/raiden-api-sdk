@@ -1,4 +1,4 @@
-import { Connection as ConnectionS } from 'raiden-swagger-sdk';
+import { Connection as ConnectionS } from 'raiden-openapi-sdk';
 import { Observable, throwError } from 'rxjs';
 import { Configuration, ConnectionsApi } from './apis';
 import { catchError } from 'rxjs/operators';

@@ -7,7 +7,7 @@ import {
   PendingTransfersApi as PendingTransfersApiS,
   TokensApi as TokensApiS,
   ConnectionsApi as ConnectionsApiS,
-} from 'raiden-swagger-sdk';
+} from 'raiden-openapi-sdk';
 
 export interface ConfigurationParameters extends ConfigurationParametersS {}
 

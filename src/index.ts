@@ -10,7 +10,7 @@ export {
   PaymentReceipt,
   PendingTransfer,
   TokenNetworkAddress,
-} from 'raiden-swagger-sdk';
+} from 'raiden-openapi-sdk';
 export { Configuration } from './apis';
 export { Channel } from './channels';
 export default Raiden;

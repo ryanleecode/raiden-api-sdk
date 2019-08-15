@@ -4,7 +4,7 @@ import { ajax } from 'rxjs/ajax';
 import { AjaxCreationMethod } from 'rxjs/internal/observable/dom/AjaxObservable';
 import Http from 'http-status-codes';
 import { Channels } from '../src/channels';
-import { InlineObjectStateEnum } from 'raiden-swagger-sdk';
+import { InlineObjectStateEnum } from 'raiden-openapi-sdk';
 
 jest.mock('rxjs/ajax');
 

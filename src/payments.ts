@@ -1,7 +1,7 @@
 import {
   PaymentReceipt as PaymentReceiptS,
   PaymentEvent as PaymentEventS,
-} from 'raiden-swagger-sdk';
+} from 'raiden-openapi-sdk';
 import { Observable, throwError } from 'rxjs';
 import { Configuration, PaymentsApi } from './apis';
 import { catchError } from 'rxjs/operators';

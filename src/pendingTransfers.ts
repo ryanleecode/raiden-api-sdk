@@ -1,4 +1,4 @@
-import { PendingTransfer as PendingTransferS } from 'raiden-swagger-sdk';
+import { PendingTransfer as PendingTransferS } from 'raiden-openapi-sdk';
 import { Observable, throwError } from 'rxjs';
 import { Configuration, PendingTransfersApi } from './apis';
 import { AjaxError } from 'rxjs/ajax';

@@ -2,7 +2,7 @@ import {
   Channel as ChannelS,
   ChannelPartial,
   InlineObjectStateEnum,
-} from 'raiden-swagger-sdk';
+} from 'raiden-openapi-sdk';
 import { Observable, throwError } from 'rxjs';
 import { Configuration, ChannelsApi } from './apis';
 import { catchError } from 'rxjs/operators';
