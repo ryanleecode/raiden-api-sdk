@@ -14,7 +14,7 @@ It is built on top of the [openapi generated sdk](https://github.com/drdgvhbh/ra
 
 ## Documentation
 
-http://raiden-api.drdgvhbh.site/
+https://raiden-api.drdgvhbh.site/
 
 ## Usage
 
