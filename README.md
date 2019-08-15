@@ -6,9 +6,9 @@
 
 This is an typescript SDK for interacting with the [Raiden API](https://raiden-network.readthedocs.io/en/latest/rest_api.html).
 
-Raiden is a second-layer solution for doing payments on ethereum
+[Raiden](https://raiden.network) is a second-layer solution for doing payments on [Ethereum](https://www.ethereum.org/).
 
-It is built on top of the [openapi generated sdk](https://github.com/drdgvhbh/raiden-openapi-sdk).
+Also checkout the raw SDK generated using openapi [here](https://github.com/drdgvhbh/raiden-openapi-sdk).
 
 ## Installation
 
