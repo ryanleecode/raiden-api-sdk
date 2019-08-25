@@ -13,4 +13,5 @@ export {
 } from 'raiden-openapi-sdk';
 export { Configuration } from './apis';
 export { Channel } from './channels';
+export { NewToken } from './payments';
 export default Raiden;

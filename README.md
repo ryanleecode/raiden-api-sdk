@@ -25,8 +25,7 @@ https://raiden-api.drdgvhbh.site/
 ## Usage
 
 ```typescript
-import Raiden, { Configuration } from 'raiden-api-sdk';
-import { NewToken } from './payments';
+import Raiden, { Configuration, NewToken } from 'raiden-api-sdk';
 
 // Defaults to http://127.0.0.1:5001/api/v1
 const raiden = Raiden.create();
