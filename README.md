@@ -10,6 +10,8 @@ This is an typescript SDK for interacting with the [Raiden API](https://raiden-n
 
 Also checkout the raw SDK generated using openapi [here](https://github.com/drdgvhbh/raiden-openapi-sdk).
 
+Winning submission for the [Grow Ethereum — Build A Raiden Library In Your Favorite Programming Language challenge](https://gitcoin.co/issue/raiden-network/hackathons/4/3284).
+
 ## Installation
 
 `npm install raiden-api-sdk`
